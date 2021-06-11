@@ -1,0 +1,29 @@
+{% extends 'base.html'%}
+
+<style type="text/css" media="all">
+        h5{
+        text-align: center;
+    }
+    
+</style>
+
+
+{% block content%}
+<h2>Login</h2>
+<br/>
+{% if form.errors %}
+    <p>Your username and password did not match. Please try again. </p>
+{% endif %}
+    <form action="" method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <br/>
+      <a class="btn btn-secondary" href="{% url 'blog_list'%}">Blogs</a>
+        <input class="btn btn-secondary"type="submit" value="Login">
+        <input type="hidden" name="next" value="{{ request.GET.next }}"/>
+  </form>
+
+        <br><br />
+    <h5 class="text-center">Yet to have an account? <a href="{% url 'register' %}">Sign in</a></h5>
+
+{% endblock %}

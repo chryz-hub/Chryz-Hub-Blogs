@@ -1,0 +1,17 @@
+{% extends 'base.html'%}
+
+{% block content%}
+<h2>Sign in</h2>
+<br/>
+    <form action="" method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <br/>
+      <a class="btn btn-secondary" href="{% url 'blog_list'%}">Blogs</a>
+        <input class="btn btn-secondary"type="submit" value="Sign in">
+       <input type="hidden" name="next" value="{{ request.GET.next }}"/>
+  </form>
+          <br><br />
+    <h5 class="text-center">Already had an account? <a href="{% url 'login' %}">Log in</a></h5>
+{% endblock %}
+

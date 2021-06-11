@@ -1,0 +1,18 @@
+{% extends 'base.html'%}
+
+{% block content %}
+<h1>Blog Post</h1>
+<p></p>
+
+    {% for post in object_list %}
+    <ul>
+        <small>The <a href="{% url 'category' post.category %}"><strong>{{ post.category}}</strong></a> category</small>
+        <li><a href="{% url 'blog_detail' post.pk %}">{{ post.title }}</a> - {{ post.author.first_name }} {{post.author.last_name }}<br/></li>
+        <small>Created: <em>{{ post.post_date}}</em></small>
+        <p></p>
+
+        <small>{{ post.body|slice:":200"|safe }}</small>
+        <hr />
+        </ul>
+    {% endfor %}
+{% endblock %}
