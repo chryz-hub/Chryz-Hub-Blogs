@@ -3,12 +3,21 @@
 {% block content %}
 <h1>Delete Blog</h1>
 <br/>
-<div class="form-group">
-<form  method="POST">
-    {% csrf_token %}
-    <strong><h3>Are you sure you want to delete <em>{{ post.title}}?</em></h3></strong><br/>
-        <a class="btn btn-secondary" href="{% url 'blog_detail' post.pk%}">Cancel</a>
-    <button class="btn btn-secondary" type="submit">Delete</button>
-</form>
-</div>
+
+{% if user.is_authenticated %}
+    {% if user.id == post.author.id %}
+      <div class="form-group">
+        <form  method="POST">
+            {% csrf_token %}
+            <strong><h3>Are you sure you want to delete <em>{{ post.title}}?</em></h3></strong><br/>
+            <a class="btn btn-secondary" href="{% url 'blog_detail' post.pk%}">Cancel</a>
+            <a class="btn btn-secondary" type="submit">Delete</a>
+    {% else %}
+      <p>You can't edit this blog post because you ain't the blog creator or owner</p>
+    {% endif %}
+{% else %}
+  <p>You can't edit this blog post because you ain't the blog creator or owner</p>
+{% endif %}
+        </form>
+    </div>
 {% endblock %}

@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy, reverse
-from django.contrib.auth.mixins import LoginRequiredMixin 
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views import generic
 from django.contrib.auth.forms import UserCreationForm
 
@@ -14,7 +14,7 @@ class BlogList(ListView):
     model = Post
     template_name= 'blog_list.html'
     ordering=['-post_date']
-    
+
     def get_context_data(self, *args, **kwargs):
         all_category = Category.objects.all()
         context = super(BlogList, self).get_context_data(*args, **kwargs)
@@ -40,6 +40,10 @@ class CreateBlog(LoginRequiredMixin, CreateView):
     success_url= reverse_lazy('blog_list')
     #fields=['title', 'author', 'body']
 
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super().form_valid(form)
+
     def get_context_data(self, *args, **kwargs):
         all_category = Category.objects.all()
         context = super(CreateBlog, self).get_context_data(*args, **kwargs)
@@ -53,7 +57,7 @@ class EditBlog(LoginRequiredMixin, UpdateView):
     form_class= PostForm
     #success_url = reverse_lazy('blog_detail', Post.pk)
     #fields=['title', 'body']
-    
+
     def get_context_data(self, *args, **kwargs):
         all_category = Category.objects.all()
         context = super(EditBlog, self).get_context_data(*args, **kwargs)
@@ -65,19 +69,19 @@ class DeleteBlog(LoginRequiredMixin, DeleteView):
     model= Post
     template_name='delete_blog.html'
     success_url = reverse_lazy('blog_list')
-    
+
     def get_context_data(self, *args, **kwargs):
         all_category = Category.objects.all()
         context = super(DeleteBlog, self).get_context_data(*args, **kwargs)
         context['all_category'] = all_category
         return context
-    
+
 
 class CreateAccount(generic.CreateView):
     form_class= UserCreationForm
     template_name='registration/register.html'
     success_url= reverse_lazy('login')
-    
+
     def get_context_data(self, *args, **kwargs):
         all_category = Category.objects.all()
         context = super(CreateAccount, self).get_context_data(*args, **kwargs)
@@ -89,7 +93,7 @@ class LoginToBlog(generic.CreateView):
     form_class= UserCreationForm
     template_name='registration/register.html'
     success_url= reverse_lazy('create_blog')
-    
+
     def get_context_data(self, *args, **kwargs):
         all_category = Category.objects.all()
         context = super(LoginToBlog, self).get_context_data(*args, **kwargs)
@@ -103,13 +107,13 @@ class AddCategory(LoginRequiredMixin, CreateView):
     template_name= 'add_category.html'
     #fields= ('category')
     success_url= reverse_lazy('category_list')
-    
+
     def get_context_data(self, *args, **kwargs):
         all_category = Category.objects.all()
         context = super(AddCategory, self).get_context_data(*args, **kwargs)
         context['all_category'] = all_category
         return context
-    
+
     def form_valid(self, form):
         form.instance.author = self.request.user
         return super().form_valid(form)
@@ -118,7 +122,7 @@ class AddCategory(LoginRequiredMixin, CreateView):
 def CategoryView(request, category):
     blog_category = Post.objects.filter(category=category.replace('-', ' '))
     return render(request, 'categories.html', {'category':category.title().replace('-', ' '), 'blog_category':blog_category})
-    
+
     def get_context_data(self, *args, **kwargs):
         all_category = Category.objects.all()
         context = super(CategoryView, self).get_context_data(*args, **kwargs)
@@ -129,11 +133,9 @@ def CategoryView(request, category):
 class CategoryList(ListView):
     model= Category
     template_name='category_list.html'
-    
+
     def get_context_data(self, *args, **kwargs):
         all_category = Category.objects.all()
         context = super(CategoryList, self).get_context_data(*args, **kwargs)
         context['all_category'] = all_category
         return context
-
-

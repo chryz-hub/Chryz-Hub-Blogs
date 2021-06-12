@@ -1,24 +1,31 @@
 {% extends 'base.html'%}
+{% block title %} {{ post.title }} {% endblock %}
 
-{% block title %}
-{{ post.title }}
-{% endblock %}
+
 {% block content %}
-    <small>The <strong>{{ post.category}}</strong> category</small>
-<h1>{{ post.title}}</h1>
-<small>Created: <em>{{ post.post_date}}</em></small><br/>
-<small>By: <em>{{post.author.first_name}} {{post.author.last_name}}</em></small>
-<br><br/>
+    <small>
+      The <strong>{{ post.category}}</strong> category
+    </small>
+    <h1>{{ post.title}}</h1>
+    <small>Created:
+      <em>{{ post.post_date}}</em>
+    </small><br/>
+    <small>
+      By: <em>{{post.author.first_name}} {{post.author.last_name}}</em>
+  </small>
+  <br><br/>
     {% if user.is_authenticated %}
-        <p><small><a href="{% url 'edit_blog' post.pk%}" class="btn btn-secondary btn-sm">Edit Blog</a></small>
-        <small><a href="{% url 'delete_blog' post.pk%}" class="btn btn-secondary btn-sm">Delete Blog</a></small>
+        {% if user.id == post.author.id %}
+            <p>
+            <small><a href="{% url 'edit_blog' post.pk%}" class="btn btn-secondary btn-sm">Edit Blog</a></small>
+            <small><a href="{% url 'delete_blog' post.pk%}" class="btn btn-secondary btn-sm">Delete Blog</a></small>
         {% endif %}
+    {% endif %}
 
-</form>
-</p>
-<hr/> <br/>
-{{ post.body|safe }}
+    </p>
+    <hr/> <br/>
+    {{ post.body|safe }}
 
-<br><br/>
-<a href="{% url 'blog_list'%}" class="btn btn-secondary">Back</a>
+    <br><br/>
+    <a href="{% url 'blog_list'%}" class="btn btn-secondary">Back</a>
 {% endblock %}
