@@ -26,23 +26,27 @@
     <hr/> <br/>
     {{ post.body|safe }}
 
-    <br></br>
-    <hr>
-    <br>
-    <a href="{% url 'blog_list'%}" class="btn btn-secondary">Back</a>
-
-    </br>
-    <hr>
     <form action="{% url 'like_post' post.pk %}" method="post" >
       {% csrf_token%}
 
-      {% if liked %}
-        <button type="submit" name="post_id" value="{{post.id}}" class="btn btn-danger btn-sm">Unlike</button>
+      {% if user.is_authenticated %}
+        {% if liked %}
+          <br><br>
+          <button type="submit" name="post_id" value="{{post.id}}" class="btn btn-danger btn-sm">Unlike</button>
+           {{ total_likes }} Likes
+        {% else %}
+          <br><br>
+          <button type="submit" name="post_id" value="{{post.id}}" class="btn btn-primary btn-sm">Like</button>
+           {{ total_likes }} Likes
+          {% endif %}
       {% else %}
-        <button type="submit" name="post_id" value="{{post.id}}" class="btn btn-primary btn-sm">Like</button>
-      {% endif %}
-
-      - {{ total_likes }} Likes
+          <br><br>
+      {{ total_likes }} Likes
     </form>
+    {% endif %}
+
+    <hr>
+    <br>
+    <a href="{% url 'blog_list'%}" class="btn btn-secondary">Back</a>
 
 {% endblock %}
