@@ -1,4 +1,4 @@
-from .sec import 
+from .sec import *
 
 """
 Django settings for chryzhub_blogs project.
