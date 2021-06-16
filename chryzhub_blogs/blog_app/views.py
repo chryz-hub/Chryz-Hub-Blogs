@@ -8,7 +8,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.http import HttpResponseRedirect
 
 from .models import Post, Category
-from .forms import PostForm, CategoryForm
+from .forms import PostForm, CategoryForm, SignUpForm
 
 def LikeView(request, pk):
     post =get_object_or_404(Post, id=request.POST.get('post_id'))
@@ -100,7 +100,7 @@ class DeleteBlog(LoginRequiredMixin, DeleteView):
 
 
 class CreateAccount(generic.CreateView):
-    form_class= UserCreationForm
+    form_class= SignUpForm
     template_name='registration/register.html'
     success_url= reverse_lazy('login')
 
@@ -112,7 +112,7 @@ class CreateAccount(generic.CreateView):
 
 
 class LoginToBlog(generic.CreateView):
-    form_class= UserCreationForm
+    form_class= SignUpForm
     template_name='registration/register.html'
     success_url= reverse_lazy('create_blog')
 
