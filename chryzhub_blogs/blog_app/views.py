@@ -13,7 +13,7 @@ from .forms import PostForm, CategoryForm
 def LikeView(request, pk):
     post =get_object_or_404(Post, id=request.POST.get('post_id'))
     liked = False
-    if post.likes.filter(id=request.user.id).exists
+    if post.likes.filter(id=request.user.id).exists():
         post.likes.remove(request.user)
         liked = False
     else:
@@ -46,7 +46,7 @@ class  BlogDetail(DetailView):
         total_likes = stuff.total_likes()
 
         liked = False
-        if stuff.likes.filter(id=self.request.user.id).exists
+        if stuff.likes.filter(id=self.request.user.id).exists():
             liked = True
 
         context['all_category'] = all_category
