@@ -44,8 +44,14 @@ class  BlogDetail(DetailView):
 
         stuff = get_object_or_404(Post, id=self.kwargs['pk'])
         total_likes = stuff.total_likes()
+
+        liked = False
+        if stuff.likes.filter(id=self.request.user.id).exists
+            liked = True
+
         context['all_category'] = all_category
         context['total_likes'] = total_likes
+        context['liked'] = liked
         return context
 
 
