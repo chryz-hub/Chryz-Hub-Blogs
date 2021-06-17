@@ -8,11 +8,11 @@
     <small><a href="{% url 'category' post.category %}"><strong>{{ post.category}}</strong></a></small>
     <p></p>
     <ul>
-        <li><a href="{% url 'blog_detail' post.pk %}">{{ post.title }}</a> - {{ post.author.first_name }} {{post.author.last_name }}<br/></li>
+        <li><strong><a href="{% url 'blog_detail' post.pk %}">{{ post.title }}</a></strong> - {{ post.author.first_name }} {{post.author.last_name }}<br/></li>
         <small>Created: <em>{{ post.post_date}}</em></small>
-        <p></p>
+        <p>
 
-        <small>{{ post.body|slice:":200"|safe }}</small>
+        {{post.snippet}}
         <br><pre><p></p></pre>
         </ul>
     {% endfor %}

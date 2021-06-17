@@ -11,8 +11,8 @@
           {% csrf_token %}
           {{ form.media }}
           {{ form.as_p }}
-          <a class="btn btn-secondary" href="{% url 'blog_detail' post.pk%}">Cancel</a>
-          <button class="btn btn-secondary" type="submit">Update</button>
+          <a class="btn btn-danger" href="{% url 'blog_detail' post.pk%}">Cancel</a>
+          <button class="btn btn-primary" type="submit">Update</button>
     {% else %}
       <p>You can't edit this blog post because you ain't the blog creator or owner</p>
     {% endif %}
