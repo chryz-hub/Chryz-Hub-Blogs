@@ -12,13 +12,15 @@
     </small><br/>
     <small>
       By: <em>{{post.author.first_name}} {{post.author.last_name}}</em>
-  </small>
-  <br><br/>
+  </small><br>
+  <small>About: <em>{{ post.snippet }}</em></small>
+
+<br><br>
     {% if user.is_authenticated %}
         {% if user.id == post.author.id %}
             <p>
-            <small><a href="{% url 'edit_blog' post.pk%}" class="btn btn-secondary btn-sm">Edit Blog</a></small>
-            <small><a href="{% url 'delete_blog' post.pk%}" class="btn btn-secondary btn-sm">Delete Blog</a></small>
+            <small><a href="{% url 'edit_blog' post.pk%}" class="btn btn-primary btn-sm">Edit Blog</a></small>
+            <small><a href="{% url 'delete_blog' post.pk%}" class="btn btn-danger btn-sm">Delete Blog</a></small>
         {% endif %}
     {% endif %}
 
