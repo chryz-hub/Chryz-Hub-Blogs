@@ -9,6 +9,7 @@
       <div class="form-group">
         <form  method="POST">
           {% csrf_token %}
+          {{ form.media }}
           {{ form.as_p }}
           <a class="btn btn-secondary" href="{% url 'blog_detail' post.pk%}">Cancel</a>
           <button class="btn btn-secondary" type="submit">Update</button>
