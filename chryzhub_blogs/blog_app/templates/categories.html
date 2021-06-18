@@ -15,7 +15,7 @@
             <small>Created: <em>{{ post.post_date}}</em></small>
             <p></p>
 
-            <small>{{ post.body|slice:":200"|safe }}</small>
+            <small>{{ post.snippet|safe }}</small>
             <hr />
         {% endfor %}
         </ul>
