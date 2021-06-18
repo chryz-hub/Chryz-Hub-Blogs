@@ -1,13 +1,13 @@
 {% extends 'base.html'%}
 
 {% block content%}
-<h2>Edit Profile</h2>
+<h2>Edit Account</h2>
 <br/>
     <form action="" method="post">
       {% csrf_token %}
       {{ form.as_p }}
       <br/>
-      <a class="btn btn-secondary" href="{% url 'blog_list'%}">Blogs</a>
+      <a class="btn btn-danger" href="{% url 'blog_list'%}">Cancel</a>
         <input class="btn btn-secondary"type="submit" value="Update">
       </form>
 {% endblock %}
