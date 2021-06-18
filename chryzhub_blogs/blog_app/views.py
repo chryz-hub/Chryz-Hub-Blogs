@@ -8,7 +8,7 @@ from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from django.http import HttpResponseRedirect
 
 from .models import Post, Category
-from .forms import PostForm, CategoryForm, SignUpForm
+from .forms import PostForm, CategoryForm, SignUpForm, EditAccountForm
 
 def LikeView(request, pk):
     post =get_object_or_404(Post, id=request.POST.get('post_id'))
@@ -111,7 +111,7 @@ class CreateAccount(generic.CreateView):
         return context
 
 class UpdateAccount(generic.UpdateView):
-    form_class= UserChangeForm
+    form_class= EditAccountForm
     template_name='registration/edit_profile.html'
     success_url= reverse_lazy('blog_list')
 
