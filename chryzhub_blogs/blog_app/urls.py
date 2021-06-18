@@ -1,8 +1,9 @@
 from django.urls import path
-from .views import BlogList, BlogDetail, CreateBlog, EditBlog, DeleteBlog, CreateAccount, LoginToBlog, AddCategory, CategoryView, CategoryList, LikeView
+from .views import BlogList, BlogDetail, CreateBlog, EditBlog, DeleteBlog, CreateAccount, LoginToBlog, AddCategory, CategoryView, CategoryList, LikeView, UpdateAccount
 
 urlpatterns = [
     path('register/', CreateAccount.as_view(), name='register'),
+    path('edit_profile/', UpdateAccount.as_view(), name='update_account'),
     path('', BlogList.as_view(), name='blog_list'),
     path('<int:pk>/', BlogDetail.as_view(), name='blog_detail'),
     path('create_blog/', CreateBlog.as_view(), name='create_blog'),

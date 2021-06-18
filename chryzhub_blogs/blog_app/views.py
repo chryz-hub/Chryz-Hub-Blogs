@@ -4,7 +4,7 @@ from django.views.generic import ListView, DetailView, CreateView, UpdateView, D
 from django.urls import reverse_lazy, reverse
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views import generic
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from django.http import HttpResponseRedirect
 
 from .models import Post, Category
@@ -110,6 +110,13 @@ class CreateAccount(generic.CreateView):
         context['all_category'] = all_category
         return context
 
+class UpdateAccount(generic.UpdateView):
+    form_class= UserChangeForm
+    template_name='registration/edit_profile.html'
+    success_url= reverse_lazy('blog_list')
+
+    def get_object(self):
+        return self.request.user
 
 class LoginToBlog(generic.CreateView):
     form_class= SignUpForm
