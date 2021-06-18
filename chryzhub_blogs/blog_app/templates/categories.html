@@ -1,12 +1,12 @@
 {% extends 'base.html'%}
-
+{% block title %} Blog Category {% endblock %}
 
 {% block content %}
 
     <h1>Blog Categories</h1>
     </p>
     {% if blog_category%}
-    
+
         <h2><em>{{ category }}</em></h2>
         <br />
         <ul>
@@ -22,5 +22,5 @@
     {% else %}
         <p>There are no blogs in this category</p>
     {% endif%}
-    
+
 {% endblock %}

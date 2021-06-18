@@ -4,11 +4,12 @@ from django.views.generic import ListView, DetailView, CreateView, UpdateView, D
 from django.urls import reverse_lazy, reverse
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views import generic
-from django.contrib.auth.forms import UserCreationForm, UserChangeForm
+from django.contrib.auth.forms import UserCreationForm, UserChangeForm, PasswordChangeForm
+from django.contrib.auth.views import PasswordChangeView
 from django.http import HttpResponseRedirect
 
 from .models import Post, Category
-from .forms import PostForm, CategoryForm, SignUpForm, EditAccountForm
+from .forms import PostForm, CategoryForm, SignUpForm, EditAccountForm, PasswordChangingForm
 
 def LikeView(request, pk):
     post =get_object_or_404(Post, id=request.POST.get('post_id'))
@@ -168,3 +169,10 @@ class CategoryList(ListView):
         context = super(CategoryList, self).get_context_data(*args, **kwargs)
         context['all_category'] = all_category
         return context
+
+class PasswordsChangeView(PasswordChangeView):
+    form_class = PasswordChangingForm
+    success_url = reverse_lazy('password_success')
+
+def  password_success(request):
+    return render(request, 'registration/password_success.html', {})

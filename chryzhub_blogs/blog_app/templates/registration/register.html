@@ -1,5 +1,5 @@
 {% extends 'base.html'%}
-
+{% block title %} Sign in {% endblock %}
 {% block content%}
 <h2>Sign in</h2>
 <br/>
@@ -14,4 +14,3 @@
           <br><br />
     <h5 class="text-center">Already had an account? <a href="{% url 'login' %}">Log in</a></h5>
 {% endblock %}
-
