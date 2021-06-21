@@ -26,6 +26,9 @@
 
     </p>
     <hr/> <br/>
+    {% if post.header_image%}
+      <img src="{{ post.header_image.url }}">
+      {% endif%}
     {{ post.body|safe }}
 
     <form action="{% url 'like_post' post.pk %}" method="post" >
