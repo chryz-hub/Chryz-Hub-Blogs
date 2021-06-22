@@ -2,6 +2,8 @@
 
 {% block content%}
 <h2>Edit Account</h2>
+<br><br>
+{{user.userprofile.bio}}
 <br/>
     <form action="" method="post">
       {% csrf_token %}
