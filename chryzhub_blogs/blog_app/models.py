@@ -15,6 +15,12 @@ class Category(models.Model):
     def get_absolute_url(self,*args,**kwargs):
         return reverse('blog_detail',kwargs={'pk': self.pk})
 
+class UserProfile(models.Model):
+    user = models.OneToOneField(User, null=True, on_delete = models.CASCADE)
+    bio = models.TextField()
+
+    def __str__ (self):
+        return str(self.user)
 
 class Post(models.Model):
     title = models.CharField(max_length=225)
