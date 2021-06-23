@@ -50,6 +50,50 @@
     </form>
     {% endif %}
 
+    <br><br>
+    <br><br>
+    <div class="card mb-3">
+  <div class="row g-0">
+    <div class="col-md-2">
+      <img src="{{ post.author.userprofile.profile_pic.url}}" class="img-fluid rounded-start" alt="...">
+    </div>
+    <div class="col-md-10">
+      <div class="card-body">
+        <h5 class="card-title">
+          {{post.author.first_name}}
+          {{post.author.last_name}}
+        </h5>
+        <p class="small text-muted">
+          {% if post.author.userprofile.website_url %}
+            <a href="{{ post.author.userprofile.website_url}}">Website/Portfolio</a> |
+          {% endif %}
+          {% if post.author.userprofile.twitter_url %}
+            <a href="{{ post.author.userprofile.twitter_url}}">Twitter</a> |
+          {% endif %}
+          {% if post.author.userprofile.github_url %}
+            <a href="{{ post.author.userprofile.github_url}}">GitHub</a> |
+          {% endif %}
+          {% if post.author.userprofile.github_url %}
+            <a href="{{ post.author.userprofile.linkedin_url}}">Linkedin</a> |
+          {% endif %}
+          {% if post.author.userprofile.dribble_url %}
+            <a href="{{ post.author.userprofile.dribble_url}}">Dribble</a> |
+          {% endif %}
+          {% if post.author.userprofile.dribble_url %}
+            <a href="{{ post.author.userprofile.figma_url}}">Figma</a> |
+          {% endif %}
+          {% if post.author.userprofile.codepen_url %}
+            <a href="{{ post.author.userprofile.codepen_url}}">Codepen</a> |
+          {% endif %}
+        </p>
+        <p class="card-text">
+          {{ post.author.userprofile.bio}}
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
     <hr>
     <br>
     <a href="{% url 'blog_list'%}" class="btn btn-secondary">Back</a>
