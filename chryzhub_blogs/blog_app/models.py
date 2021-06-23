@@ -18,6 +18,14 @@ class Category(models.Model):
 class UserProfile(models.Model):
     user = models.OneToOneField(User, null=True, on_delete = models.CASCADE)
     bio = models.TextField()
+    profile_pic = models.ImageField(blank= True, null=True, upload_to='images/profile_pics')
+    website_url = models.CharField(max_length=250, null = True, blank = True)
+    twitter_url = models.CharField(max_length=250, null = True, blank = True)
+    github_url = models.CharField(max_length=250, null = True, blank = True)
+    linkedin_url = models.CharField(max_length=250, null = True, blank = True)
+    dribble_url = models.CharField(max_length=250, null = True, blank = True)
+    figma_url = models.CharField(max_length=250, null = True, blank = True)
+    codepen_url = models.CharField(max_length=250, null = True, blank = True)
 
     def __str__ (self):
         return str(self.user)
