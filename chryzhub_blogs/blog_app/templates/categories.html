@@ -1,0 +1,26 @@
+{% extends 'base.html'%}
+{% block title %} Blog Category {% endblock %}
+
+{% block content %}
+
+    <h1>Blog Categories</h1>
+    </p>
+    {% if blog_category%}
+
+        <h2><em>{{ category }}</em></h2>
+        <br />
+        <ul>
+        {% for post in blog_category %}
+            <li><a href="{% url 'blog_detail' post.pk %}">{{ post.title }}</a> - {{ post.author.first_name }} {{post.author.last_name }}<br />
+            <small>Created: <em>{{ post.post_date}}</em></small>
+            <p></p>
+
+            <small>{{ post.snippet|safe }}</small>
+            <hr />
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>There are no blogs in this category</p>
+    {% endif%}
+
+{% endblock %}

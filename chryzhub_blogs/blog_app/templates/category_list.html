@@ -1,0 +1,13 @@
+{% extends 'base.html'%}
+{% block title %} Blog Categories {% endblock %}
+{% block content %}
+<h1>Blog Categories</h1>
+<br />
+<p></p>
+<ul>
+{% for category in object_list %}
+    <li><h4>The <a href="{% url 'category' category.name %}">{{ category.name }}</a> category</h4></li>
+    <hr/>
+{% endfor %}
+</ul>
+{% endblock %}

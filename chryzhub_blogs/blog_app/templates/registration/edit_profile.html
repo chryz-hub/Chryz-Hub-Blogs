@@ -1,0 +1,15 @@
+{% extends 'base.html'%}
+
+{% block content%}
+<h2>Edit Account</h2>
+<br><br>
+{{user.userprofile.bio}}
+<br/>
+    <form action="" method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <br/>
+      <a class="btn btn-danger" href="{% url 'blog_list'%}">Cancel</a>
+        <input class="btn btn-secondary"type="submit" value="Update">
+      </form>
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends 'base.html'%}
+{% block title %} Add a blog category {% endblock %}
+{% block content %}
+<h1>Add category</h1>
+<br/>
+
+<div class="form-group">
+<form  method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <br />
+    <a class="btn btn-secondary" href="{% url 'blog_list'%}">Cancel</a>
+    <button class="btn btn-secondary" type="submit">Add category</button>
+</form>
+</div>
+{% endblock %}

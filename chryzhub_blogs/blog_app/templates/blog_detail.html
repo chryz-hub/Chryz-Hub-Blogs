@@ -1,0 +1,101 @@
+{% extends 'base.html'%}
+{% block title %} {{ post.title }} {% endblock %}
+
+
+{% block content %}
+    <small>
+      The <strong>{{ post.category}}</strong> category
+    </small>
+    <h1>{{ post.title}}</h1>
+    <small>Created:
+      <em>{{ post.post_date}}</em>
+    </small><br/>
+    <small>
+      By: <em>{{post.author.first_name}} {{post.author.last_name}}</em>
+  </small><br>
+  <small>About: <em>{{ post.snippet }}</em></small>
+
+<br><br>
+    {% if user.is_authenticated %}
+        {% if user.id == post.author.id %}
+            <p>
+            <small><a href="{% url 'edit_blog' post.pk%}" class="btn btn-primary btn-sm">Edit Blog</a></small>
+            <small><a href="{% url 'delete_blog' post.pk%}" class="btn btn-danger btn-sm">Delete Blog</a></small>
+        {% endif %}
+    {% endif %}
+
+    </p>
+    <hr/> <br/>
+    {% if post.header_image%}
+      <img src="{{ post.header_image.url }}">
+      {% endif%}
+    {{ post.body|safe }}
+
+    <form action="{% url 'like_post' post.pk %}" method="post" >
+      {% csrf_token%}
+
+      {% if user.is_authenticated %}
+        {% if liked %}
+          <br><br>
+          <button type="submit" name="post_id" value="{{post.id}}" class="btn btn-danger btn-sm">Unlike</button>
+           {{ total_likes }} Likes
+        {% else %}
+          <br><br>
+          <button type="submit" name="post_id" value="{{post.id}}" class="btn btn-primary btn-sm">Like</button>
+           {{ total_likes }} Likes
+          {% endif %}
+      {% else %}
+          <br><br>
+      {{ total_likes }} Likes
+    </form>
+    {% endif %}
+
+    <br><br>
+    <br><br>
+    <div class="card mb-3">
+  <div class="row g-0">
+    <div class="col-md-2">
+      <img src="{{ post.author.userprofile.profile_pic.url}}" class="img-fluid rounded-start" alt="...">
+    </div>
+    <div class="col-md-10">
+      <div class="card-body">
+        <h5 class="card-title">
+          {{post.author.first_name}}
+          {{post.author.last_name}}
+        </h5>
+        <p class="small text-muted">
+          {% if post.author.userprofile.website_url %}
+            <a href="{{ post.author.userprofile.website_url}}">Website/Portfolio</a> |
+          {% endif %}
+          {% if post.author.userprofile.twitter_url %}
+            <a href="{{ post.author.userprofile.twitter_url}}">Twitter</a> |
+          {% endif %}
+          {% if post.author.userprofile.github_url %}
+            <a href="{{ post.author.userprofile.github_url}}">GitHub</a> |
+          {% endif %}
+          {% if post.author.userprofile.github_url %}
+            <a href="{{ post.author.userprofile.linkedin_url}}">Linkedin</a> |
+          {% endif %}
+          {% if post.author.userprofile.dribble_url %}
+            <a href="{{ post.author.userprofile.dribble_url}}">Dribble</a> |
+          {% endif %}
+          {% if post.author.userprofile.dribble_url %}
+            <a href="{{ post.author.userprofile.figma_url}}">Figma</a> |
+          {% endif %}
+          {% if post.author.userprofile.codepen_url %}
+            <a href="{{ post.author.userprofile.codepen_url}}">Codepen</a> |
+          {% endif %}
+        </p>
+        <p class="card-text">
+          {{ post.author.userprofile.bio}}
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+    <hr>
+    <br>
+    <a href="{% url 'blog_list'%}" class="btn btn-secondary">Back</a>
+
+{% endblock %}
