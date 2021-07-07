@@ -1,0 +1,50 @@
+* {
+  margin: none;
+  box-sizing: border-box;
+}
+
+a{
+  text-decoration: none;
+}
+.list{
+  list-style: none;
+  padding-left: 20px;
+}
+
+.a_blog{
+  border: 1px solid black;
+  border-radius: 10px;
+}
+
+h1{
+  padding-left: 40px;
+  font-family: 'Montserrat';
+  font-weight: bolder;
+  line-height: 50px;
+}
+
+.category > a{
+  margin-top: 20px;
+  font-size: 20px;
+  padding-left: 10px;
+  color: #787672;
+  text-decoration: none;
+
+}
+
+.blog_title > a{
+  font-size: 25px;
+  color: #212529;
+}
+
+.author{
+  font-size: 18px;
+}
+
+.about_blog{
+  font-size: 19px;
+}
+
+.time_created{
+  font-size: 15px;
+}

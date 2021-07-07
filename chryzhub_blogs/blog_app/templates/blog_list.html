@@ -1,19 +1,28 @@
 {% extends 'base.html'%}
-{% block title %} Blogs {% endblock %}
-{% block content %}
-<h1>Blog Post</h1>
-<p></p>
-<br>
-    {% for post in object_list %}
-    <small><a href="{% url 'category' post.category %}"><strong>{{ post.category}}</strong></a></small>
-    <p></p>
-    <ul>
-        <li><strong><a href="{% url 'blog_detail' post.pk %}">{{ post.title }}</a></strong> - {{ post.author.first_name }} {{post.author.last_name }}<br/></li>
-        <small>Created: <em>{{ post.post_date}}</em></small>
-        <p>
-
-        {{post.snippet}}
-        <br><pre><p></p></pre>
-        </ul>
-    {% endfor %}
-{% endblock %}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>{% block title %} Blogs {% endblock %}</title>
+  </head>
+  <body>
+    {% block content %}
+    <h1>Blog Post</h1><br>
+        <div class="a_blog">
+            {% for post in object_list %}
+            <br>
+            <small class="category"><a href="{% url 'category' post.category %}"><strong>{{ post.category}}</strong></a></small>
+            <p></p>
+            <ul class="list">
+                <li><strong class="blog_title"><a href="{% url 'blog_detail' post.pk %}">{{ post.title }}</a></strong>
+                  <p class="author">{{ post.author.first_name }} {{post.author.last_name }}</p></li>
+                  <p class="about_blog">{{post.snippet}}</p>
+                  <br>
+                  <small class="time_created" >Created: <em>{{ post.post_date}}</em></small>
+            </ul>
+            <hr>
+        {% endfor %}
+      </div>
+    {% endblock %}
+  </body>
+</html>
