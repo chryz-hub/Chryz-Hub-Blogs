@@ -4,12 +4,21 @@ from django.views.generic import ListView, DetailView, CreateView, UpdateView, D
 from django.urls import reverse_lazy, reverse
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views import generic
-from django.contrib.auth.forms import UserCreationForm, UserChangeForm, PasswordChangeForm
-from django.contrib.auth.views import PasswordChangeView
 from django.http import HttpResponseRedirect
 
 from .models import Post, Category
-from .forms import PostForm, CategoryForm, SignUpForm, EditAccountForm, PasswordChangingForm
+from .forms import PostForm, CategoryForm, SignUpForm
+
+class LoginToBlog(generic.CreateView):
+    form_class= SignUpForm
+    template_name='registration/register.html'
+    success_url= reverse_lazy('create_blog')
+
+    def get_context_data(self, *args, **kwargs):
+        all_category = Category.objects.all()
+        context = super(LoginToBlog, self).get_context_data(*args, **kwargs)
+        context['all_category'] = all_category
+        return context
 
 def LikeView(request, pk):
     post =get_object_or_404(Post, id=request.POST.get('post_id'))
@@ -99,38 +108,6 @@ class DeleteBlog(LoginRequiredMixin, DeleteView):
         context['all_category'] = all_category
         return context
 
-
-class CreateAccount(generic.CreateView):
-    form_class= SignUpForm
-    template_name='registration/register.html'
-    success_url= reverse_lazy('login')
-
-    def get_context_data(self, *args, **kwargs):
-        all_category = Category.objects.all()
-        context = super(CreateAccount, self).get_context_data(*args, **kwargs)
-        context['all_category'] = all_category
-        return context
-
-class UpdateAccount(generic.UpdateView):
-    form_class= EditAccountForm
-    template_name='registration/edit_profile.html'
-    success_url= reverse_lazy('blog_list')
-
-    def get_object(self):
-        return self.request.user
-
-class LoginToBlog(generic.CreateView):
-    form_class= SignUpForm
-    template_name='registration/register.html'
-    success_url= reverse_lazy('create_blog')
-
-    def get_context_data(self, *args, **kwargs):
-        all_category = Category.objects.all()
-        context = super(LoginToBlog, self).get_context_data(*args, **kwargs)
-        context['all_category'] = all_category
-        return context
-
-
 class AddCategory(LoginRequiredMixin, CreateView):
     model = Category
     form_class= CategoryForm
@@ -169,10 +146,3 @@ class CategoryList(ListView):
         context = super(CategoryList, self).get_context_data(*args, **kwargs)
         context['all_category'] = all_category
         return context
-
-class PasswordsChangeView(PasswordChangeView):
-    form_class = PasswordChangingForm
-    success_url = reverse_lazy('password_success')
-
-def  password_success(request):
-    return render(request, 'registration/password_success.html', {})
