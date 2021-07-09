@@ -6,9 +6,14 @@ from django.contrib.auth.forms import UserCreationForm, UserChangeForm, Password
 from django.contrib.auth.views import PasswordChangeView
 
 from blog_app.models import UserProfile, Category, Post
-from .forms import SignUpForm, EditAccountForm, PasswordChangingForm
+from .forms import SignUpForm, EditAccountForm, PasswordChangingForm, ProfileUpdateForm
 
 # Create your views here.
+class EditProfilePageView(generic.UpdateView):
+    model = UserProfile
+    form_class= ProfileUpdateForm
+    template_name = 'registration/edit_profile_page.html'
+    success_url = reverse_lazy('blog_list')
 
 class ShowProfilePageView(DetailView):
     model = UserProfile

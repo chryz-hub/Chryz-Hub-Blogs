@@ -26,6 +26,8 @@ class UserProfile(models.Model):
     dribble_url = models.CharField(max_length=250, null = True, blank = True)
     figma_url = models.CharField(max_length=250, null = True, blank = True)
     codepen_url = models.CharField(max_length=250, null = True, blank = True)
+    facebook_url = models.CharField(max_length=250, null = True, blank = True)
+    instagram_url = models.CharField(max_length=250, null = True, blank = True)
 
     def __str__ (self):
         return str(self.user)

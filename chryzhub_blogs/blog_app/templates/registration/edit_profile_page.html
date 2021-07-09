@@ -1,0 +1,23 @@
+{% extends 'base.html'%}
+{% block title %} Edit Profile {% endblock %}
+{% block content %}
+<h1>Edit Profile</h1>
+<br/>
+{% if user.is_authenticated %}
+  {% if user.id == userprofile.user.id %}
+    <div class="form-group">
+      <form  method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <br><br>
+        <a class="btn btn-secondary" href="{% url 'show_profile_page' user.userprofile.id %}">Cancel</a>
+        <button class="btn btn-secondary" type="submit">Update Profile</button>
+      </form>
+    </div>
+  {% else %}
+    You are not the right user to edit this page
+  {% endif %}
+{% else %}
+  You are not permitted to reach this page
+{% endif %}
+{% endblock %}

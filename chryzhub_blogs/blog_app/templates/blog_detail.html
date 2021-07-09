@@ -73,7 +73,7 @@
             <a href="{{ post.author.userprofile.website_url}}">Website/Portfolio</a>
           {% endif %}
           {% if post.author.userprofile.twitter_url %}
-            | <a href="{{ post.author.userprofile.twitter_url}}">Twitter</a> 
+            | <a href="{{ post.author.userprofile.twitter_url}}">Twitter</a>
           {% endif %}
           {% if post.author.userprofile.github_url %}
             | <a href="{{ post.author.userprofile.github_url}}">GitHub</a>
@@ -89,6 +89,12 @@
           {% endif %}
           {% if post.author.userprofile.codepen_url %}
             | <a href="{{ post.author.userprofile.codepen_url}}">Codepen</a>
+          {% endif %}
+          {% if post.author.userprofile.facebook_url %}
+            | <a href="{{ post.author.userprofile.facebook_url}}">Facebook</a>
+          {% endif %}
+          {% if post.author.userprofile.instagram_url %}
+            | <a href="{{ post.author.userprofile.instagram_url}}">Instagram</a>
           {% endif %}
         </p>
         <p class="card-text">

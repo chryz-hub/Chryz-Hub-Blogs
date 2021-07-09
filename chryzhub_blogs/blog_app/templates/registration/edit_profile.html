@@ -1,15 +1,18 @@
 {% extends 'base.html'%}
-
+{% block title %} Edit Account {% endblock %}
 {% block content%}
 <h2>Edit Account</h2>
 <br><br>
-{{user.userprofile.bio}}
-<br/>
+
+{% if user.is_authenticated %}
     <form action="" method="post">
       {% csrf_token %}
       {{ form.as_p }}
       <br/>
-      <a class="btn btn-danger" href="{% url 'blog_list'%}">Cancel</a>
+      <a class="btn btn-danger" href="{% url 'show_profile_page' user.userprofile.id %}">Cancel</a>
         <input class="btn btn-secondary"type="submit" value="Update">
       </form>
+{% else %}
+  You are not permitted to reach this page
+{% endif %}
 {% endblock %}
