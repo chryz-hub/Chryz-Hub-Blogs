@@ -32,6 +32,14 @@ class UserProfile(models.Model):
     def __str__ (self):
         return str(self.user)
 
+    def get_absolute_url(self):
+        return reverse('show_profile_page', args=(str(self.id)))
+
+    def get_absolute_url(self,*args,**kwargs):
+        return reverse('show_profile_page',kwargs={'pk': self.pk})
+
+        
+
 class Post(models.Model):
     title = models.CharField(max_length=225)
     header_image = models.ImageField(blank= True, null=True, upload_to='images/header_image')

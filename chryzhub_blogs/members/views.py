@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404
-from django.views.generic import DetailView
+from django.views.generic import DetailView, CreateView
 from django.urls import reverse_lazy
 from django.views import generic
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm, PasswordChangeForm
@@ -13,7 +13,6 @@ class EditProfilePageView(generic.UpdateView):
     model = UserProfile
     form_class= ProfileUpdateForm
     template_name = 'registration/edit_profile_page.html'
-    success_url = reverse_lazy('blog_list')
 
 class ShowProfilePageView(DetailView):
     model = UserProfile
@@ -46,9 +45,20 @@ class CreateAccount(generic.CreateView):
         return context
 
 class UpdateAccount(generic.UpdateView):
+    model = UserProfile
     form_class= EditAccountForm
     template_name='registration/edit_profile.html'
     success_url= reverse_lazy('blog_list')
 
     def get_object(self):
         return self.request.user
+
+class CreateProfilePageView(CreateView):
+    model = UserProfile
+    form_class= ProfileUpdateForm
+    template_name = 'registration/create_user_profile_page.html'
+
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)

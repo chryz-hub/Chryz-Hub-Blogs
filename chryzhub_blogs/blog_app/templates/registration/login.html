@@ -1,11 +1,5 @@
 {% extends 'base.html'%}
 {% block title %} Log in {% endblock %}
-<style type="text/css" media="all">
-        h5{
-        text-align: center;
-    }
-
-</style>
 
 
 {% block content%}
@@ -20,7 +14,6 @@
       <br/>
       <a class="btn btn-secondary" href="{% url 'blog_list'%}">Blogs</a>
         <input class="btn btn-secondary"type="submit" value="Login">
-        <input type="hidden" name="next" value="{{ request.GET.next }}"/>
   </form>
 
         <br><br />

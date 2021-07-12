@@ -46,7 +46,7 @@ class ProfileUpdateForm(forms.ModelForm):
                         'instagram_url']
 
         widgets={
-            'bio':forms.TextInput(attrs={'class':'form-control'}),
+            'bio':forms.Textarea(attrs={'class':'form-control'}),
             'website_url':forms.TextInput(attrs={'class':'form-control'}),
             'twitter_url':forms.TextInput(attrs={'class':'form-control'}),
             'github_url':forms.TextInput(attrs={'class':'form-control'}),

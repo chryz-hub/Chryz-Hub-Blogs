@@ -10,7 +10,7 @@
         {% csrf_token %}
         {{ form.as_p }}
         <br><br>
-        <a class="btn btn-secondary" href="{% url 'show_profile_page' user.userprofile.id %}">Cancel</a>
+        <a class="btn btn-secondary" href="{% url 'blog_list' %}">Cancel</a>
         <button class="btn btn-secondary" type="submit">Update Profile</button>
       </form>
     </div>
