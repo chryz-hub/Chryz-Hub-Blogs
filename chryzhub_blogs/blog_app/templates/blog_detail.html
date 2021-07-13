@@ -52,6 +52,18 @@
     {% endif %}
 
     <br><br>
+    <hr>
+    <h2>Comments...</h2>
+    <br>
+    {% if not post.comments.all %}
+      No comments yet, be the first to <a href="#">add.</a>
+    {% else %}
+      {% for comment in post.comments.all %}
+        <strong><a href="{% url 'show_profile_page' post.author.userprofile.id %}">{{ comment.name }}</a> - {{ comment.date_added }}</strong>
+        <br>
+        {{ comment.body }}
+      {% endfor %}
+    {% endif %}
     <br><br>
 <div class="card mb-3">
   <div class="row g-0">
@@ -105,8 +117,5 @@
   </div>
 </div>
 
-    <hr>
-    <br>
-    <a href="{% url 'blog_list'%}" class="btn btn-secondary">Back</a>
 
 {% endblock %}
