@@ -1,5 +1,5 @@
 from django import forms
-from .models import Post, Category
+from .models import Post, Category, Comment
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
@@ -22,6 +22,7 @@ class PostForm(forms.ModelForm):
             'body':forms.Textarea(attrs={'class':'form-control'}),
             'snippet':forms.TextInput(attrs={'class':'form-control', 'placeholder':'What is this blog about concisely!'}),
     }
+
 
 class CategoryForm(forms.ModelForm):
     class Meta:
@@ -47,3 +48,13 @@ class SignUpForm(UserCreationForm):
         self.fields['username'].widget.attrs['class']= 'form-control'
         self.fields['password1'].widget.attrs['class']= 'form-control'
         self.fields['password2'].widget.attrs['class']= 'form-control'
+
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model= Comment
+        fields=['name', 'body']
+
+        widgets={
+            'name':forms.TextInput(attrs={'class':'form-control'}),
+            'body':forms.Textarea(attrs={'class':'form-control'}),
+    }

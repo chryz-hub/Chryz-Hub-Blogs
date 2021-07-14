@@ -6,8 +6,8 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views import generic
 from django.http import HttpResponseRedirect
 
-from .models import Post, Category
-from .forms import PostForm, CategoryForm, SignUpForm
+from .models import Post, Category, Comment
+from .forms import PostForm, CategoryForm, SignUpForm, CommentForm
 
 class LoginToBlog(generic.CreateView):
     form_class= SignUpForm
@@ -63,6 +63,17 @@ class  BlogDetail(DetailView):
         context['total_likes'] = total_likes
         context['liked'] = liked
         return context
+
+class AddComment(LoginRequiredMixin, CreateView):
+    model = Comment
+    form_class= CommentForm
+    template_name= 'add_comment.html'
+    success_url= reverse_lazy('blog_list')
+
+
+    def form_valid(self, form):
+        form.instance.post_id = self.kwargs['pk']
+        return super().form_valid(form)
 
 
 class CreateBlog(LoginRequiredMixin, CreateView):

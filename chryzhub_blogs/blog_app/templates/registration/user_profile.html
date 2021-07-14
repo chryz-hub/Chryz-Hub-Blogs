@@ -13,16 +13,16 @@
     <div class="card mb-3">
       <div class="row g-0">
         <div class="col-md-2">
-    {% if page_user.profile_pic.url %}
-          <img src="{{ page_user.profile_pic.url }}" class="img-fluid rounded-start" alt="...">
-            {% else %}
-          <img src="{% static '/blog_app/images/default_profile_img.png' %}" class="img-fluid rounded-start" alt="...">
+    {% if page_user.profile_pic %}
+        <img src="{{ page_user.profile_pic.url }}" class="img-fluid rounded-start" alt="...">
+    {% else %}
+        <img src="{% static 'blog_app/images/default_profile_img.png' %}" class="img-fluid rounded-start" alt="...">
     {% endif %}
         </div>
         <div class="col-md-10">
           <div class="card-body">
             <h5 class="card-title">
-              {{ page_user.user.first_name}} {{page_user.user.last_name}}
+               {{ page_user.user.first_name}} {{page_user.user.last_name}}
             </h5>
             <p class="small text-muted">
 
