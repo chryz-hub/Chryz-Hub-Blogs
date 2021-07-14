@@ -10,7 +10,16 @@
 {% endif %}
     <form action="" method="post">
       {% csrf_token %}
-      {{ form.as_p }}
+      <form>
+  <div class="mb-3">
+    <label for="username" class="form-label">Username:</label>
+    <input type="text" class="form-control" name="username" id="username" placeholder="Username">
+  </div>
+  <br>
+  <div class="mb-3">
+    <label for="password" class="form-label">Password:</label>
+    <input type="password" class="form-control" name="password" id="password" placeholder="Password">
+  </div>
       <br/>
       <a class="btn btn-secondary" href="{% url 'blog_list'%}">Blogs</a>
         <input class="btn btn-secondary"type="submit" value="Login">
