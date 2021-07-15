@@ -36,14 +36,22 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
+    'django.contrib.sites',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'blog_app',
     'ckeditor',
+
     'social_django',
+
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
 ]
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -79,10 +87,12 @@ TEMPLATES = [
 AUTHENTICATION_BACKENDS = (
     'social_core.backends.twitter.TwitterOAuth',
     'social_core.backends.github.GithubOAuth2',
-
+    'allauth.account.auth_backends.AuthenticationBackend',
 
     'django.contrib.auth.backends.ModelBackend',
 )
+
+SITE_ID = 1
 
 WSGI_APPLICATION = 'chryzhub_blogs.wsgi.application'
 
