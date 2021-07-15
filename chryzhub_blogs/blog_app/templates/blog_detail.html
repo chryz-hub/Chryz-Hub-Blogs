@@ -4,6 +4,7 @@
 
 
 {% block content %}
+<br>
     <small>
       The <strong>{{ post.category}}</strong> category
     </small>
@@ -71,8 +72,6 @@
               {% endif %}
             </h5>
             <p class="small text-muted">
-              {% if post.author.userprofile.profile_pic %}
-              {% endif %}
               {% if post.author.userprofile.website_url %}
                 <a href="{{ post.author.userprofile.website_url}}">Website/Portfolio</a>
               {% endif %}
@@ -120,7 +119,7 @@
           {% for comment in post.comments.all %}
             <li>
               {% if post.author.userprofile %}
-                <strong><a href="{% url 'show_profile_page' post.author.userprofile.id %}">{{ comment.name }}</a> - {{ comment.date_added }}</strong>
+                <strong>{{ comment.name }} - {{ comment.date_added }}</strong>
               {% else %}
                   <strong>{{ comment.name }} - {{ comment.date_added }}</strong>
               {% endif %}
@@ -140,7 +139,7 @@
       <p>Login to <a href="{% url 'login'  %}">add comment</a></p>
         <li>
           {% if post.author.userprofile %}
-            <strong><a href="{% url 'show_profile_page' post.author.userprofile.id %}">{{ comment.name }}</a> - {{ comment.date_added }}</strong>
+            <strong>{{ comment.name }} - {{ comment.date_added }}</strong>
           {% else %}
               <strong>{{ comment.name }} - {{ comment.date_added }}</strong>
           {% endif %}

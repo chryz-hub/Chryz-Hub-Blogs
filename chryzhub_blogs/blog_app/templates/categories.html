@@ -2,7 +2,7 @@
 {% block title %} Blog Category {% endblock %}
 
 {% block content %}
-
+<br>
     <h1>Blog Categories</h1>
     </p>
     {% if blog_category%}
@@ -11,7 +11,12 @@
         <br />
         <ul>
         {% for post in blog_category %}
-            <li><a href="{% url 'blog_detail' post.pk %}">{{ post.title }}</a> - {{ post.author.first_name }} {{post.author.last_name }}<br />
+            <li><a href="{% url 'blog_detail' post.pk %}">{{ post.title }}</a> -
+              {% if post.author.userprofile %}
+                <a href="{% url 'show_profile_page' post.author.userprofile.id %}">{{ post.author.first_name }} {{post.author.last_name }}</a><br/>
+              {% else %}
+                {{ post.author.first_name }} {{post.author.last_name }}<br>
+              {% endif %}
             <small>Created: <em>{{ post.post_date}}</em></small>
             <p></p>
 

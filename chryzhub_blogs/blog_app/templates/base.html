@@ -43,21 +43,6 @@
         {% endif %}
 
         <li class="nav-item"><a class="nav-link" href="{% url 'add_category' %}">Add category</a></li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Profile
-          </a>
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            {% if user.userprofile.id %}
-            <li><a class="dropdown-item" href="{% url 'show_profile_page' user.userprofile.id %}">My Profile</a></li>
-            <li><a class="dropdown-item" href="{% url 'edit_profile_page' user.userprofile.id %}">Edit Profile</a></li>
-            {% else %}
-              <li><a class="dropdown-item" href="{% url 'create_profile_page' %}">Create Profile</a></li>
-            {% endif %}
-            <li><a class="dropdown-item" href="{% url 'update_account' %}">Edit account settings</a></li>
-          </ul>
-        </li>
-        <li class="nav-item"><a class="nav-link" href="{% url 'logout' %}">Log out</a></li>
         </ul>
     {% else %}
         <ul class="navbar-nav me-auto mb-2 mb-lg-0"">
@@ -74,16 +59,41 @@
         </li>
         {% endif %}
         <li class="nav-item">
-            <a class="nav-link" href="{% url 'register'%}">Sign in</a></li>
+            <a class="nav-link" href="{% url 'register'%}">Sign in</a>
+        </li>
         <li class="nav-item">
-            <a class="nav-link" href="{% url 'login' %}">Log in</a></li>
+            <a class="nav-link" href="{% url 'login' %}">Log in</a>
+        </li>
       </ul>
+
       {% endif %}
+  {% if user.is_authenticated %}
+  <ul class="nav justify-content-end">
+    {% if user.userprofile.profile_pic %}
+        <img  width="40px" height="40px" src="{{ user.userprofile.profile_pic.url }}" alt="...">
+    {% else %}
+      <img class="img-thumbnail" width="40px" height="40px" src="{% static 'blog_app\images\default_profile_img.png'%}" alt="...">
+    {% endif %}
+    <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle" class="nav-link" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        {{ user.first_name }} {{ user.last_name }}
+      </a>
+      <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+        {% if user.userprofile.id %}
+          <li><a class="dropdown-item" href="{% url 'show_profile_page' user.userprofile.id %}">My Profile</a></li>
+          <li><a class="dropdown-item" href="{% url 'edit_profile_page' user.userprofile.id %}">Edit Profile</a></li>
+        {% else %}
+          <li><a class="dropdown-item" href="{% url 'create_profile_page' %}">Create Profile</a></li>
+        {% endif %}
+        <li><a class="dropdown-item" href="{% url 'update_account' %}">Account settings</a></li>
+        <li class="nav-item"><a class="nav-link" href="{% url 'logout' %}">Log out</a></li>
+    </ul>
+  {% endif %}
     </div>
 </nav>
-        <br />
-    {% block content %}
 
+    {% block content %}
+    
     {% endblock %}
 
     <!-- Optional JavaScript; choose one of the two! -->

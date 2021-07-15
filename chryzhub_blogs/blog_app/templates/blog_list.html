@@ -7,6 +7,7 @@
   </head>
   <body>
     {% block content %}
+    <br>
     <h1>Blog Post</h1><br>
         <div class="a_blog">
             {% for post in object_list %}
@@ -15,7 +16,11 @@
             <p></p>
             <ul class="list">
                 <li><strong class="blog_title"><a href="{% url 'blog_detail' post.pk %}">{{ post.title }}</a></strong>
-                  <p class="author">{{ post.author.first_name }} {{post.author.last_name }}</p></li>
+                  {% if post.author.userprofile %}
+                    <p><a class="author" href="{% url 'show_profile_page' post.author.userprofile.id %}">{{ post.author.first_name }} {{post.author.last_name }}</a></p></li>
+                  {% else %}
+                    <p class="author"> {{ post.author.first_name }} {{post.author.last_name }}</p>
+                  {% endif %}
                   <p class="about_blog">{{post.snippet}}</p>
                   <br>
                   <small class="time_created" >Created: <em>{{ post.post_date}}</em></small>
