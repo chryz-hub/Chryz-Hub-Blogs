@@ -44,12 +44,12 @@ INSTALLED_APPS = [
     'blog_app',
     'ckeditor',
 
-    'social_django',
-
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
+    'allauth.socialaccount.providers.github',
+    'allauth.socialaccount.providers.twitter',
 ]
 
 
@@ -85,8 +85,6 @@ TEMPLATES = [
 ]
 
 AUTHENTICATION_BACKENDS = (
-    'social_core.backends.twitter.TwitterOAuth',
-    'social_core.backends.github.GithubOAuth2',
     'allauth.account.auth_backends.AuthenticationBackend',
 
     'django.contrib.auth.backends.ModelBackend',
@@ -164,7 +162,3 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 LOGIN_REDIRECT_URL = "blog_list"
 LOGOUT_REDIRECT_URL = "blog_list"
 UpdateAccount_REDIRECT_URL = 'create_profile_page'
-
-
-SOCIAL_AUTH_GITHUB_KEY=config('SOCIAL_AUTH_GITHUB_KEY')
-SOCIAL_AUTH_GITHUB_SECRET=config('SOCIAL_AUTH_GITHUB_SECRET')
