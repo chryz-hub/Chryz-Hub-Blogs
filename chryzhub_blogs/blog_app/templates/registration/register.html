@@ -1,15 +1,24 @@
 {% extends 'base.html'%}
-{% block title %} Sign in {% endblock %}
-{% block content%}
-<br>
-<h2>Sign in</h2>
-<br>
-    <form action="" method="post">
-      {% csrf_token %}
-      {{ form.as_p }}
-      <br/>
-        <input class="btn btn-secondary"type="submit" value="Sign in">
-  </form>
-          <br><br />
-    <h5 class="text-center">Already had an account? <a href="{% url 'login' %}">Log in</a></h5>
-{% endblock %}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>  {% block title %} Sign in {% endblock %}</title>
+  </head>
+  <body>
+    {% block content%}
+    <br>
+    <h2>Sign in</h2>
+    <br>
+      <form action="" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <div id="login-btn">
+          <input class="btn btn-secondary"type="submit" value="Sign in">
+        </div>
+      </form>
+      <br>
+      <h5>Already had an account? <a href="{% url 'login' %}">Log in</a></h5>
+    {% endblock %}
+  </body>
+</html>
