@@ -1,13 +1,13 @@
 {% extends 'base.html'%}
 {% block title %} Sign in {% endblock %}
 {% block content%}
+<br>
 <h2>Sign in</h2>
-<br/>
+<br>
     <form action="" method="post">
       {% csrf_token %}
       {{ form.as_p }}
       <br/>
-      <a class="btn btn-secondary" href="{% url 'blog_list'%}">Blogs</a>
         <input class="btn btn-secondary"type="submit" value="Sign in">
   </form>
           <br><br />

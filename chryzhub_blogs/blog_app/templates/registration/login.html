@@ -1,36 +1,43 @@
 {% extends 'base.html'%}
+{% load static %}
 {% load socialaccount %}
 {% block title %} Log in {% endblock %}
-
-
-{% block content%}
-<h2>Login</h2>
-<br/>
-{% if form.errors %}
-    <p>Your username and password did not match. Please try again. </p>
-{% endif %}
-    <form action="" method="post">
-      {% csrf_token %}
-      <form>
-  <div class="mb-3">
-    <label for="username" class="form-label">Username:</label>
-    <input type="text" class="form-control" name="username" id="username" placeholder="Username">
-  </div>
-  <br>
-  <div class="mb-3">
-    <label for="password" class="form-label">Password:</label>
-    <input type="password" class="form-control" name="password" id="password" placeholder="Password">
-  </div>
-      <br/>
-      <a class="btn btn-secondary" href="{% url 'blog_list'%}">Blogs</a>
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    {% block content%}
+    <br>
+    <h2>Login</h2>
+    <br/>
+    {% if form.errors %}
+        <p>Your username and password did not match. Please try again. </p>
+    {% endif %}
+        <form action="" method="post">
+          {% csrf_token %}
+          <form>
+        <div class="mb-3">
+          <label id="login-label" for="username" class="form-label">Username:</label>
+          <input id="login-form" type="text" class="form-control" name="username" id="username" placeholder="Username">
+        </div>
+        <div class="mb-3">
+          <label id="login-label" for="password" class="form-label">Password:</label>
+          <input id="login-form" type="password" class="form-control" name="password" id="password" placeholder="Password">
+        </div>
+      <div id="login-btn">
         <input class="btn btn-secondary"type="submit" value="Login">
-  </form>
+      </div>
+      </form>
+      <div id="social-login-btn">
+        <a id="github-btn" class="btn btn-secondary" href="{% provider_login_url 'github' %}"><i id="cross" class="fab fa-github"></i>With Github</a>
+        <a id="google-btn" class="btn btn-secondary" href="{% provider_login_url 'google' %}"><i id="cross" class="fab fa-google"></i>With Google</a>
+      </div>
+        <h5 class="text-center">Yet to have an account? <a href="{% url 'register' %}">Sign up</a></h5>
+        <br>
+    {% endblock %}
 
-  <p><strong>OR</strong></p>
-  <a class="btn btn-secondary" href="{% provider_login_url 'github' %}">Login with Github</a> <br/>
-  <br>
-  <a class="btn btn-secondary" href="{% provider_login_url 'google' %}">Login with Google</a> <br/>
-
-    <h5 class="text-center">Yet to have an account? <a href="{% url 'register' %}">Sign in</a></h5>
-
-{% endblock %}
+  </body>
+</html>
