@@ -1,4 +1,5 @@
 {% extends 'base.html'%}
+{% load static %}
 {% block title %} Create a new blog{% endblock %}
 {% block content %}
 <br>
@@ -10,9 +11,7 @@
     {% csrf_token %}
     {{ form.media }}
     {{ form.as_p }}
-    <a class="btn btn-secondary" href="{% url 'blog_list'%}">Cancel</a>
-    <button class="btn btn-secondary" type="submit">Post</button>
-    <input type="hidden" name="next" value="{{ request.GET.next }}"/>
+    <button id="submit-btn"class="btn btn-secondary" type="submit">Post</button>
 </form>
 </div>
 {% endblock %}
