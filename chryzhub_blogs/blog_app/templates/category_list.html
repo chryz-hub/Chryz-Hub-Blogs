@@ -5,9 +5,11 @@
 <h1>Blog Categories</h1>
 <br />
 <p></p>
-<ul>
+<ul class="list">
 {% for category in object_list %}
-    <li><h4>The <a href="{% url 'category' category.name %}">{{ category.name }}</a> category</h4></li>
+    <li>
+        <h4 class="category">The<a  href="{% url 'category' category.name %}">{{ category.name }}</a> category</h4>
+    </li>
     <hr/>
 {% endfor %}
 </ul>

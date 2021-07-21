@@ -3,24 +3,21 @@
 
 {% block content %}
 <br>
-    <h1>Blog Categories</h1>
+    <h1>{{ category }} Blog Category</h1>
     </p>
-    {% if blog_category%}
-
-        <h2><em>{{ category }}</em></h2>
+    {% if blog_category %}
         <br />
-        <ul>
+        <ul class="list">
         {% for post in blog_category %}
-            <li><a href="{% url 'blog_detail' post.pk %}">{{ post.title }}</a> -
+            <li><strong class="blog_title"><a href="{% url 'blog_detail' post.pk %}">{{ post.title }}</a></strong>
               {% if post.author.userprofile %}
-                <a href="{% url 'show_profile_page' post.author.userprofile.id %}">{{ post.author.first_name }} {{post.author.last_name }}</a><br/>
+                <a class="author" href="{% url 'show_profile_page' post.author.userprofile.id %}">{{ post.author.first_name }} {{post.author.last_name }}</a>
               {% else %}
-                {{ post.author.first_name }} {{post.author.last_name }}<br>
+                <p class="author" >{{ post.author.first_name }} {{post.author.last_name }}</p>
               {% endif %}
-            <small>Created: <em>{{ post.post_date}}</em></small>
+            <small class="about_blog">{{ post.snippet|safe }}</small>
             <p></p>
-
-            <small>{{ post.snippet|safe }}</small>
+            <small class="time_created">Created: <em>{{ post.post_date}}</em></small>
             <hr />
         {% endfor %}
         </ul>

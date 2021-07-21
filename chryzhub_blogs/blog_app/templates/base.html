@@ -38,6 +38,7 @@
               {% for category in all_category %}
               <a class="dropdown-item" href="{% url 'category' category %}">{{ category}}</a>
               {% endfor %}
+              <a class="dropdown-item" href="{% url 'category_list' %}">More</a>
           </ul>
         </li>
         {% else%}
@@ -57,6 +58,7 @@
               {% for category in all_category %}
               <a class="dropdown-item" href="{% url 'category' category %}">{{ category}}</a>
               {% endfor %}
+              <a class="dropdown-item" href="{% url 'category_list' %}">More</a>
           </ul>
         </li>
         {% endif %}

@@ -9,9 +9,7 @@
 <form  method="POST">
     {% csrf_token %}
     {{ form.as_p }}
-    <br />
-    <a class="btn btn-secondary" href="{% url 'blog_list'%}">Cancel</a>
-    <button class="btn btn-secondary" type="submit">Add category</button>
+    <button id="submit-btn" class="btn btn-secondary" type="submit">Add</button>
 </form>
 </div>
 {% endblock %}
