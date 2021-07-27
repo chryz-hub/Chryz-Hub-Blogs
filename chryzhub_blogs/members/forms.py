@@ -41,7 +41,7 @@ class PasswordChangingForm(PasswordChangeForm):
 class ProfileUpdateForm(forms.ModelForm):
     class Meta:
         model = UserProfile
-        fields = ['bio', 'profile_pic', 'website_url', 'twitter_url', 'github_url',
+        fields = ['profile_pic', 'bio', 'website_url', 'twitter_url', 'github_url',
                     'linkedin_url', 'dribble_url', 'figma_url', 'codepen_url', 'facebook_url',
                         'instagram_url']
 

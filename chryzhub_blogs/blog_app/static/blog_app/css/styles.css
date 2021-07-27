@@ -3,14 +3,10 @@
   box-sizing: border-box;
 }
 
-img.header-image{
-  width: 50px;
-  height: 40px ;
-}
-
 a{
   text-decoration: none;
 }
+
 .list{
   list-style: none;
   padding-left: 20px;
@@ -49,10 +45,8 @@ h1{
 }
 
 
-
 li h4{
   margin-bottom: 16px;
-
 }
 
 h4 a{
@@ -75,7 +69,6 @@ h2{
 }
 
 h5{
-  text-align: center;
   margin-top: 30px;
   margin-bottom: 50px;
   font-weight: 600;
@@ -125,4 +118,60 @@ label{
 
 .fab{
   margin-right: 7px;
+}
+
+.a-blog{
+  border: 1px solid black;
+  margin-bottom: 20px;
+  border-radius: 10px;
+  padding: 10px;
+}
+
+.blogs{
+  margin: 30px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+div
+#cke_id_body{
+  width: 1000px !important;
+}
+
+div#cke_id_body
+.cke_1.cke.cke_reset.cke_chrome.cke_editor_id_body.cke_ltr.cke_browser_webkit{
+  width: 1000px !important;
+}
+
+div.cke_inner.cke_reset{
+  width: 1000px !important;
+}
+
+span#cke_37,#cke_34{
+  display: none;
+}
+
+a#cke_28.cke_button.cke_button__flash.cke_button_off,
+a#cke_29.cke_button.cke_button__table.cke_button_off,
+a#cke_25.cke_button.cke_button__anchor.cke_button_off{
+  display: none;
+}
+
+#submit-btn{
+  margin-left: 10px;
 }

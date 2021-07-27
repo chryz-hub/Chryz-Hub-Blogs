@@ -39,11 +39,11 @@
       {% if user.is_authenticated %}
         {% if liked %}
           <br><br>
-          <button type="submit" name="post_id" value="{{post.id}}" class="btn btn-danger btn-sm">Unlike</button>
+          <button type="submit" name="post_id" value="{{post.id}}" class="btn btn-danger btn-sm"><i class="fas fa-thumbs-up"></i></button>
            {{ total_likes }} Likes
         {% else %}
           <br><br>
-          <button type="submit" name="post_id" value="{{post.id}}" class="btn btn-primary btn-sm">Like</button>
+          <button type="submit" name="post_id" value="{{post.id}}" class="btn btn-primary btn-sm"><i class="fas fa-thumbs-up"></i></button>
            {{ total_likes }} Likes
           {% endif %}
       {% else %}
