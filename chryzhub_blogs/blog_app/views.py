@@ -7,7 +7,7 @@ from django.views import generic
 from django.http import HttpResponseRedirect
 
 from .models import Post, Category, Comment
-from .forms import PostForm, CategoryForm, SignUpForm, CommentForm
+from .forms import PostForm, CategoryForm, SignUpForm, CommentForm, EditPostForm
 
 class LoginToBlog(generic.CreateView):
     form_class= SignUpForm
@@ -97,7 +97,7 @@ class CreateBlog(LoginRequiredMixin, CreateView):
 class EditBlog(LoginRequiredMixin, UpdateView):
     model = Post
     template_name= 'edit_blog.html'
-    form_class= PostForm
+    form_class= EditPostForm
     #success_url = reverse_lazy('blog_detail', Post.pk)
     #fields=['title', 'body']
 

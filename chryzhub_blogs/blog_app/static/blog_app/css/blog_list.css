@@ -3,6 +3,11 @@
   box-sizing: border-box;
 }
 
+img.header-image{
+  width: 50px;
+  height: 40px ;
+}
+
 a{
   text-decoration: none;
 }
@@ -59,9 +64,6 @@ h4 a{
 h4 a:hover{
     color: #787672;
 }
-
-
-
 
 * {
   margin: none;

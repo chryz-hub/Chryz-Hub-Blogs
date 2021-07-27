@@ -15,6 +15,9 @@
             <small class="category"><a href="{% url 'category' post.category %}"><strong>{{ post.category}}</strong></a></small>
             <p></p>
             <ul class="list">
+                {% if post.header_image %}
+                  <img class="header-image" src="{{ post.header_image.url }}" alt="blog-header-image">
+                {% endif %}
                 <li><strong class="blog_title"><a href="{% url 'blog_detail' post.pk %}">{{ post.title }}</a></strong>
                   {% if post.author.userprofile %}
                     <p><a class="author" href="{% url 'show_profile_page' post.author.userprofile.id %}">{{ post.author.first_name }} {{post.author.last_name }}</a></p></li>
