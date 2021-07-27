@@ -11,11 +11,6 @@ a{
   padding-left: 20px;
 }
 
-.a_blog{
-  border: 1px solid black;
-  border-radius: 10px;
-}
-
 h1{
   padding-left: 20px;
   font-family: 'Montserrat';
@@ -46,4 +41,86 @@ h1{
 
 .time_created{
   font-size: 15px;
+}
+
+
+
+li h4{
+  margin-bottom: 16px;
+
+}
+
+h4 a{
+    font-size: 25px;
+    color: #787672;
+    text-decoration: none;
+}
+
+h4 a:hover{
+    color: #787672;
+}
+
+
+
+
+* {
+  margin: none;
+  box-sizing: border-box;
+}
+
+h2{
+  margin-left: 20px;
+}
+
+h5{
+  text-align: center;
+  margin-top: 30px;
+  margin-bottom: 50px;
+  font-weight: 600;
+}
+
+#login-form{
+  width: 1000px;
+  height: 45px;
+}
+
+.form-control{
+  width: 1000px;
+  height: 45px;
+}
+
+#login-label{
+  font-size: 20px;
+  padding-left: 10px;
+  font-weight: 400;
+}
+
+label{
+  font-size: 20px;
+  padding-left: 10px;
+  font-weight: 400;
+}
+
+#login-btn{
+  margin-left: 10px;
+}
+
+#social-login-btn{
+  margin-top: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 50px;
+}
+
+#google-btn{
+  margin-left: 10px;
+}
+
+#github-btn{
+  margin-left: 10px;
+}
+
+.fab{
+  margin-right: 7px;
 }
