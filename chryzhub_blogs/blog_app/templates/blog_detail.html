@@ -64,39 +64,41 @@
           <div class="col-md-10">
             <div class="card-body">
               <h5 class="card-title">
-                {% if post.author.userprofile %}
+                <div class="blog-author-name">
+                  {% if post.author.userprofile %}
                   <a href="{% url 'show_profile_page' post.author.userprofile.id %}">{{post.author.first_name}} {{post.author.last_name}}</a>
                 {% else %}
                   {{post.author.first_name}} {{post.author.last_name}}
                 {% endif %}
+                </div>
               </h5>
               <p class="small text-muted">
                 {% if post.author.userprofile.website_url %}
-                  <a href="{{ post.author.userprofile.website_url}}">Website/Portfolio</a>
+                  <a href="{{ post.author.userprofile.website_url}}"><i style="font-size: 24px; margin-right: 4px;" class="fas fa-globe"></i></a>
                 {% endif %}
                 {% if post.author.userprofile.twitter_url %}
-                  | <a href="{{ post.author.userprofile.twitter_url}}">Twitter</a>
+                  <a href="{{ post.author.userprofile.twitter_url}}"><i style="font-size: 24px; margin-right: 4px;" class="fab fa-twitter"></i></a>
                 {% endif %}
                 {% if post.author.userprofile.github_url %}
-                  | <a href="{{ post.author.userprofile.github_url}}">GitHub</a>
+                  <a href="{{ post.author.userprofile.github_url}}"><i style="font-size: 24px; margin-right: 4px;" class="fab fa-github"></i></a>
                 {% endif %}
-                {% if post.author.userprofile.github_url %}
-                  | <a href="{{ post.author.userprofile.linkedin_url}}">Linkedin</a>
-                {% endif %}
-                {% if post.author.userprofile.dribble_url %}
-                  | <a href="{{ post.author.userprofile.dribble_url}}">Dribble</a>
+                {% if post.author.userprofile.linkedin_url %}
+                  <a href="{{ post.author.userprofile.linkedin_url}}"><i style="font-size: 26px; margin-right: 4px;" class="fab fa-linkedin"></i></a>
                 {% endif %}
                 {% if post.author.userprofile.dribble_url %}
-                  | <a href="{{ post.author.userprofile.figma_url}}">Figma</a>
+                  <a href="{{ post.author.userprofile.dribble_url}}"><i style="font-size: 24px; margin-right: 4px;" class="fab fa-dribbble-square"></i></a>
+                {% endif %}
+                {% if post.author.userprofile.figma_url %}
+                  <a href="{{ post.author.userprofile.figma_url}}"><i style="font-size: 24px; margin-right: 4px;" class="fab fa-figma"></i></a>
                 {% endif %}
                 {% if post.author.userprofile.codepen_url %}
-                  | <a href="{{ post.author.userprofile.codepen_url}}">Codepen</a>
+                  <a href="{{ post.author.userprofile.codepen_url}}"><i style="font-size: 24px; margin-right: 4px;" class="fab fa-codepen"></i></a>
                 {% endif %}
                 {% if post.author.userprofile.facebook_url %}
-                  | <a href="{{ post.author.userprofile.facebook_url}}">Facebook</a>
+                  <a href="{{ post.author.userprofile.facebook_url}}"><i style="font-size: 24px; margin-right: 4px;" class="fab fa-facebook"></i></a>
                 {% endif %}
                 {% if post.author.userprofile.instagram_url %}
-                  | <a href="{{ post.author.userprofile.instagram_url}}">Instagram</a>
+                  <a href="{{ post.author.userprofile.instagram_url}}"><i style="font-size: 24px; margin-right: 4px;" class="fab fa-instagram"></i></a>
                 {% endif %}
               </p>
               <p class="card-text">
@@ -111,7 +113,7 @@
       <br>
       {% if user.is_authenticated%}
         {% if not post.comments.all %}
-          No comments yet, be the first to <a href="{% url 'add_comment' post.pk %}">comment<span class="material-icons">insert_comment</span></a>
+          No comments yet, be the first <a href="{% url 'add_comment' post.pk %}"><i style="font-size: 20px;" class="fas fa-comments"></i></a>
           {% else %}
           <p>Add <a href="{% url 'add_comment' post.pk %}">a comment</a></p>
           <ul>

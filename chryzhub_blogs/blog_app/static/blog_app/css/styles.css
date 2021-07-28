@@ -193,6 +193,14 @@ a#cke_25.cke_button.cke_button__anchor.cke_button_off{
   display: none;
 }
 
+.card.mb-3{
+  width: 1000px;
+}
+
+.card-title{
+  margin-top: 0;
+}
+
 #submit-btn{
   margin-left: 10px;
 }

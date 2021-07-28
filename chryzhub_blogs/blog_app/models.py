@@ -17,7 +17,7 @@ class Category(models.Model):
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User, null=True, on_delete = models.CASCADE)
-    bio = models.TextField()
+    bio = models.TextField(max_length=160)
     profile_pic = models.ImageField(blank= True, null=True, upload_to='images/profile_pics')
     website_url = models.CharField(max_length=250, null = True, blank = True)
     twitter_url = models.CharField(max_length=250, null = True, blank = True)
