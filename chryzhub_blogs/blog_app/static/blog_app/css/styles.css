@@ -74,6 +74,10 @@ h5{
   font-weight: 600;
 }
 
+form{
+  margin-left: 35px;
+}
+
 #login-form{
   width: 1000px;
   height: 45px;
@@ -131,21 +135,38 @@ label{
   margin: 30px;
 }
 
+ .header-image{
+   width: 400px;
+   margin-left: 20px;
+   display: inline-block;
+ }
+
+ .blog-info{
+   margin-left: 20px;
+   display: inline-block;
+ }
+
+ .edit-delete-blog{
+   margin-top: 15px;
+   margin-left: 20px;
+ }
 
 
+ #edit-icon{
+   font-size: 30px;
+   padding-right: 7px;
+ }
 
+ #delete-icon{
+  font-size: 30px;
+  padding-right: 7px;
+  color: red;
+}
 
-
-
-
-
-
-
-
-
-
-
-
+.blog-body{
+  padding: 30px;
+  margin-top: 10px;
+}
 
 
 div

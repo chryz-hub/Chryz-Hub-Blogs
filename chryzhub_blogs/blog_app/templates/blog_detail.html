@@ -1,152 +1,154 @@
 {% extends 'base.html'%}
-{% load static %}
-{% block title %} {{ post.title }} {% endblock %}
-
-
-{% block content %}
-<br>
-    <small>
-      The <strong>{{ post.category}}</strong> category
-    </small>
-    <h1>{{ post.title}}</h1>
-    <small>Created:
-      <em>{{ post.post_date}}</em>
-    </small><br/>
-    <small>
-      By: <em>{{post.author.first_name}} {{post.author.last_name}}</em>
-  </small><br>
-  <small>About: <em>{{ post.snippet }}</em></small>
-
-<br><br>
-    {% if user.is_authenticated %}
+ <!DOCTYPE html>
+ <html lang="en">
+ <head>
+   <meta charset="UTF-8">
+   {% load static %}
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>{% block title %} {{ post.title }} {% endblock %}</title>
+ </head>
+ <body>
+  {% block content %}
+  <br>
+    <div class="blog-detail-info">
+      {% if post.header_image %}
+        <img class="header-image" src="{{ post.header_image.url }}">
+      {% endif%}
+      <h1 class="blog-detail-heading">{{ post.title}}</h1>
+      {% if post.author.userprofile %}
+        <span class="blog-info"><em><a href="{% url 'show_profile_page' post.author.userprofile.id %}">{{post.author.first_name}} {{post.author.last_name}}</a></em></span><br>
+      {% else %}
+        <span class="blog-info"><em>{{post.author.first_name}} {{post.author.last_name}}</em></span><br>
+      {% endif %}
+        <span class="blog-info"><small>Created: <em>{{ post.post_date}}</em></small></span>
+    </div>
+    <div class="edit-delete-blog">
+      {% if user.is_authenticated %}
         {% if user.id == post.author.id %}
-            <p>
-            <small><a href="{% url 'edit_blog' post.pk%}" class="btn btn-primary btn-sm">Edit Blog</a></small>
-            <small><a href="{% url 'delete_blog' post.pk%}" class="btn btn-danger btn-sm">Delete Blog</a></small>
+          <a href="{% url 'edit_blog' post.pk%}" ><span id="edit-icon" class="material-icons"> mode_edit</span></a>
+          <a href="{% url 'delete_blog' post.pk%}" ><span id="delete-icon" class="material-icons">delete</span></a>
         {% endif %}
     {% endif %}
-
-    </p>
-    <hr/> <br/>
-    {% if post.header_image%}
-      <img src="{{ post.header_image.url }}">
-      {% endif%}
-    {{ post.body|safe }}
-
-    <form action="{% url 'like_post' post.pk %}" method="post" >
-      {% csrf_token%}
-
-      {% if user.is_authenticated %}
-        {% if liked %}
-          <br><br>
-          <button type="submit" name="post_id" value="{{post.id}}" class="btn btn-danger btn-sm"><i class="fas fa-thumbs-up"></i></button>
-           {{ total_likes }} Likes
+    </div>
+      <hr style="margin: 0;">
+      <div class="blog-body">
+        {{ post.body|safe }}
+      </div> 
+      <form action="{% url 'like_post' post.pk %}" method="post" >
+        {% csrf_token%}  
+        {% if user.is_authenticated %}
+          {% if liked %}
+            <button style="padding-top: 0;" type="submit" name="post_id" value="{{post.id}}" class="btn btn-danger btn-sm"><i class="fas fa-thumbs-up"></i></button>
+             {{ total_likes }} Likes
+          {% else %}
+            <button style="padding-top: 0;" type="submit" name="post_id" value="{{post.id}}" class="btn btn-primary btn-sm"><i class="fas fa-thumbs-up"></i></button>
+             {{ total_likes }} Likes
+            {% endif %}
         {% else %}
-          <br><br>
-          <button type="submit" name="post_id" value="{{post.id}}" class="btn btn-primary btn-sm"><i class="fas fa-thumbs-up"></i></button>
-           {{ total_likes }} Likes
-          {% endif %}
+            <br><br>
+        {{ total_likes }} Likes
+      </form>
+      {% endif %}
+  
+      <br><br>
+      <div class="card mb-3">
+        <div class="row g-0">
+          <div class="col-md-2">
+      {% if post.author.userprofile.profile_pic %}
+          <img src="{{ post.author.userprofile.profile_pic.url }}" class="img-fluid rounded-start" alt="...">
       {% else %}
-          <br><br>
-      {{ total_likes }} Likes
-    </form>
-    {% endif %}
-
-    <br><br>
-    <div class="card mb-3">
-      <div class="row g-0">
-        <div class="col-md-2">
-    {% if post.author.userprofile.profile_pic %}
-        <img src="{{ post.author.userprofile.profile_pic.url }}" class="img-fluid rounded-start" alt="...">
-    {% else %}
-      <img src="{% static 'blog_app\images\default_profile_img.png'%}" class="img-fluid rounded-start" alt="...">
-    {% endif %}
-        </div>
-        <div class="col-md-10">
-          <div class="card-body">
-            <h5 class="card-title">
-              {% if post.author.userprofile %}
-                <a href="{% url 'show_profile_page' post.author.userprofile.id %}">{{post.author.first_name}} {{post.author.last_name}}</a>
-              {% else %}
-                {{post.author.first_name}} {{post.author.last_name}}
-              {% endif %}
-            </h5>
-            <p class="small text-muted">
-              {% if post.author.userprofile.website_url %}
-                <a href="{{ post.author.userprofile.website_url}}">Website/Portfolio</a>
-              {% endif %}
-              {% if post.author.userprofile.twitter_url %}
-                | <a href="{{ post.author.userprofile.twitter_url}}">Twitter</a>
-              {% endif %}
-              {% if post.author.userprofile.github_url %}
-                | <a href="{{ post.author.userprofile.github_url}}">GitHub</a>
-              {% endif %}
-              {% if post.author.userprofile.github_url %}
-                | <a href="{{ post.author.userprofile.linkedin_url}}">Linkedin</a>
-              {% endif %}
-              {% if post.author.userprofile.dribble_url %}
-                | <a href="{{ post.author.userprofile.dribble_url}}">Dribble</a>
-              {% endif %}
-              {% if post.author.userprofile.dribble_url %}
-                | <a href="{{ post.author.userprofile.figma_url}}">Figma</a>
-              {% endif %}
-              {% if post.author.userprofile.codepen_url %}
-                | <a href="{{ post.author.userprofile.codepen_url}}">Codepen</a>
-              {% endif %}
-              {% if post.author.userprofile.facebook_url %}
-                | <a href="{{ post.author.userprofile.facebook_url}}">Facebook</a>
-              {% endif %}
-              {% if post.author.userprofile.instagram_url %}
-                | <a href="{{ post.author.userprofile.instagram_url}}">Instagram</a>
-              {% endif %}
-            </p>
-            <p class="card-text">
-              {{ post.author.userprofile.bio}}
-            </p>
+        <img src="{% static 'blog_app\images\default_profile_img.png'%}" class="img-fluid rounded-start" alt="...">
+      {% endif %}
+          </div>
+          <div class="col-md-10">
+            <div class="card-body">
+              <h5 class="card-title">
+                {% if post.author.userprofile %}
+                  <a href="{% url 'show_profile_page' post.author.userprofile.id %}">{{post.author.first_name}} {{post.author.last_name}}</a>
+                {% else %}
+                  {{post.author.first_name}} {{post.author.last_name}}
+                {% endif %}
+              </h5>
+              <p class="small text-muted">
+                {% if post.author.userprofile.website_url %}
+                  <a href="{{ post.author.userprofile.website_url}}">Website/Portfolio</a>
+                {% endif %}
+                {% if post.author.userprofile.twitter_url %}
+                  | <a href="{{ post.author.userprofile.twitter_url}}">Twitter</a>
+                {% endif %}
+                {% if post.author.userprofile.github_url %}
+                  | <a href="{{ post.author.userprofile.github_url}}">GitHub</a>
+                {% endif %}
+                {% if post.author.userprofile.github_url %}
+                  | <a href="{{ post.author.userprofile.linkedin_url}}">Linkedin</a>
+                {% endif %}
+                {% if post.author.userprofile.dribble_url %}
+                  | <a href="{{ post.author.userprofile.dribble_url}}">Dribble</a>
+                {% endif %}
+                {% if post.author.userprofile.dribble_url %}
+                  | <a href="{{ post.author.userprofile.figma_url}}">Figma</a>
+                {% endif %}
+                {% if post.author.userprofile.codepen_url %}
+                  | <a href="{{ post.author.userprofile.codepen_url}}">Codepen</a>
+                {% endif %}
+                {% if post.author.userprofile.facebook_url %}
+                  | <a href="{{ post.author.userprofile.facebook_url}}">Facebook</a>
+                {% endif %}
+                {% if post.author.userprofile.instagram_url %}
+                  | <a href="{{ post.author.userprofile.instagram_url}}">Instagram</a>
+                {% endif %}
+              </p>
+              <p class="card-text">
+                {{ post.author.userprofile.bio}}
+              </p>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-    <hr>
-    <h2>Comments...</h2>
-    <br>
-    {% if user.is_authenticated%}
-      {% if not post.comments.all %}
-        No comments yet, be the first to <a href="{% url 'add_comment' post.pk %}">comment</a>
-        {% else %}
-        <p>Add <a href="{% url 'add_comment' post.pk %}">a comment</a></p>
-        <ul>
-          {% for comment in post.comments.all %}
-            <li>
-              {% if post.author.userprofile %}
-                <strong>{{ comment.name }} - {{ comment.date_added }}</strong>
-              {% else %}
-                  <strong>{{ comment.name }} - {{ comment.date_added }}</strong>
-              {% endif %}
-                  <br>
-                  {{ comment.body }}
-                </li>
-          {% endfor %}
-              </ul>
-      {% endif %}
-              <br><br>
-    {% else %}
-    {% if not post.comments.all %}
-      No comments yet, be the first to <a href="{% url 'login' %}">comment</a>
-    {% endif %}
-    <ul>
-      {% for comment in post.comments.all %}
-      <p>Login to <a href="{% url 'login'  %}">add comment</a></p>
-        <li>
-          {% if post.author.userprofile %}
-            <strong>{{ comment.name }} - {{ comment.date_added }}</strong>
+      <hr>
+      <h2>Comments...</h2>
+      <br>
+      {% if user.is_authenticated%}
+        {% if not post.comments.all %}
+          No comments yet, be the first to <a href="{% url 'add_comment' post.pk %}">comment<span class="material-icons">insert_comment</span></a>
           {% else %}
+          <p>Add <a href="{% url 'add_comment' post.pk %}">a comment</a></p>
+          <ul>
+            {% for comment in post.comments.all %}
+              <li>
+                {% if post.author.userprofile %}
+                  <strong>{{ comment.name }} - {{ comment.date_added }}</strong>
+                {% else %}
+                    <strong>{{ comment.name }} - {{ comment.date_added }}</strong>
+                {% endif %}
+                    <br>
+                    {{ comment.body }}
+                  </li>
+            {% endfor %}
+                </ul>
+        {% endif %}
+                <br><br>
+      {% else %}
+      {% if not post.comments.all %}
+        No comments yet, be the first to <a href="{% url 'login' %}">comment</a>
+      {% endif %}
+      <ul>
+        {% for comment in post.comments.all %}
+        <p>Login to <a href="{% url 'login'  %}">add comment</a></p>
+          <li>
+            {% if post.author.userprofile %}
               <strong>{{ comment.name }} - {{ comment.date_added }}</strong>
-          {% endif %}
-              <br>
-              {{ comment.body }}
-            </li>
-      {% endfor %}
-          </ul>
-    {% endif %}
-{% endblock %}
+            {% else %}
+                <strong>{{ comment.name }} - {{ comment.date_added }}</strong>
+            {% endif %}
+                <br>
+                {{ comment.body }}
+              </li>
+        {% endfor %}
+            </ul>
+      {% endif %}
+  {% endblock %}
+  
+ </body>
+ </html>
