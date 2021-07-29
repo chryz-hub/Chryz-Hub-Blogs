@@ -37,6 +37,22 @@
                     <p class="author"> {{ post.author.first_name }} {{post.author.last_name }}</p>
                   {% endif %}
                   <small class="time_created" >Created: <em>{{ post.post_date}}</em></small>
+                  <form action="{% url 'like_post' post.pk %}" method="post" >
+                    {% csrf_token%}  
+                    {% if user.is_authenticated %}
+                      {% if liked %}
+                        <button style="padding-top: 0;" type="submit" name="post_id" value="{{post.id}}" class="btn btn-danger btn-sm"><i class="fas fa-thumbs-up"></i></button>
+                        <a href="{% url 'add_comment' post.pk %}"><i style="font-size: 20px;" class="fas fa-comments"></i></a>
+                        {% else %}
+                        <button style="padding-top: 0;" type="submit" name="post_id" value="{{post.id}}" class="btn btn-primary btn-sm"><i class="fas fa-thumbs-up"></i></button>
+                        <a href="{% url 'add_comment' post.pk %}"><i style="font-size: 20px;" class="fas fa-comments"></i></a>
+                        {% endif %}
+                    {% else %}
+                  </form>
+                  <a href="{% url 'login' %}"><button style="padding-top: 0;" class="btn btn-primary btn-sm"><i class="fas fa-thumbs-up"></i></button></a>
+                  <a href="{% url 'add_comment' post.pk %}"><i style="font-size: 20px;" class="fas fa-comments"></i></a>
+                  {% endif %}
+                  
             </ul>
             </div>
         {% endfor %}

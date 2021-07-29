@@ -204,3 +204,7 @@ a#cke_25.cke_button.cke_button__anchor.cke_button_off{
 #submit-btn{
   margin-left: 10px;
 }
+
+.comment-list{
+  list-style: none;
+}
