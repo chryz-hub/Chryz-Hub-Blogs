@@ -23,10 +23,10 @@
                   <span>
                     {% if post.author.userprofile.profile_pic %}
                     <img style="border-radius: 50%;
-                    width: 4.5%;" src="{{ post.author.userprofile.profile_pic.url }}"  alt="author profile image">
+                    width: 2.5%;" src="{{ post.author.userprofile.profile_pic.url }}"  alt="author profile image">
                   {% else %}
                     <img style="border-radius: 50%;
-                    width: 4.5%;"src="{% static 'blog_app\images\default_profile_img.png'%}"  alt="author profile image">
+                    width: 2.5%;"src="{% static 'blog_app\images\default_profile_img.png'%}"  alt="author profile image">
                   {% endif %}
 
                   {% if post.author.userprofile %}
@@ -35,7 +35,13 @@
                      <span class="author">{{ post.author.first_name }} {{post.author.last_name }}<br></span>
                   {% endif %}
                   </span>
-                  <small class="time_created" ><em>{{ post.post_date}}</em></small>              
+                  <small class="time_created" ><em>{{ post.post_date}}</em></small>  
+                  <form style="margin-left: 0; margin-top: 15px;" action="{% url 'like_post' post.pk %}" method="post" >
+                    {% csrf_token%}  
+                    {% if user.is_authenticated %}
+                        <button style="padding-top: 0;" type="submit" name="post_id" value="{{post.id}}" class="btn btn-primary btn-sm"><i class="fas fa-thumbs-up"></i></button>
+                  </form>
+                  {% endif %}           
             </ul>
             </div>
         {% endfor %}
