@@ -14,16 +14,14 @@
             {% for post in object_list %}
             <div class="a-blog">
             <small class="category"><a href="{% url 'category' post.category %}"><strong>{{ post.category}}</strong></a></small>
-            <p></p>
             <ul class="list">
                 <li><strong class="blog_title"><a href="{% url 'blog_detail' post.pk %}">{{ post.title }}</a></strong>
                   {% if post.header_image %}
                     <a href="{% url 'blog_detail' post.pk %}"> <img style="width: 250px; border-radius: 5px; display: block; margin-bottom: 15px;" src="{{ post.header_image.url }}" alt="blog-header-image"></a>
                   {% endif %}
-                  <p class="about_blog">{{post.snippet}}</p>
-                  <br>
-                  
-                  {% if post.author.userprofile.profile_pic %}
+                  <p class="about_blog">{{post.snippet}}</p>   
+                  <span>
+                    {% if post.author.userprofile.profile_pic %}
                     <img style="border-radius: 50%;
                     width: 4.5%;" src="{{ post.author.userprofile.profile_pic.url }}"  alt="author profile image">
                   {% else %}
@@ -32,27 +30,12 @@
                   {% endif %}
 
                   {% if post.author.userprofile %}
-                    <p><a class="author" href="{% url 'show_profile_page' post.author.userprofile.id %}">{{ post.author.first_name }} {{post.author.last_name }}</a></li>
+                    <a class="author" href="{% url 'show_profile_page' post.author.userprofile.id %}">{{ post.author.first_name }} {{post.author.last_name }}</a></li>
                   {% else %}
-                    <p class="author"> {{ post.author.first_name }} {{post.author.last_name }}</p>
+                     <span class="author">{{ post.author.first_name }} {{post.author.last_name }}</span>
                   {% endif %}
-                  <small class="time_created" >Created: <em>{{ post.post_date}}</em></small>
-                  <form action="{% url 'like_post' post.pk %}" method="post" >
-                    {% csrf_token%}  
-                    {% if user.is_authenticated %}
-                      {% if liked %}
-                        <button style="padding-top: 0;" type="submit" name="post_id" value="{{post.id}}" class="btn btn-danger btn-sm"><i class="fas fa-thumbs-up"></i></button>
-                        <a href="{% url 'add_comment' post.pk %}"><i style="font-size: 20px;" class="fas fa-comments"></i></a>
-                        {% else %}
-                        <button style="padding-top: 0;" type="submit" name="post_id" value="{{post.id}}" class="btn btn-primary btn-sm"><i class="fas fa-thumbs-up"></i></button>
-                        <a href="{% url 'add_comment' post.pk %}"><i style="font-size: 20px;" class="fas fa-comments"></i></a>
-                        {% endif %}
-                    {% else %}
-                  </form>
-                  <a href="{% url 'login' %}"><button style="padding-top: 0;" class="btn btn-primary btn-sm"><i class="fas fa-thumbs-up"></i></button></a>
-                  <a href="{% url 'add_comment' post.pk %}"><i style="font-size: 20px;" class="fas fa-comments"></i></a>
-                  {% endif %}
-                  
+                  </span>
+                  <small class="time_created" ><em>{{ post.post_date}}</em></small>              
             </ul>
             </div>
         {% endfor %}
