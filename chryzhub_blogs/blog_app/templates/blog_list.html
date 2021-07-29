@@ -32,7 +32,7 @@
                   {% if post.author.userprofile %}
                     <a class="author" href="{% url 'show_profile_page' post.author.userprofile.id %}">{{ post.author.first_name }} {{post.author.last_name }}</a></li>
                   {% else %}
-                     <span class="author">{{ post.author.first_name }} {{post.author.last_name }}</span>
+                     <span class="author">{{ post.author.first_name }} {{post.author.last_name }}<br></span>
                   {% endif %}
                   </span>
                   <small class="time_created" ><em>{{ post.post_date}}</em></small>              
