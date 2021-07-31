@@ -9,7 +9,6 @@
 <form  method="POST">
     {% csrf_token %}
     {{ form.as_p }}
-    <a class="btn btn-secondary" href="{% url 'blog_list'%}">Cancel</a>
     <button class="btn btn-secondary" type="submit">Post</button>
 </form>
 </div>

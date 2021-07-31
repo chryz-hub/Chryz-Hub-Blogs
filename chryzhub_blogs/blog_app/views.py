@@ -39,7 +39,12 @@ class BlogList(ListView):
     def get_context_data(self, *args, **kwargs):
         all_category = Category.objects.all()
         context = super(BlogList, self).get_context_data(*args, **kwargs)
+
+        stuff = get_object_or_404(Post)
+        total_likes = stuff.total_likes()
+
         context['all_category'] = all_category
+        context['total_likes'] = total_likes
         return context
 
 

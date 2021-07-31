@@ -1,28 +1,54 @@
 {% extends 'base.html'%}
+{% load static %}
 {% block title %} Blog Category {% endblock %}
 
 {% block content %}
 <br>
-    <h1>{{ category }} Blog Category</h1>
+    <h1 style="margin-left: 25px;">{{ category }} Blog Category</h1>
     </p>
     {% if blog_category %}
         <br />
-        <ul class="list">
+      <div class="row mb-2" style="margin-left: 20px; margin-right: 20px;"> 
         {% for post in blog_category %}
-            <li><strong class="blog_title"><a href="{% url 'blog_detail' post.pk %}">{{ post.title }}</a></strong>
-              {% if post.author.userprofile %}
-                <a class="author" href="{% url 'show_profile_page' post.author.userprofile.id %}">{{ post.author.first_name }} {{post.author.last_name }}</a>
+        <div class="col-md-6">
+          <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+            <div class="col p-4 d-flex flex-column position-static">
+              <h3 class="mb-0"><a href="{% url 'blog_detail' post.pk %}">{{ post.title }}</a></h3>
+              <div class="mb-1 text-muted">{{ post.post_date}}</div>
+              <p style="margin-top: 12px;" class="mb-auto">{{ post.snippet|safe }}</p>
+              <span style="margin-top: 15px;">
+                {% if post.author.userprofile.profile_pic %}
+                <img style="border-radius: 50%;
+                width: 30px;" src="{{ post.author.userprofile.profile_pic.url }}"  alt="author profile image">
               {% else %}
-                <p class="author" >{{ post.author.first_name }} {{post.author.last_name }}</p>
+                <img style="border-radius: 50%;
+                width: 30px;"src="{% static 'blog_app\images\default_profile_img.png'%}"  alt="author profile image">
               {% endif %}
-            <small class="about_blog">{{ post.snippet|safe }}</small>
-            <p></p>
-            <small class="time_created">Created: <em>{{ post.post_date}}</em></small>
-            <hr />
+
+              {% if post.author.userprofile %}
+                <a class="author" href="{% url 'show_profile_page' post.author.userprofile.id %}">{{ post.author.first_name }} {{post.author.last_name }}</a></li>
+              {% else %}
+                 <span class="author">{{ post.author.first_name }} {{post.author.last_name }}<br></span>
+              {% endif %}
+              </span> 
+                {% if user.is_authenticated %}
+                <form style="margin-left: 0; margin-top: 4px; height: 35px; " action="{% url 'like_post' post.pk %}" method="post" >
+                  {% csrf_token%} 
+                    <p style="margin-bottom: 0;" ><button style="padding-top: 0;" type="submit" name="post_id" value="{{post.id}}" class="btn btn-primary btn-sm"><i class="fas fa-thumbs-up"></i></button><span style="font-size: 20px; padding-left: 9px; font-weight: 480;">{{ total_likes }}</span></p>
+                    {% else %}
+                  </form>
+                  <p style="margin-bottom: 0;"><a href="{% url 'login' %}"><button style="padding-top: 0; margin-top: 15px !important;" class="btn btn-primary btn-sm"><i class="fas fa-thumbs-up"></i> {{ total_likes }}</button></a></p> 
+                  {% endif %}
+            </div>
+            {% if post.header_image %}
+              <img style="width: 260px; background-size: cover; background-position: right;" src="{{ post.header_image.url }}" alt="blog-header-image">                       
+            {% endif %}
+            
+            </div>
+        </div>
         {% endfor %}
-        </ul>
+      </div>
     {% else %}
         <p>There are no blogs in this category</p>
     {% endif%}
-
 {% endblock %}

@@ -10,10 +10,10 @@
   <body>
     {% block content%}
     <br>
-    <h2>Login</h2>
+    <h2 style="margin-left: 25px;">Login</h2>
     <br/>
     {% if form.errors %}
-        <p>Your username and password did not match. Please try again. </p>
+        <p style="font-size: 20px; margin-left: 25px;">Your username and password did not match. Please try again. </p>
     {% endif %}
         <form action="" method="post">
           {% csrf_token %}
