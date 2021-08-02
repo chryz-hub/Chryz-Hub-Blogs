@@ -23,7 +23,7 @@
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item"><a class="nav-link" href="{% url 'create_blog'%}">Create Blog</a></li>
 
-        {% if all_category %}
+        <!-- {% if all_category %}
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Blog Categories
           </a>
@@ -36,29 +36,15 @@
         </li>
         {% else%}
         1
-        {% endif %}
+        {% endif %} -->
         </ul>
     {% else %}
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0"">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0"">
         <li class="nav-item"><a class="nav-link" href="{% url 'login_blog'%}">Create Blog</a></li>
-        {% if all_category %}
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Blog Categories
-          </a>
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-              {% for category in all_category %}
-              <a class="dropdown-item" href="{% url 'category' category %}">{{ category}}</a>
-              {% endfor %}
-              <a class="dropdown-item" href="{% url 'category_list' %}">More</a>
-          </ul>
-        </li>
-        {% endif %}
-        <li class="nav-item">
-            <a class="nav-link" href="{% url 'register'%}">Sign up</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="{% url 'login' %}">Log in</a>
-        </li>
+      </ul>
+      <ul class="nav justify-content-end">
+        <li class="nav-item"><a class="nav-link" href="{% url 'register'%}">Sign up</a></li>
+        <li class="nav-item"><a class="nav-link" href="{% url 'login' %}">Log in</a></li>
       </ul>
 
       {% endif %}

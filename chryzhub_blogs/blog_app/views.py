@@ -52,6 +52,12 @@ class  BlogDetail(DetailView):
     model = Post
     template_name='blog_detail.html'
 
+    def comment_form(request):
+        form = CommentForm(request.POST or None)
+        if form.is_valid():
+            form.save()
+            return redirect('blog_detail', post.pk)
+
     def get_context_data(self, *args, **kwargs):
         all_category = Category.objects.all()
         context = super(BlogDetail, self).get_context_data(*args, **kwargs)
