@@ -49,6 +49,11 @@
               {% endif %}
     </div>
     
+        {{ user }}
+
+        {% for post in user_posts %}
+          {{ post.title }}
+        {% endfor %}
 
     {% endblock %}
   </body>

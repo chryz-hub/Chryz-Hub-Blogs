@@ -35,7 +35,7 @@
       <div class="blog-body">
         {{ post.body|safe }}
       </div> 
-      <form action="{% url 'like_post' post.pk %}" method="post" >
+      <!-- <form action="{% url 'like_post' post.pk %}" method="post" >
         {% csrf_token%}  
         {% if user.is_authenticated %}
           {% if liked %}
@@ -48,7 +48,7 @@
         {% else %}
       </form>
       <a href="{% url 'login' %}"><button style="padding-top: 0; margin-left: 30px;" class="btn btn-primary btn-sm"><i class="fas fa-thumbs-up"></i></button></a>
-      {% endif %}
+      {% endif %} -->
   
       <br><br>
       {% if user.is_authenticated %}
@@ -166,40 +166,34 @@
         </div>
       </div>
       {% endif %}
-      <br><hr>
-      <h2>Comments...</h2>
-      {% if user.is_authenticated%}
-        {% if not post.comments.all %}
-          No comments yet <a href="{% url 'add_comment' post.pk %}"><i style="font-size: 20px;" class="fas fa-comments"></i></a>
-          {% else %}
-          <p>Add <a href="{% url 'add_comment' post.pk %}">comment <i style="font-size: 20px;" class="fas fa-comments"></i></a></p>
-          <ul>
-            {% for comment in post.comments.all %}
-              <li class="comment-list">
-                  <strong>{{ comment.name }} - {{ comment.date_added }}</strong>
-                    <br>
-                    {{ comment.body }}
-              </li>
-            {% endfor %}
-                </ul>
-        {% endif %}
-                <br><br>
-      {% else %}
-      {% if not post.comments.all %}
-        <p style="margin-left: 25px;">No comments yet <a href="{% url 'login' %}"><i style="font-size: 20px;" class="fas fa-comments"></i></a></p>
+      <br>
+      {% if user.is_authenticated %}
+        <h2 style="margin-left: 30px;">Comments...</h2>
+        <form method="POST" >
+          {% csrf_token %}
+          {{ commentform }}
+          <input style="margin-top: 20px; margin-left: 0;" id="submit-btn"class="btn btn-secondary" type="submit" value="comment">
+        </form>
       {% endif %}
-      <ul>
+      <br>
+     <ul>
         {% for comment in post.comments.all %}
-        <p>Login to <a href="{% url 'login'  %}">comment <i style="font-size: 20px;" class="fas fa-comments"></i></a></p>
-        <li class="comment-list"> {% url 'show_profile_page' user.userprofile.id %}
-          <strong>{{ comment.name }} - {{ comment.date_added }}</strong>
-            <br>
-            {{ comment.body }}
-        </li>
+          <li class="comment-list">
+            {% if comment.name.userprofile.profile_pic %}
+              <img style="border-radius: 10%;width: 30px;" src="{{ post.author.userprofile.profile_pic.url }}"  alt="author profile image">
+            {% else %}
+              <img style="border-radius: 10%;width: 30px;"src="{% static 'blog_app\images\default_profile_img.png'%}"  alt="author profile image">
+            {% endif %}
+              {% if comment.name.userprofile %}
+                <a href="{% url 'show_profile_page' comment.name.userprofile.id %}"><strong>{{ comment.name.first_name }} {{ comment.name.last_name }}</strong></a>
+              {% else %}
+                <strong>{{ comment.name.first_name }} {{ comment.name.last_name }}</strong>
+              {% endif %}
+                <p class="comment">{{ comment.body }}</p>
+                <small>{{ comment.date_added }}</small>
+          </li>
         {% endfor %}
       </ul>
-      {% endif %}
   {% endblock %}
-  
  </body>
  </html>

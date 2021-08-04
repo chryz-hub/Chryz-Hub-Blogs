@@ -168,8 +168,13 @@ label{
   margin-top: 10px;
 }
 
+textarea#id_body.form-control{
+  height: 150px;
+}
+
 img.profile-pics{
   width: 200px;
+  height: 250px;
   display: block;
   margin-left: auto;
   margin-right: auto;
@@ -227,6 +232,19 @@ a#cke_25.cke_button.cke_button__anchor.cke_button_off{
   margin-left: 10px;
 }
 
+div.card.mb-3{
+  margin-left: 30px;
+}
+
 .comment-list{
   list-style: none;
+  border: 1px solid #ced4da;
+  margin-top: 19px;
+  padding: 10px;
+  border-radius: 9px;
+  width: 1000px;
+}
+
+.comment{
+  margin-top: 15px;
 }

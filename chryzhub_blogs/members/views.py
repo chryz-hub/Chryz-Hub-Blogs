@@ -18,6 +18,13 @@ class ShowProfilePageView(DetailView):
     model = UserProfile
     template_name= 'registration/user_profile.html'
 
+    def userprofile(request):
+        user = request.user
+        user_posts = Post.objects.filter(author= user).order_by('-published_date')
+        context['user_posts':user_posts]
+        context['user': user]
+        return context
+
     def get_context_data(self, *args, **kwargs):
         context = super(ShowProfilePageView, self).get_context_data(*args, **kwargs)
         page_user = get_object_or_404(UserProfile, id=self.kwargs['pk'])

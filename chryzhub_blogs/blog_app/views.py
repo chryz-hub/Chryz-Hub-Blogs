@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy, reverse
@@ -39,52 +39,29 @@ class BlogList(ListView):
     def get_context_data(self, *args, **kwargs):
         all_category = Category.objects.all()
         context = super(BlogList, self).get_context_data(*args, **kwargs)
-
-        stuff = get_object_or_404(Post)
-        total_likes = stuff.total_likes()
-
         context['all_category'] = all_category
-        context['total_likes'] = total_likes
+
         return context
 
-
-class  BlogDetail(DetailView):
+class BlogDetail(DetailView):
     model = Post
-    template_name='blog_detail.html'
+    template_name = 'blog_detail.html'
 
-    def comment_form(request):
-        form = CommentForm(request.POST or None)
-        if form.is_valid():
-            form.save()
-            return redirect('blog_detail', post.pk)
+    def get_context_data(self, **kwargs):
+       context = super(BlogDetail, self).get_context_data(**kwargs)
+       context['commentform'] = CommentForm()
+       return context
 
-    def get_context_data(self, *args, **kwargs):
-        all_category = Category.objects.all()
-        context = super(BlogDetail, self).get_context_data(*args, **kwargs)
-
-        stuff = get_object_or_404(Post, id=self.kwargs['pk'])
-        total_likes = stuff.total_likes()
-
-        liked = False
-        if stuff.likes.filter(id=self.request.user.id).exists():
-            liked = True
-
-        context['all_category'] = all_category
-        context['total_likes'] = total_likes
-        context['liked'] = liked
-        return context
-
-class AddComment(LoginRequiredMixin, CreateView):
-    model = Comment
-    form_class= CommentForm
-    template_name= 'add_comment.html'
-    success_url= reverse_lazy('blog_list')
-
-
-    def form_valid(self, form):
-        form.instance.post_id = self.kwargs['pk']
-        return super().form_valid(form)
-
+    def post(self, request, pk):
+       post = get_object_or_404(Post, pk=pk)
+       form = CommentForm(request.POST)
+       
+       if form.is_valid():
+           obj  = form.save(commit=False)
+           obj.post = post
+           obj.name = self.request.user
+           obj.save()
+           return redirect('blog_detail', post.pk)
 
 class CreateBlog(LoginRequiredMixin, CreateView):
     model = Post
@@ -96,12 +73,6 @@ class CreateBlog(LoginRequiredMixin, CreateView):
     def form_valid(self, form):
         form.instance.author = self.request.user
         return super().form_valid(form)
-
-    def get_context_data(self, *args, **kwargs):
-        all_category = Category.objects.all()
-        context = super(CreateBlog, self).get_context_data(*args, **kwargs)
-        context['all_category'] = all_category
-        return context
 
 
 class EditBlog(LoginRequiredMixin, UpdateView):

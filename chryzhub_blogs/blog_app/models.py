@@ -44,7 +44,7 @@ class Post(models.Model):
     title = models.CharField(max_length=225)
     header_image = models.ImageField(blank= True, null=True, upload_to='images/header_image')
     author = models.ForeignKey(User, on_delete=models.CASCADE)
-    body = RichTextField()
+    body = RichTextField(blank=True, null=True)
     post_date = models.DateField(auto_now_add = True)
     category = models.CharField(max_length=225, default='coding')
     snippet = models.CharField(max_length=70)
@@ -64,7 +64,7 @@ class Post(models.Model):
 
 class Comment(models.Model):
     post = models.ForeignKey(Post, related_name='comments', on_delete=models.CASCADE)
-    name = models.CharField(max_length=200)
+    name = models.ForeignKey(User, on_delete=models.CASCADE)
     body = models.TextField()
     date_added = models.DateTimeField(auto_now_add = True)
 
