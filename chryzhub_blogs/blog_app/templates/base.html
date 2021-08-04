@@ -52,7 +52,7 @@
   <div class="btn-group">
     <ul class="nav justify-content-end">
       {% if user.userprofile.profile_pic %}
-          <img  width="40px" height="40px" src="{{ user.userprofile.profile_pic.url }}" alt="...">
+          <img class="rounded float-right" width="40px" height="40px" src="{{ user.userprofile.profile_pic.url }}" alt="...">
       {% else %}
         <img class="img-thumbnail" width="40px" height="40px" src="{% static 'blog_app\images\default_profile_img.png'%}" alt="...">
       {% endif %}

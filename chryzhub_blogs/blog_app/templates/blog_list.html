@@ -22,11 +22,9 @@
                           <p style="margin-top: 12px;" class="mb-auto">{{post.snippet}}</p>
                           <span style="margin-top: 15px;">
                             {% if post.author.userprofile.profile_pic %}
-                            <img style="border-radius: 50%;
-                            width: 30px;" src="{{ post.author.userprofile.profile_pic.url }}"  alt="author profile image">
+                            <img style="width: 30px;" src="{{ post.author.userprofile.profile_pic.url }}"  alt="author profile image">
                           {% else %}
-                            <img style="border-radius: 50%;
-                            width: 30px;"src="{% static 'blog_app\images\default_profile_img.png'%}"  alt="author profile image">
+                            <img style="width: 30px;"src="{% static 'blog_app\images\default_profile_img.png'%}"  alt="author profile image">
                           {% endif %}
         
                           {% if post.author.userprofile %}
@@ -45,7 +43,7 @@
                   {% endif %} -->
             </div>
             {% if post.header_image %}
-              <img style="width: 260px; background-size: cover; background-position: right;" src="{{ post.header_image.url }}" alt="blog-header-image">                       
+              <img class="rounded float-right" style="width: 200px;" src="{{ post.header_image.url }}" alt="blog-header-image">                       
             {% endif %}
                         
                         </div>

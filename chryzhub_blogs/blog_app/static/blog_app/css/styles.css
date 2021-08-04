@@ -172,15 +172,6 @@ textarea#id_body.form-control{
   height: 150px;
 }
 
-img.profile-pics{
-  width: 200px;
-  height: 250px;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  border-radius: 5px;
-}
-
 .account-name{
   font-size: 45px;
   font-weight: 550;

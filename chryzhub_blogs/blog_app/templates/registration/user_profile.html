@@ -10,16 +10,16 @@
     {% block content %}
     <br>
       {% if page_user.profile_pic %}
-        <img class="profile-pics" src="{{ page_user.profile_pic.url }}"  alt="...">
+        <img class="rounded mx-auto d-block" width="170px" src="{{ page_user.profile_pic.url }}"  alt="...">
     {% else %}
-        <img class="profile-pics" src="{% static 'blog_app/images/default_profile_img.png' %}" alt="...">
+        <img class="rounded mx-auto d-block" src="{% static 'blog_app/images/default_profile_img.png' %}" alt="...">
     {% endif %}
     
     <p class="account-name">{{ page_user.user.first_name}} {{page_user.user.last_name}}</p>
 
     <p class="my-bio">{{ page_user.bio}}</p>
 
-    <div class="connect">
+    <div>
               {% if page_user.website_url %}
               <a href="{{ post.author.userprofile.website_url}}"><i style="font-size: 24px; margin-right: 4px;" class="fas fa-globe"></i></a>
               {% endif %}
@@ -49,11 +49,25 @@
               {% endif %}
     </div>
     
-        {{ user }}
 
-        {% for post in user_posts %}
-          {{ post.title }}
+        <p style="text-align: center; font-size: 25px;">My Blogs</p>
+        <div class="row mb-2" style="margin-left: 20px; margin-right: 20px;"> 
+          {% for post in user_posts %}
+                    <div class="col-md-6">
+                        <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+                          <div class="col p-4 d-flex flex-column position-static">
+                            <strong class="d-inline-block mb-2 text-success"><a href="{% url 'category' post.category %}">{{ post.category}}</a></strong>
+                            <h3 class="mb-0"><a href="{% url 'blog_detail' post.pk %}">{{ post.title }}</a></h3>
+                            <div class="mb-1 text-muted">{{ post.post_date}}</div>
+                            <p style="margin-top: 12px;" class="mb-auto">{{post.snippet}}</p>  
+                    </div>
+                    {% if post.header_image %}
+                      <img class="rounded float-right" style="width: 200px;" src="{{ post.header_image.url }}" alt="blog-header-image">                       
+                    {% endif %} 
+                      </div>
+                  </div>
         {% endfor %}
+      </div>
 
     {% endblock %}
   </body>
