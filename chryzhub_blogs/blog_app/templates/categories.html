@@ -31,9 +31,10 @@
               </span> 
             </div>
             {% if post.header_image %}
-              <img class="rounded float-right" style="width: 200px;" src="{{ post.header_image.url }}" alt="blog-header-image">                       
-            {% endif %}
-            
+            <div class="col-md-4">
+              <img class="rounded float-right" width="100%" style="height: 100%;" src="{{ post.header_image.url }}" alt="blog-header-image">                       
+            </div>
+            {% endif %}     
             </div>
         </div>
         {% endfor %}

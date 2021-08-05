@@ -161,6 +161,7 @@ label{
   font-size: 30px;
   padding-right: 7px;
   color: red;
+  cursor: pointer;
 }
 
 .blog-body{
@@ -308,6 +309,4 @@ button {
 
 .search-wrap .search-box .btn {
   right: 0;
-  border-top-right-radius: 6px;
-  border-bottom-right-radius: 6px;
 }

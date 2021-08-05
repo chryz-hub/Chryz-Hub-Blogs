@@ -27,7 +27,30 @@
       {% if user.is_authenticated %}
         {% if user.id == post.author.id %}
           <a href="{% url 'edit_blog' post.pk%}" ><span id="edit-icon" class="material-icons"> mode_edit</span></a>
-          <a href="{% url 'delete_blog' post.pk%}" ><span id="delete-icon" class="material-icons">delete</span></a>
+          <span data-bs-toggle="modal" data-bs-target="#exampleModal" id="delete-icon" class="material-icons">delete</span>
+
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Delete {{ post.title}}</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                    <p>Are you sure you want to delete <strong>{{ post.title}}</strong>?</p>
+                  </div>
+                  <div class="modal-footer">
+                    <div class="form-group">
+                      <form action="{% url 'delete_blog' post.pk %}" method="POST">
+                          {% csrf_token %}
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">cancel</button>
+                          <input class="btn btn-danger" type="submit" value="delete">
+                      </form>
+                  </div>
+                  </div>
+                </div>
+              </div>
+            </div>
         {% endif %}
     {% endif %}
     </div>
