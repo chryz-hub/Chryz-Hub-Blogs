@@ -5,6 +5,9 @@ from django.urls import reverse_lazy, reverse
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views import generic
 from django.http import HttpResponseRedirect
+from django.db.models import Q 
+from django.contrib.auth.models import User
+
 
 from .models import Post, Category, Comment
 from .forms import PostForm, CategoryForm, SignUpForm, CommentForm, EditPostForm
@@ -138,3 +141,12 @@ class CategoryList(ListView):
         context = super(CategoryList, self).get_context_data(*args, **kwargs)
         context['all_category'] = all_category
         return context
+
+class SearchResultsView(ListView):
+    model = Post
+    template_name = 'search_results.html'
+
+    def get_queryset(self): 
+        query = self.request.GET.get('q')
+        object_list = Post.objects.filter(Q(title__icontains=query) | Q(category__icontains=query) | Q(snippet__icontains= query))
+        return object_list

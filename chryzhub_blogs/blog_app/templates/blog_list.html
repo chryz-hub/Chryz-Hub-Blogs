@@ -9,8 +9,23 @@
   <body>
     {% block content %}
     <br>
-    <h1 style="margin-left: 25px;">Blog Post</h1><br>
+    <h1 style="margin-left: 25px;">Blog Post</h1>
+    <div class="search-wrap">
+      <div class="search-box">
+        <div class="btn btn_common">
+          <i class="fas fa-search"></i>
+        </div>
+        <form class="search" action="{% url 'search_results' %}" method="get">
+          <button class="btn btn_common" type="submit" name="button">
+            <i class="fas fa-search"></i>
+          </button>
+          <input name="q" class="input" type="text" placeholder="Blogs and Categories Search"
+          />
+        </form>
+      </div>
+    </div>
 
+    
       <div class="row mb-2" style="margin-left: 20px; margin-right: 20px;"> 
         {% for post in object_list %}
                   <div class="col-md-6">
