@@ -214,6 +214,7 @@
                 <strong>{{ comment.name.first_name }} {{ comment.name.last_name }}</strong>
               {% endif %}
               {% endif %}
+              <a href="{% url 'delete_comment' comment.pk %}">Delete</a>
                 <p class="comment">{{ comment.body }}</p>
                 <small>{{ comment.date_added }}</small>
           </li>

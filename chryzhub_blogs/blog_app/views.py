@@ -46,6 +46,13 @@ class BlogList(ListView):
 
         return context
 
+class DeleteComment(DeleteView):
+    model= Comment
+    template_name='delete_comment.html'
+    success_url = reverse_lazy('blog_list')
+
+
+
 class BlogDetail(DetailView):
     model = Post
     template_name = 'blog_detail.html'
