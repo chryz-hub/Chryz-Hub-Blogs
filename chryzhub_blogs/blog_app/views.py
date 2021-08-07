@@ -65,6 +65,8 @@ class BlogDetail(DetailView):
            obj.name = self.request.user
            obj.save()
            return redirect('blog_detail', post.pk)
+                
+
 
 class CreateBlog(LoginRequiredMixin, CreateView):
     model = Post
@@ -102,6 +104,7 @@ class DeleteBlog(LoginRequiredMixin, DeleteView):
         context = super(DeleteBlog, self).get_context_data(*args, **kwargs)
         context['all_category'] = all_category
         return context
+
 
 class AddCategory(LoginRequiredMixin, CreateView):
     model = Category

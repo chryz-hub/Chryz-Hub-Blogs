@@ -207,8 +207,8 @@
             {% else %}
               <img style="border-radius: 10%;width: 30px;"src="{% static 'blog_app\images\default_profile_img.png'%}"  alt="author profile image">
             {% endif %}
-              {% if comment.name.userprofile %}
               {% if user.is_authenticated %}
+              {% if comment.name.userprofile %}
                 <a href="{% url 'show_profile_page' comment.name.userprofile.id %}"><strong>{{ comment.name.first_name }} {{ comment.name.last_name }}</strong></a>
               {% else %}
                 <strong>{{ comment.name.first_name }} {{ comment.name.last_name }}</strong>
