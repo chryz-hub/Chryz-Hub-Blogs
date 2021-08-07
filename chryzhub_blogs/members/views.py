@@ -4,6 +4,7 @@ from django.urls import reverse_lazy
 from django.views import generic
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm, PasswordChangeForm
 from django.contrib.auth.views import PasswordChangeView
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 from blog_app.models import UserProfile, Category, Post
 from .forms import SignUpForm, EditAccountForm, PasswordChangingForm, ProfileUpdateForm
@@ -14,7 +15,7 @@ class EditProfilePageView(generic.UpdateView):
     form_class= ProfileUpdateForm
     template_name = 'registration/edit_profile_page.html'
 
-class ShowProfilePageView(DetailView):
+class ShowProfilePageView(LoginRequiredMixin, DetailView):
     model = UserProfile
     template_name= 'registration/user_profile.html'
 

@@ -19,8 +19,9 @@
 
     <p class="my-bio">{{ page_user.bio}}</p>
 
-    <div>
-              {% if page_user.website_url %}
+    <div class="col-md-4" style="text-align:center; margin-left: auto; margin-right: auto; margin-bottom: 30px;">
+      <div style="margin-top: 15px; margin-bottom: 15px;">
+                {% if page_user.website_url %}
               <a href="{{ post.author.userprofile.website_url}}"><i style="font-size: 24px; margin-right: 4px;" class="fas fa-globe"></i></a>
               {% endif %}
               {% if page_user.twitter_url %}
@@ -47,6 +48,7 @@
               {% if page_user.instagram_url %}
               <a href="{{ post.author.userprofile.instagram_url}}"><i style="font-size: 24px; margin-right: 4px;" class="fab fa-instagram"></i></a>
               {% endif %}
+              </div>
     </div>
     
 

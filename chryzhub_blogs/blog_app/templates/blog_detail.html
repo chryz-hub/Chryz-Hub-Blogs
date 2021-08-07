@@ -17,9 +17,11 @@
       {% endif%}
       <h1 class="blog-detail-heading">{{ post.title}}</h1>
       {% if post.author.userprofile %}
+      {% if user.is_authenticated %}
         <span class="blog-info"><em><a href="{% url 'show_profile_page' post.author.userprofile.id %}">{{post.author.first_name}} {{post.author.last_name}}</a></em></span><br>
       {% else %}
         <span class="blog-info"><em>{{post.author.first_name}} {{post.author.last_name}}</em></span><br>
+      {% endif %}
       {% endif %}
         <span class="blog-info"><small>Created: <em>{{ post.post_date}}</em></small></span>
     </div>
@@ -88,11 +90,13 @@
             <div class="card-body">
               <h5 class="card-title">
                 <div class="blog-author-name">
+                  {% if user.is_authenticated %}
                   {% if post.author.userprofile %}
-                  <a href="{% url 'show_profile_page' post.author.userprofile.id %}">{{post.author.first_name}} {{post.author.last_name}}</a>
-                {% else %}
-                  {{post.author.first_name}} {{post.author.last_name}}
-                {% endif %}
+                    <a href="{% url 'show_profile_page' post.author.userprofile.id %}">{{post.author.first_name}} {{post.author.last_name}}</a>
+                  {% else %}
+                    {{post.author.first_name}} {{post.author.last_name}}
+                  {% endif %}
+                  {% endif %}
                 </div>
               </h5>
               <p class="small text-muted">
@@ -145,11 +149,7 @@
             <div class="card-body">
               <h5 class="card-title">
                 <div class="blog-author-name">
-                  {% if post.author.userprofile %}
-                  <a href="{% url 'show_profile_page' post.author.userprofile.id %}">{{post.author.first_name}} {{post.author.last_name}}</a>
-                {% else %}
                   {{post.author.first_name}} {{post.author.last_name}}
-                {% endif %}
                 </div>
               </h5>
               <p class="small text-muted">
@@ -208,9 +208,11 @@
               <img style="border-radius: 10%;width: 30px;"src="{% static 'blog_app\images\default_profile_img.png'%}"  alt="author profile image">
             {% endif %}
               {% if comment.name.userprofile %}
+              {% if user.is_authenticated %}
                 <a href="{% url 'show_profile_page' comment.name.userprofile.id %}"><strong>{{ comment.name.first_name }} {{ comment.name.last_name }}</strong></a>
               {% else %}
                 <strong>{{ comment.name.first_name }} {{ comment.name.last_name }}</strong>
+              {% endif %}
               {% endif %}
                 <p class="comment">{{ comment.body }}</p>
                 <small>{{ comment.date_added }}</small>

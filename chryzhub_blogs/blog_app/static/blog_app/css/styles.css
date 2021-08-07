@@ -310,3 +310,7 @@ button {
 .search-wrap .search-box .btn {
   right: 0;
 }
+
+div#id_password{
+  display: none;
+}

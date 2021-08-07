@@ -43,9 +43,11 @@
                           {% endif %}
         
                           {% if post.author.userprofile %}
+                          {% if user.is_authenticated %}
                             <a class="author" href="{% url 'show_profile_page' post.author.userprofile.id %}">{{ post.author.first_name }} {{post.author.last_name }}</a></li>
                           {% else %}
                              <span class="author">{{ post.author.first_name }} {{post.author.last_name }}<br></span>
+                          {% endif %}
                           {% endif %}
                           </span>
                           <!-- {% if user.is_authenticated %}
