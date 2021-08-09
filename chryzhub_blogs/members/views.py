@@ -5,6 +5,7 @@ from django.views import generic
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm, PasswordChangeForm
 from django.contrib.auth.views import PasswordChangeView
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.models import User
 
 from blog_app.models import UserProfile, Category, Post
 from .forms import SignUpForm, EditAccountForm, PasswordChangingForm, ProfileUpdateForm
@@ -66,3 +67,4 @@ class CreateProfilePageView(CreateView):
     def form_valid(self, form):
         form.instance.user = self.request.user
         return super().form_valid(form)
+
