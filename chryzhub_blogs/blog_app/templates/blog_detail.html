@@ -214,10 +214,14 @@
                 <strong>{{ comment.name.first_name }} {{ comment.name.last_name }}</strong>
               {% endif %}
               {% endif %}
-              <a href="{% url 'delete_comment' comment.pk %}">Delete</a>
                 <p class="comment">{{ comment.body }}</p>
                 <small>{{ comment.date_added }}</small>
-          </li>
+                {% if user.is_authenticated %}
+                  {% if user.id == comment.name.id %}
+                    <a href="{% url 'delete_comment' comment.pk %}"><span style="display: block; color: red;" class="material-icons">delete</span></a>
+                  {% endif %}
+                {% endif %}
+                  </li>
         {% endfor %}
       </ul>
   {% endblock %}

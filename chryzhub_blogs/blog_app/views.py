@@ -45,12 +45,13 @@ class BlogList(ListView):
         context['all_category'] = all_category
 
         return context
-
-class DeleteComment(DeleteView):
-    model= Comment
-    template_name='delete_comment.html'
-    success_url = reverse_lazy('blog_list')
-
+        
+def DeleteComment(request, pk):
+    comment = get_object_or_404(Comment, pk=pk)
+    if request.method == 'GET':
+        comment.delete()
+        return redirect('blog_detail', pk=comment.post_id)
+    return render(request, 'delete_comment.html')
 
 
 class BlogDetail(DetailView):

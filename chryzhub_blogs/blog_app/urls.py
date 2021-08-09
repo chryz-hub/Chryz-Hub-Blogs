@@ -15,5 +15,5 @@ urlpatterns = [
     path('blogcategory/<str:category>', CategoryView, name='blogcategory'),
     path('like/<int:pk>', LikeView, name='like_post'),
     path('search/', SearchResultsView.as_view(), name='search_results'),
-    path('delete_comment/<int:pk>/', DeleteComment.as_view(), name ='delete_comment'),
+    path('delete_comment/<int:pk>/', DeleteComment, name ='delete_comment'),
 ]
