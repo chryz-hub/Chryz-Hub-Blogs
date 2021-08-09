@@ -60,21 +60,6 @@
       <div class="blog-body">
         {{ post.body|safe }}
       </div> 
-      <!-- <form action="{% url 'like_post' post.pk %}" method="post" >
-        {% csrf_token%}  
-        {% if user.is_authenticated %}
-          {% if liked %}
-            <button style="padding-top: 0;" type="submit" name="post_id" value="{{post.id}}" class="btn btn-danger btn-sm"><i class="fas fa-thumbs-up"></i></button>
-             {{ total_likes }} Likes
-          {% else %}
-            <button style="padding-top: 0;" type="submit" name="post_id" value="{{post.id}}" class="btn btn-primary btn-sm"><i class="fas fa-thumbs-up"></i></button>
-             {{ total_likes }} Likes
-            {% endif %}
-        {% else %}
-      </form>
-      <a href="{% url 'login' %}"><button style="padding-top: 0; margin-left: 30px;" class="btn btn-primary btn-sm"><i class="fas fa-thumbs-up"></i></button></a>
-      {% endif %} -->
-  
       <br><br>
       {% if user.is_authenticated %}
       <div class="card mb-3">
@@ -218,8 +203,11 @@
                 <small>{{ comment.date_added }}</small>
                 {% if user.is_authenticated %}
                   {% if user.id == comment.name.id %}
-                    <a href="{% url 'delete_comment' comment.pk %}"><span style="display: block; color: red;" class="material-icons">delete</span></a>
-                  {% endif %}
+                    <div style="margin-top: 9px;">
+                      <a href="{% url 'edit_comment' comment.pk %}"><span style="font-size: 17px;" class="material-icons">edit</span></a>
+                      <a href="{% url 'delete_comment' comment.pk %}"><span style="color: red; font-size: 17px;" class="material-icons">delete</span></a>
+                    </div>
+                    {% endif %}
                 {% endif %}
                   </li>
         {% endfor %}

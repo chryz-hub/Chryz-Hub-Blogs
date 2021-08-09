@@ -23,16 +23,16 @@ class LoginToBlog(generic.CreateView):
         context['all_category'] = all_category
         return context
 
-def LikeView(request, pk):
-    post =get_object_or_404(Post, id=request.POST.get('post_id'))
-    liked = False
-    if post.likes.filter(id=request.user.id).exists():
-        post.likes.remove(request.user)
-        liked = False
-    else:
-        post.likes.add(request.user)
-        liked = True
-    return HttpResponseRedirect(reverse('blog_detail', args=[str(pk)]))
+# def LikeView(request, pk):
+#     post =get_object_or_404(Post, id=request.POST.get('post_id'))
+#     liked = False
+#     if post.likes.filter(id=request.user.id).exists():
+#         post.likes.remove(request.user)
+#         liked = False
+#     else:
+#         post.likes.add(request.user)
+#         liked = True
+#     return HttpResponseRedirect(reverse('blog_detail', args=[str(pk)]))
 
 class BlogList(ListView):
     model = Post
@@ -45,7 +45,7 @@ class BlogList(ListView):
         context['all_category'] = all_category
 
         return context
-        
+
 def DeleteComment(request, pk):
     comment = get_object_or_404(Comment, pk=pk)
     if request.method == 'GET':
@@ -73,7 +73,17 @@ class BlogDetail(DetailView):
            obj.name = self.request.user
            obj.save()
            return redirect('blog_detail', post.pk)
-                
+
+def EditComment(request, pk):
+        comment = get_object_or_404(Comment, pk=pk)
+        form = CommentForm(instance=comment)
+        if request.method == 'POST':
+            form = CommentForm(request.POST, instance=comment)
+            if form.is_valid():
+                form.save()
+                return redirect('blog_detail', pk=comment.post_id)
+        context = {'form':form}
+        return render(request, 'edit_comment.html', context)
 
 
 class CreateBlog(LoginRequiredMixin, CreateView):
