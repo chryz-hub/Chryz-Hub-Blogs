@@ -23,8 +23,7 @@ class ShowProfilePageView(LoginRequiredMixin, DetailView):
     def get_context_data(self, *args, **kwargs):
         context = super(ShowProfilePageView, self).get_context_data(*args, **kwargs)
         page_user = get_object_or_404(UserProfile, id=self.kwargs['pk'])
-        user = self.request.user
-        user_posts = Post.objects.filter(author= user).order_by('-post_date')
+        user_posts = Post.objects.filter(author= page_user.user).order_by('-post_date')
         context['page_user'] = page_user
         context['user_posts'] = user_posts
         return context
