@@ -5,7 +5,6 @@ The stacks intended:</br>
 <b>Frontend</b>
 - HTML 
 - CSS 
-- React 
 - Bootstrap 
 
 <b>Backend</b>
