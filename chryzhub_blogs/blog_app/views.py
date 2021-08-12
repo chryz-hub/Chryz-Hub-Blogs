@@ -12,6 +12,18 @@ from django.contrib.auth.models import User
 from .models import Post, Category, Comment
 from .forms import PostForm, CategoryForm, SignUpForm, CommentForm, EditPostForm
 
+def LikeView(request, pk):
+    post = get_object_or_404(Post, id=request.POST.get('post_id'))
+    liked = False 
+    if post.likes.filter(id=request.user.id).exists():
+        post.likes.remove(request.user)
+        liked = False
+    else:
+        post.likes.add(request.user)
+        liked = True
+    return HttpResponseRedirect(reverse('blog_detail', args=[str(pk)]))
+
+
 class LoginToBlog(generic.CreateView):
     form_class= SignUpForm
     template_name='registration/register.html'
@@ -58,20 +70,18 @@ class BlogDetail(DetailView):
     model = Post
     template_name = 'blog_detail.html'
 
-    def like(request):
-        post = get_object_or_404(Post, pk=pk)
-        is_liked = False
-        if post.likes.filter(id=request.user.id).exists():
-            is_liked = True
-        else:
-            is_liked = False
-        context[' is_liked'] =  is_liked
-        return render(request, 'blog_detail.html', context)
-
-
     def get_context_data(self, **kwargs):
        context = super(BlogDetail, self).get_context_data(**kwargs)
+
+       stuff = get_object_or_404(Post, id=self.kwargs['pk'])
+       total_likes = stuff.total_likes()
+
+       liked = False 
+       if stuff.likes.filter(id=self.request.user.id).exists():
+           liked = True
        context['commentform'] = CommentForm()
+       context['total_likes'] = total_likes
+       context['liked'] = liked
        return context
 
     def post(self, request, pk):

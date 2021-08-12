@@ -217,7 +217,7 @@ a#cke_25.cke_button.cke_button__anchor.cke_button_off{
 }
 
 .card.mb-3{
-  width: 1000px;
+  width: 95%;
 }
 
 .card-title{
@@ -238,7 +238,7 @@ div.card.mb-3{
   margin-top: 19px;
   padding: 10px;
   border-radius: 9px;
-  width: 1000px;
+  width: 95%;
 }
 
 .comment{
@@ -346,33 +346,6 @@ div.cke_inner.cke_reset{
 }
 
 }
-
-
-
-/* @media all and (max-width: 500px){
-  .search-wrap {
-    width: 300px;
-  }
-  
-  .search-wrap .search-box {
-    width: 300px;
-    height: 55px;
-  }
-
-  .search-wrap .search-box .input {
-    padding: 5px 10px;
-    font-size: 13px;
-    padding-right: 60px;
-  }
-
-  .search-wrap .search-box .input:hover {
-    font-size: 14px;
-  }
-
-  .search-wrap .search-box .btn {
-    width: 50px;
-  }
-} */
 
 
 

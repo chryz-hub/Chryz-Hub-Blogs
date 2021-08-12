@@ -60,7 +60,22 @@
       <div class="blog-body">
         {{ post.body|safe }}
       </div> 
-      <br><br>
+      {% if user.is_authenticated %}
+      <form action="{% url 'like_post' post.pk %}" method="POST">
+        {% csrf_token %}
+        {% if liked %}
+          <button class="btn btn-danger btn-sm" type="submit" name="post_id" value="{{ post.id }}"><span style="padding: 0px; display: block; font-size: 18px;" class="material-icons">
+            thumb_down
+            </span></button> 
+        {% else %}
+          <button class="btn btn-primary btn-sm" type="submit" name="post_id" value="{{ post.id }}"><span style="padding: 2px; display: block; font-size: 18px;" class="material-icons">
+            thumb_up
+            </span></button>
+        {% endif %}
+         {{ total_likes }} likes
+      </form>
+      {% endif %}
+      <br>
       {% if user.is_authenticated %}
       <div class="card mb-3">
         <div class="row g-0">
