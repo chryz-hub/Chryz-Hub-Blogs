@@ -75,17 +75,21 @@ h5{
 }
 
 form{
-  margin-left: 35px;
+  margin-left: 4%;
 }
 
 #login-form{
-  width: 1000px;
+  width: 95%;
   height: 45px;
 }
 
 .form-control{
-  width: 1000px;
+  width: 95%;
   height: 45px;
+}
+
+ul.dropdown-menu.show{
+  margin-left: -10px !important;
 }
 
 #login-label{
@@ -314,3 +318,152 @@ button {
 div#id_password{
   display: none;
 }
+
+
+
+@media all and (max-width: 950px){
+  .search-wrap {
+    width: 400px;
+  }
+  
+  .search-wrap .search-box {
+    width: 400px;
+    height: 55px;
+  }
+
+  div
+#cke_id_body{
+  width: 800px !important;
+}
+
+div#cke_id_body
+.cke_1.cke.cke_reset.cke_chrome.cke_editor_id_body.cke_ltr.cke_browser_webkit{
+  width: 800px !important;
+}
+
+div.cke_inner.cke_reset{
+  width: 800px !important;
+}
+
+}
+
+
+
+/* @media all and (max-width: 500px){
+  .search-wrap {
+    width: 300px;
+  }
+  
+  .search-wrap .search-box {
+    width: 300px;
+    height: 55px;
+  }
+
+  .search-wrap .search-box .input {
+    padding: 5px 10px;
+    font-size: 13px;
+    padding-right: 60px;
+  }
+
+  .search-wrap .search-box .input:hover {
+    font-size: 14px;
+  }
+
+  .search-wrap .search-box .btn {
+    width: 50px;
+  }
+} */
+
+
+
+@media all and (max-width: 500px){
+  .search-wrap {
+    width: 90%;
+    margin: auto;
+  }
+  
+  .search-wrap .search-box {
+    width: 90%;
+    height: 45px;
+    margin: auto;
+  }
+
+  .search-wrap .search-box .input {
+    padding: 2.5px 5px;
+    font-size: 11px;
+    padding-right: 40px;
+  }
+
+  .search-wrap .search-box .input:hover {
+    font-size: 12px;
+  }
+
+  .search-wrap .search-box .btn {
+    width: 35px;
+  }
+
+  .search-wrap .search-box .btn.btn_common .fas {
+    font-size: 13px;
+  }
+
+  body > div.row.mb-2 > div > div > div > strong > a{
+    font-size: 15px;
+  }
+
+  .mb-auto{
+    font-size: 15px;
+  }
+
+  div.mb-1.text-muted{
+    font-size: 14px;
+  }
+
+  .author{
+    font-size: 17px;
+  }
+
+  div.col-md-4 > img.rounded.float-right{
+    display: none;
+  }
+
+ img.rounded.float-right{
+    display: none;
+  }
+
+  img.rounded.mx-auto.d-block{
+    width: 50%;
+  }
+
+  p.account-name{
+    font-size: 30px;
+  }
+
+  div
+  #cke_id_body{
+    width: 500px !important;
+  }
+  
+  div#cke_id_body
+  .cke_1.cke.cke_reset.cke_chrome.cke_editor_id_body.cke_ltr.cke_browser_webkit{
+    width: 400px !important;
+  }
+  
+  div.cke_inner.cke_reset{
+    width: 400px !important;
+  }
+
+}
+
+
+@media all and (max-width: 1000px){
+
+  div.col-md-4 > img.rounded.float-right{
+    display: none;
+  }
+
+ img.rounded.float-right{
+    display: none;
+  }
+
+}
+

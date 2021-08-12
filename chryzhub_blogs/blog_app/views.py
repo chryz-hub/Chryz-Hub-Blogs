@@ -58,6 +58,17 @@ class BlogDetail(DetailView):
     model = Post
     template_name = 'blog_detail.html'
 
+    def like(request):
+        post = get_object_or_404(Post, pk=pk)
+        is_liked = False
+        if post.likes.filter(id=request.user.id).exists():
+            is_liked = True
+        else:
+            is_liked = False
+        context[' is_liked'] =  is_liked
+        return render(request, 'blog_detail.html', context)
+
+
     def get_context_data(self, **kwargs):
        context = super(BlogDetail, self).get_context_data(**kwargs)
        context['commentform'] = CommentForm()
@@ -66,13 +77,14 @@ class BlogDetail(DetailView):
     def post(self, request, pk):
        post = get_object_or_404(Post, pk=pk)
        form = CommentForm(request.POST)
-       
+     
        if form.is_valid():
            obj  = form.save(commit=False)
            obj.post = post
            obj.name = self.request.user
            obj.save()
            return redirect('blog_detail', post.pk)
+
 
 def EditComment(request, pk):
         comment = get_object_or_404(Comment, pk=pk)

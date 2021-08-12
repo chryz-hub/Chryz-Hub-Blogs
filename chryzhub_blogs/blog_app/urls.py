@@ -17,4 +17,5 @@ urlpatterns = [
     path('search/', SearchResultsView.as_view(), name='search_results'),
     path('delete_comment/<int:pk>/', DeleteComment, name ='delete_comment'),
     path('edit_comment/<int:pk>/', EditComment, name='edit_comment'),
+    # path('like/', like_post, name='like_post'),
 ]
