@@ -10,7 +10,11 @@
       {% csrf_token %}
       {{ form.as_p }}
 
-      <span style="margin-left: 5px;" data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-danger">Delete Acount</span>
+      
+      <br/>
+      <button style="margin-left: 10px;"  class="btn btn-secondary" type="submit">Update</button>
+      </form>
+      <span style="float: right; margin-top: 15px; margin-right: 30px; margin-bottom: 15px;" data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-danger">Delete Acount</span>
 
             <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
               <div class="modal-dialog">
@@ -33,9 +37,6 @@
                 </div>
               </div>
             </div>
-      <br/>
-        <input style="margin-left: 60px; margin-bottom: 40px;" class="btn btn-secondary"type="submit" value="Update">
-      </form>
 {% else %}
   <p style="text-align: center; font-size: medium;">You are not permitted to reach this page</p>
 {% endif %}
