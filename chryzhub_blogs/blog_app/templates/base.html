@@ -23,21 +23,6 @@
     {% if user.is_authenticated %}
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item"><a class="nav-link" href="{% url 'create_blog'%}">Create Blog</a></li>
-
-        <!-- {% if all_category %}
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Blog Categories
-          </a>
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-              {% for category in all_category %}
-              <a class="dropdown-item" href="{% url 'category' category %}">{{ category}}</a>
-              {% endfor %}
-              <a class="dropdown-item" href="{% url 'category_list' %}">More</a>
-          </ul>
-        </li>
-        {% else%}
-        1
-        {% endif %} -->
         </ul>
     {% else %}
       <ul class="navbar-nav me-auto mb-2 mb-lg-0"">
