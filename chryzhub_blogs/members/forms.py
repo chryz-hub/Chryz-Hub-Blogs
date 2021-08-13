@@ -57,3 +57,4 @@ class ProfileUpdateForm(forms.ModelForm):
             'facebook_url':forms.TextInput(attrs={'class':'form-control'}),
             'instagram_url':forms.TextInput(attrs={'class':'form-control'}),
         }
+

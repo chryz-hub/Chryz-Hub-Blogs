@@ -17,7 +17,6 @@
     {% endif %}
         <form action="" method="post">
           {% csrf_token %}
-          <form>
         <div class="mb-3">
           <label id="login-label" for="username" class="form-label">Username:</label>
           <input id="login-form" type="text" class="form-control" name="username" id="username" placeholder="Username">
@@ -34,7 +33,8 @@
         <a id="github-btn" class="btn btn-secondary" href="{% provider_login_url 'github' %}"><i id="cross" class="fab fa-github"></i>With Github</a>
         <a id="google-btn" class="btn btn-secondary" href="{% provider_login_url 'google' %}"><i id="cross" class="fab fa-google"></i>With Google</a>
       </div>
-        <h5 style="text-align: center;">Yet to have an account? <a href="{% url 'register' %}">Sign up</a></h5>
+        <h5 style="text-align: center; margin-bottom: 0;">Yet to have an account? <a href="{% url 'register' %}">Sign up</a></h5>
+        <p style="text-align: center; margin-top: 7px; font-size: small; text-decoration: underline;"><a href="{% url 'reset_password' %}">forgot password</a></p>
     {% endblock %}
 
   </body>

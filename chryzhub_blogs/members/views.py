@@ -1,6 +1,6 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import DetailView, CreateView
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse 
 from django.views import generic
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm, PasswordChangeForm
 from django.contrib.auth.views import PasswordChangeView
@@ -9,7 +9,6 @@ from django.contrib.auth.models import User
 
 from blog_app.models import UserProfile, Category, Post
 from .forms import SignUpForm, EditAccountForm, PasswordChangingForm, ProfileUpdateForm
-
 # Create your views here.
 class EditProfilePageView(generic.UpdateView):
     model = UserProfile
@@ -67,3 +66,8 @@ class CreateProfilePageView(CreateView):
         form.instance.user = self.request.user
         return super().form_valid(form)
 
+def UserDelete(request):
+     user = request.user
+     if request.method == 'POST':
+                user.delete()
+                return redirect('blog_list')

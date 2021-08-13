@@ -45,7 +45,6 @@
                     <div class="form-group">
                       <form action="{% url 'delete_blog' post.pk %}" method="POST">
                           {% csrf_token %}
-                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">cancel</button>
                           <input class="btn btn-danger" type="submit" value="delete">
                       </form>
                   </div>

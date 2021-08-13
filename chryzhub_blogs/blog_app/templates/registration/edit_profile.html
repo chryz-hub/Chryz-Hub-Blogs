@@ -9,8 +9,32 @@
     <form action="" method="post">
       {% csrf_token %}
       {{ form.as_p }}
+
+      <span style="margin-left: 5px;" data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-danger">Delete Acount</span>
+
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Delete Account</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                    <p><strong>{{ user.username|title }}</strong>, are you sure you want to delete ?</p>
+                  </div>
+                  <div class="modal-footer">
+                    <div class="form-group">
+                      <form action="{% url 'user_delete' %}" method="POST">
+                          {% csrf_token %}
+                          <input class="btn btn-danger" type="submit" value="delete">
+                      </form>
+                  </div>
+                  </div>
+                </div>
+              </div>
+            </div>
       <br/>
-        <input class="btn btn-secondary"type="submit" value="Update">
+        <input style="margin-left: 60px; margin-bottom: 40px;" class="btn btn-secondary"type="submit" value="Update">
       </form>
 {% else %}
   <p style="text-align: center; font-size: medium;">You are not permitted to reach this page</p>

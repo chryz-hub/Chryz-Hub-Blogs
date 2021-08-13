@@ -151,7 +151,7 @@ class AddCategory(LoginRequiredMixin, CreateView):
     form_class= CategoryForm
     template_name= 'add_category.html'
     #fields= ('category')
-    success_url= reverse_lazy('category_list')
+    success_url= reverse_lazy('blog_list')
 
     def get_context_data(self, *args, **kwargs):
         all_category = Category.objects.all()
