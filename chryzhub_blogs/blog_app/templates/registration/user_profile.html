@@ -22,31 +22,31 @@
     <div class="col-md-4" style="text-align:center; margin-left: auto; margin-right: auto; margin-bottom: 30px;">
       <div style="margin-top: 15px; margin-bottom: 15px;">
                 {% if page_user.website_url %}
-              <a href="{{ post.author.userprofile.website_url}}"><i style="font-size: 24px; margin-right: 4px;" class="fas fa-globe"></i></a>
-              {% endif %}
+              <a href="{{ userprofile.website_url}}"><i style="font-size: 24px; margin-right: 4px;" class="fas fa-globe"></i></a>
+                {% endif %}
               {% if page_user.twitter_url %}
-              <a href="{{ post.author.userprofile.twitter_url}}"><i style="font-size: 24px; margin-right: 4px;" class="fab fa-twitter"></i></a>
-              {% endif %}
+              <a href="{{ userprofile.twitter_url}}"><i style="font-size: 24px; margin-right: 4px;" class="fab fa-twitter"></i></a>
+                {% endif %}
               {% if page_user.github_url %}
-              <a href="{{ post.author.userprofile.github_url}}"><i style="font-size: 24px; margin-right: 4px;" class="fab fa-github"></i></a>
+              <a href="{{ userprofile.github_url}}"><i style="font-size: 24px; margin-right: 4px;" class="fab fa-github"></i></a>
               {% endif %}
               {% if page_user.linkedin_url %}
-              <a href="{{ post.author.userprofile.linkedin_url}}"><i style="font-size: 26px; margin-right: 4px;" class="fab fa-linkedin"></i></a>
+              <a href="{{ userprofile.linkedin_url}}"><i style="font-size: 26px; margin-right: 4px;" class="fab fa-linkedin"></i></a>
               {% endif %}
               {% if page_user.dribble_url %}
-              <a href="{{ post.author.userprofile.dribble_url}}"><i style="font-size: 24px; margin-right: 4px;" class="fab fa-dribbble-square"></i></a>
+              <a href="{{ userprofile.dribble_url}}"><i style="font-size: 24px; margin-right: 4px;" class="fab fa-dribbble-square"></i></a>
               {% endif %}
               {% if page_user.figma_url %}
               <a href="{{ post.author.userprofile.figma_url}}"><i style="font-size: 24px; margin-right: 4px;" class="fab fa-figma"></i></a>
               {% endif %}
               {% if page_user.codepen_url %}
-              <a href="{{ post.author.userprofile.codepen_url}}"><i style="font-size: 24px; margin-right: 4px;" class="fab fa-codepen"></i></a>
+              <a href="{{ userprofile.codepen_url}}"><i style="font-size: 24px; margin-right: 4px;" class="fab fa-codepen"></i></a>
               {% endif %}
               {% if page_user.facebook_url %}
-              <a href="{{ post.author.userprofile.facebook_url}}"><i style="font-size: 24px; margin-right: 4px;" class="fab fa-facebook"></i></a>
+              <a href="{{ userprofile.facebook_url}}"><i style="font-size: 24px; margin-right: 4px;" class="fab fa-facebook"></i></a>
               {% endif %}
               {% if page_user.instagram_url %}
-              <a href="{{ post.author.userprofile.instagram_url}}"><i style="font-size: 24px; margin-right: 4px;" class="fab fa-instagram"></i></a>
+              <a href="{{ userprofile.instagram_url}}"><i style="font-size: 24px; margin-right: 4px;" class="fab fa-instagram"></i></a>
               {% endif %}
               </div>
     </div>
