@@ -51,13 +51,6 @@ class BlogList(ListView):
     template_name= 'blog_list.html'
     ordering=['-post_date']
 
-    def get_context_data(self, *args, **kwargs):
-        all_category = Category.objects.all()
-        context = super(BlogList, self).get_context_data(*args, **kwargs)
-        context['all_category'] = all_category
-
-        return context
-
 def DeleteComment(request, pk):
     comment = get_object_or_404(Comment, pk=pk)
     if request.method == 'GET':
@@ -113,7 +106,6 @@ class CreateBlog(LoginRequiredMixin, CreateView):
     form_class= PostForm
     template_name= 'create_blog.html'
     success_url= reverse_lazy('blog_list')
-    #fields=['title', 'author', 'body']
 
     def form_valid(self, form):
         form.instance.author = self.request.user
@@ -124,14 +116,6 @@ class EditBlog(LoginRequiredMixin, UpdateView):
     model = Post
     template_name= 'edit_blog.html'
     form_class= EditPostForm
-    #success_url = reverse_lazy('blog_detail', Post.pk)
-    #fields=['title', 'body']
-
-    def get_context_data(self, *args, **kwargs):
-        all_category = Category.objects.all()
-        context = super(EditBlog, self).get_context_data(*args, **kwargs)
-        context['all_category'] = all_category
-        return context
 
 
 class DeleteBlog(LoginRequiredMixin, DeleteView):
@@ -139,51 +123,27 @@ class DeleteBlog(LoginRequiredMixin, DeleteView):
     template_name='delete_blog.html'
     success_url = reverse_lazy('blog_list')
 
-    def get_context_data(self, *args, **kwargs):
-        all_category = Category.objects.all()
-        context = super(DeleteBlog, self).get_context_data(*args, **kwargs)
-        context['all_category'] = all_category
-        return context
 
 
-class AddCategory(LoginRequiredMixin, CreateView):
+
+class AddCategory (CreateView):
     model = Category
     form_class= CategoryForm
     template_name= 'add_category.html'
-    #fields= ('category')
     success_url= reverse_lazy('blog_list')
-
-    def get_context_data(self, *args, **kwargs):
-        all_category = Category.objects.all()
-        context = super(AddCategory, self).get_context_data(*args, **kwargs)
-        context['all_category'] = all_category
-        return context
-
-    def form_valid(self, form):
-        form.instance.author = self.request.user
-        return super().form_valid(form)
 
 
 def CategoryView(request, category):
     blog_category = Post.objects.filter(category=category.replace('-', ' '))
     return render(request, 'categories.html', {'category':category.title().replace('-', ' '), 'blog_category':blog_category})
 
-    def get_context_data(self, *args, **kwargs):
-        all_category = Category.objects.all()
-        context = super(CategoryView, self).get_context_data(*args, **kwargs)
-        context['all_category'] = all_category
-        return context
+
 
 
 class CategoryList(ListView):
     model= Category
     template_name='category_list.html'
 
-    def get_context_data(self, *args, **kwargs):
-        all_category = Category.objects.all()
-        context = super(CategoryList, self).get_context_data(*args, **kwargs)
-        context['all_category'] = all_category
-        return context
 
 class SearchResultsView(ListView):
     model = Post
