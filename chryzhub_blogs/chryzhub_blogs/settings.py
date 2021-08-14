@@ -13,7 +13,6 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 from decouple import config
 import os
 from pathlib import Path
-import django_heroku
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -45,7 +44,6 @@ INSTALLED_APPS = [
     'blog_app',
     'ckeditor',
     'django_filters',
-    'django_heroku',
 
 
     'allauth',
@@ -189,5 +187,3 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'chryzhub@gmail.com'
 EMAIL_HOST_PASSWORD = 'chryz1342003'
-
-django_heroku.settings(locals())
