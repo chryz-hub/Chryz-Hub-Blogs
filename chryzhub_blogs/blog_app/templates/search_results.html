@@ -39,11 +39,11 @@
                   {% if post.author.userprofile.profile_pic %}
                   <img style="width: 30px;" src="{{ post.author.userprofile.profile_pic.url }}"  alt="author profile image">
                 {% else %}
-                  <img style="width: 30px;"src="{% static 'blog_app\images\default_profile_img.png'%}"  alt="author profile image">
+                  <img style="width: 30px;"src="{% static 'images/default_profile_img.png'%}"  alt="author profile image">
                 {% endif %}
-  
-                {% if post.author.userprofile %}
+                  
                 {% if user.is_authenticated %}
+                {% if post.author.userprofile %}
                   <a class="author" href="{% url 'show_profile_page' post.author.userprofile.id %}">{{ post.author.first_name }} {{post.author.last_name }}</a></li>
                 {% else %}
                    <span class="author">{{ post.author.first_name }} {{post.author.last_name }}<br></span>
