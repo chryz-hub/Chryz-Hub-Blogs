@@ -26,9 +26,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = '^&naq0!tc#d5di5hkl^6i$j2so#g!63%h8zl+phr*z8s@xjzr'
 
 # SECURITY WARNING: don't run with debug turned on in production!
+<<<<<<< HEAD
 DEBUG = True
+=======
+DEBUG = False
+>>>>>>> da8398d8078503f15a4b78ccd12b5b316d74540b
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['chryzhub-blogs.herokuapp.com', '127.0.0.1']
 
 
 # Application definition
@@ -57,6 +61,9 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+
+    'whitenoise.middleware.WhiteNoiseMiddleware',
+
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
