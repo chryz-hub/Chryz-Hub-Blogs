@@ -15,7 +15,7 @@ class EditProfilePageView(generic.UpdateView):
     form_class= ProfileUpdateForm
     template_name = 'registration/edit_profile_page.html'
 
-class ShowProfilePageView(LoginRequiredMixin, DetailView):
+class ShowProfilePageView(DetailView):
     model = UserProfile
     template_name= 'registration/user_profile.html'
 

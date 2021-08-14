@@ -171,6 +171,7 @@ label{
 .blog-body{
   padding: 30px;
   margin-top: 10px;
+  margin-right: 10px;
 }
 
 textarea#id_body.form-control{
@@ -217,8 +218,9 @@ a#cke_25.cke_button.cke_button__anchor.cke_button_off{
 }
 
 .card.mb-3{
-  width: 95%;
+  width: 90%;
 }
+
 
 .card-title{
   margin-top: 0;
