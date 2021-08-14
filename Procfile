@@ -1,1 +1,0 @@
-web: gunicorn chryzhub_blogs.wsgi --log-file -
