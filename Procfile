@@ -1,1 +1,3 @@
-web: gunicorn chryzhub_blogs.wsgi --log-file -
+web: gunicorn chryzhub_blogs.wsgi:application --log-file - --log-level debug
+python manage.py collectstatic --noinput
+manage.py migrate
