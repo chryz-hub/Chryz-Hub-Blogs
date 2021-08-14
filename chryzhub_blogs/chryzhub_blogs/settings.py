@@ -45,6 +45,8 @@ INSTALLED_APPS = [
     'blog_app',
     'ckeditor',
     'django_filters',
+    'django_heroku',
+
 
     'allauth',
     'allauth.account',
