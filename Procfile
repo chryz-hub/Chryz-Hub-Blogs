@@ -1,1 +1,1 @@
-web: gunicorn chryzhub_blogs.wsgi
+web: gunicorn blog_app.wsgi
