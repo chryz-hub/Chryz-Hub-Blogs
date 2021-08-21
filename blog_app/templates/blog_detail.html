@@ -1,0 +1,447 @@
+{% extends 'base.html'%}
+ <!DOCTYPE html>
+ <html lang="en">
+ <head>
+   <meta charset="UTF-8">
+   {% load static %}
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>{% block title %} {{ post.title }} {% endblock %}</title>
+ </head>
+ <body>
+  {% block content %}
+  <br>
+  {% if user.is_authenticated %}
+    <div class="blog-detail-info">
+      {% if post.header_image %}
+        <img class="header-image" src="{{ post.header_image.url }}">
+      {% endif%}
+      <h1 class="blog-detail-heading">{{ post.title}}</h1>
+      {% if user.is_authenticated %}
+      {% if post.author.userprofile %}
+        <span class="blog-info"><em><a href="{% url 'show_profile_page' post.author.userprofile.id %}">{{post.author.first_name}} {{post.author.last_name}}</a></em></span><br>
+      {% else %}
+        <span class="blog-info"><em>{{post.author.first_name}} {{post.author.last_name}}</em></span><br>
+      {% endif %}
+      {% endif %}
+        <span class="blog-info"><small>Created: <em>{{ post.post_date}}</em></small></span>
+    </div>
+    <div class="edit-delete-blog">
+      {% if user.is_authenticated %}
+        {% if user.id == post.author.id %}
+          <a href="{% url 'edit_blog' post.pk%}" ><span id="edit-icon" class="material-icons"> mode_edit</span></a>
+          <span data-bs-toggle="modal" data-bs-target="#exampleModal" id="delete-icon" class="material-icons">delete</span>
+
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Delete {{ post.title}}</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                    <p>Are you sure you want to delete <strong>{{ post.title}}</strong>?</p>
+                  </div>
+                  <div class="modal-footer">
+                    <div class="form-group">
+                      <form action="{% url 'delete_blog' post.pk %}" method="POST">
+                          {% csrf_token %}
+                          <input class="btn btn-danger" type="submit" value="delete">
+                      </form>
+                  </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+        {% endif %}
+    {% endif %}
+    </div>
+      <hr style="margin: 0;">
+      <div class="blog-body">
+        {{ post.body|safe }}
+      </div> 
+      {% if user.is_authenticated %}
+      <form action="{% url 'like_post' post.pk %}" method="POST">
+        {% csrf_token %}
+        {% if liked %}
+          <button class="btn btn-danger btn-sm" type="submit" name="post_id" value="{{ post.id }}"><span style="padding: 0px; display: block; font-size: 18px;" class="material-icons">
+            thumb_down
+            </span></button> 
+        {% else %}
+          <button class="btn btn-primary btn-sm" type="submit" name="post_id" value="{{ post.id }}"><span style="padding: 2px; display: block; font-size: 18px;" class="material-icons">
+            thumb_up
+            </span></button>
+        {% endif %}
+         {{ total_likes }} likes
+      </form>
+      {% endif %}
+      <br>
+      {% if user.is_authenticated %}
+      <div class="card mb-3">
+        <div class="row g-0">
+          <div class="col-md-2">
+      {% if post.author.userprofile.profile_pic %}
+          <img src="{{ post.author.userprofile.profile_pic.url }}" class="img-fluid rounded-start" alt="...">
+      {% else %}
+        <img src="{% static 'images/default_profile_img.png'%}" class="img-fluid rounded-start" alt="...">
+      {% endif %}
+          </div>
+          <div class="col-md-10">
+            <div class="card-body">
+              <h5 class="card-title">
+                <div class="blog-author-name">
+                  {% if user.is_authenticated %}
+                  {% if post.author.userprofile %}
+                    <a href="{% url 'show_profile_page' post.author.userprofile.id %}">{{post.author.first_name}} {{post.author.last_name}}</a>
+                  {% else %}
+                    {{post.author.first_name}} {{post.author.last_name}}
+                  {% endif %}
+                  {% endif %}
+                </div>
+              </h5>
+              <p class="small text-muted">
+                {% if post.author.userprofile.website_url %}
+                  <a href="{{ post.author.userprofile.website_url}}"><i style="font-size: 24px; margin-right: 4px;" class="fas fa-globe"></i></a>
+                {% endif %}
+                {% if post.author.userprofile.twitter_url %}
+                  <a href="{{ post.author.userprofile.twitter_url}}"><i style="font-size: 24px; margin-right: 4px;" class="fab fa-twitter"></i></a>
+                {% endif %}
+                {% if post.author.userprofile.github_url %}
+                  <a href="{{ post.author.userprofile.github_url}}"><i style="font-size: 24px; margin-right: 4px;" class="fab fa-github"></i></a>
+                {% endif %}
+                {% if post.author.userprofile.linkedin_url %}
+                  <a href="{{ post.author.userprofile.linkedin_url}}"><i style="font-size: 26px; margin-right: 4px;" class="fab fa-linkedin"></i></a>
+                {% endif %}
+                {% if post.author.userprofile.dribble_url %}
+                  <a href="{{ post.author.userprofile.dribble_url}}"><i style="font-size: 24px; margin-right: 4px;" class="fab fa-dribbble-square"></i></a>
+                {% endif %}
+                {% if post.author.userprofile.figma_url %}
+                  <a href="{{ post.author.userprofile.figma_url}}"><i style="font-size: 24px; margin-right: 4px;" class="fab fa-figma"></i></a>
+                {% endif %}
+                {% if post.author.userprofile.codepen_url %}
+                  <a href="{{ post.author.userprofile.codepen_url}}"><i style="font-size: 24px; margin-right: 4px;" class="fab fa-codepen"></i></a>
+                {% endif %}
+                {% if post.author.userprofile.facebook_url %}
+                  <a href="{{ post.author.userprofile.facebook_url}}"><i style="font-size: 24px; margin-right: 4px;" class="fab fa-facebook"></i></a>
+                {% endif %}
+                {% if post.author.userprofile.instagram_url %}
+                  <a href="{{ post.author.userprofile.instagram_url}}"><i style="font-size: 24px; margin-right: 4px;" class="fab fa-instagram"></i></a>
+                {% endif %}
+              </p>
+              <p class="card-text">
+                {{ post.author.userprofile.bio}}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% else %}
+      <div style="margin-left: 30px;" class="card mb-3">
+        <div class="row g-0">
+          <div class="col-md-2">
+      {% if post.author.userprofile.profile_pic %}
+          <img src="{{ post.author.userprofile.profile_pic.url }}" class="img-fluid rounded-start" alt="...">
+      {% else %}
+        <img src="{% static 'blog_app\images\default_profile_img.png'%}" class="img-fluid rounded-start" alt="...">
+      {% endif %}
+          </div>
+          <div class="col-md-10">
+            <div class="card-body">
+              <h5 class="card-title">
+                <div class="blog-author-name">
+                  {{post.author.first_name}} {{post.author.last_name}}
+                </div>
+              </h5>
+              <p class="small text-muted">
+                {% if post.author.userprofile.website_url %}
+                  <a href="{{ post.author.userprofile.website_url}}"><i style="font-size: 24px; margin-right: 4px;" class="fas fa-globe"></i></a>
+                {% endif %}
+                {% if post.author.userprofile.twitter_url %}
+                  <a href="{{ post.author.userprofile.twitter_url}}"><i style="font-size: 24px; margin-right: 4px;" class="fab fa-twitter"></i></a>
+                {% endif %}
+                {% if post.author.userprofile.github_url %}
+                  <a href="{{ post.author.userprofile.github_url}}"><i style="font-size: 24px; margin-right: 4px;" class="fab fa-github"></i></a>
+                {% endif %}
+                {% if post.author.userprofile.linkedin_url %}
+                  <a href="{{ post.author.userprofile.linkedin_url}}"><i style="font-size: 26px; margin-right: 4px;" class="fab fa-linkedin"></i></a>
+                {% endif %}
+                {% if post.author.userprofile.dribble_url %}
+                  <a href="{{ post.author.userprofile.dribble_url}}"><i style="font-size: 24px; margin-right: 4px;" class="fab fa-dribbble-square"></i></a>
+                {% endif %}
+                {% if post.author.userprofile.figma_url %}
+                  <a href="{{ post.author.userprofile.figma_url}}"><i style="font-size: 24px; margin-right: 4px;" class="fab fa-figma"></i></a>
+                {% endif %}
+                {% if post.author.userprofile.codepen_url %}
+                  <a href="{{ post.author.userprofile.codepen_url}}"><i style="font-size: 24px; margin-right: 4px;" class="fab fa-codepen"></i></a>
+                {% endif %}
+                {% if post.author.userprofile.facebook_url %}
+                  <a href="{{ post.author.userprofile.facebook_url}}"><i style="font-size: 24px; margin-right: 4px;" class="fab fa-facebook"></i></a>
+                {% endif %}
+                {% if post.author.userprofile.instagram_url %}
+                  <a href="{{ post.author.userprofile.instagram_url}}"><i style="font-size: 24px; margin-right: 4px;" class="fab fa-instagram"></i></a>
+                {% endif %}
+              </p>
+              <p class="card-text">
+                {{ post.author.userprofile.bio}}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endif %}
+      <br>
+      {% if user.is_authenticated %}
+        <h2 style="margin-left: 30px;">Comments...</h2>
+        <form method="POST" >
+          {% csrf_token %}
+          {{ commentform }}
+          <input style="margin-top: 20px; margin-left: 0;" id="submit-btn"class="btn btn-secondary" type="submit" value="comment">
+        </form>
+      {% endif %}
+      <br>
+     <ul>
+        {% for comment in post.comments.all %}
+          <li class="comment-list">
+            {% if comment.name.userprofile.profile_pic %}
+              <img style="border-radius: 10%;width: 30px;" src="{{ post.author.userprofile.profile_pic.url }}"  alt="author profile image">
+            {% else %}
+              <img style="border-radius: 10%;width: 30px;"src="{% static 'images/default_profile_img.png'%}"  alt="author profile image">
+            {% endif %}
+              {% if user.is_authenticated %}
+              {% if comment.name.userprofile %}
+                <a href="{% url 'show_profile_page' comment.name.userprofile.id %}"><strong>{{ comment.name.first_name }} {{ comment.name.last_name }}</strong></a>
+              {% else %}
+                <strong>{{ comment.name.first_name }} {{ comment.name.last_name }}</strong>
+              {% endif %}
+              {% endif %}
+                <p class="comment">{{ comment.body }}</p>
+                <small>{{ comment.date_added }}</small>
+                {% if user.is_authenticated %}
+                  {% if user.id == comment.name.id %}
+                    <div style="margin-top: 9px;">
+                      <a href="{% url 'edit_comment' comment.pk %}"><span style="font-size: 17px;" class="material-icons">edit</span></a>
+                      <a href="{% url 'delete_comment' comment.pk %}"><span style="color: red; font-size: 17px;" class="material-icons">delete</span></a>
+                    </div>
+                    {% endif %}
+                {% endif %}
+                  </li>
+        {% endfor %}
+      </ul>
+      {% else %}
+
+
+
+      {% if post.header_image %}
+        <img class="header-image" src="{{ post.header_image.url }}">
+      {% endif%}
+      <h1 class="blog-detail-heading">{{ post.title}}</h1>
+      {% if post.author.userprofile %}
+        <span class="blog-info"><em><a href="{% url 'show_profile_page' post.author.userprofile.id %}">{{post.author.first_name}} {{post.author.last_name}}</a></em></span><br>
+      {% else %}
+        <span class="blog-info"><em>{{post.author.first_name}} {{post.author.last_name}}</em></span><br>
+      {% endif %}
+        <span class="blog-info"><small>Created: <em>{{ post.post_date}}</em></small></span>
+    </div>
+    <div class="edit-delete-blog">
+      {% if user.is_authenticated %}
+        {% if user.id == post.author.id %}
+          <a href="{% url 'edit_blog' post.pk%}" ><span id="edit-icon" class="material-icons"> mode_edit</span></a>
+          <span data-bs-toggle="modal" data-bs-target="#exampleModal" id="delete-icon" class="material-icons">delete</span>
+
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Delete {{ post.title}}</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                    <p>Are you sure you want to delete <strong>{{ post.title}}</strong>?</p>
+                  </div>
+                  <div class="modal-footer">
+                    <div class="form-group">
+                      <form action="{% url 'delete_blog' post.pk %}" method="POST">
+                          {% csrf_token %}
+                          <input class="btn btn-danger" type="submit" value="delete">
+                      </form>
+                  </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+        {% endif %}
+    {% endif %}
+    </div>
+      <hr style="margin: 0;">
+      <div class="blog-body">
+        {{ post.body|safe }}
+      </div> 
+      {% if user.is_authenticated %}
+      <form action="{% url 'like_post' post.pk %}" method="POST">
+        {% csrf_token %}
+        {% if liked %}
+          <button class="btn btn-danger btn-sm" type="submit" name="post_id" value="{{ post.id }}"><span style="padding: 0px; display: block; font-size: 18px;" class="material-icons">
+            thumb_down
+            </span></button> 
+        {% else %}
+          <button class="btn btn-primary btn-sm" type="submit" name="post_id" value="{{ post.id }}"><span style="padding: 2px; display: block; font-size: 18px;" class="material-icons">
+            thumb_up
+            </span></button>
+        {% endif %}
+         {{ total_likes }} likes
+      </form>
+      {% endif %}
+      <br>
+      {% if user.is_authenticated %}
+      <div class="card mb-3">
+        <div class="row g-0">
+          <div class="col-md-2">
+      {% if post.author.userprofile.profile_pic %}
+          <img src="{{ post.author.userprofile.profile_pic.url }}" class="img-fluid rounded-start" alt="...">
+      {% else %}
+        <img src="{% static 'images/default_profile_img.png'%}" class="img-fluid rounded-start" alt="...">
+      {% endif %}
+          </div>
+          <div class="col-md-10">
+            <div class="card-body">
+              <h5 class="card-title">
+                <div class="blog-author-name">
+                  {% if user.is_authenticated %}
+                  {% if post.author.userprofile %}
+                    <a href="{% url 'show_profile_page' post.author.userprofile.id %}">{{post.author.first_name}} {{post.author.last_name}}</a>
+                  {% else %}
+                    {{post.author.first_name}} {{post.author.last_name}}
+                  {% endif %}
+                  {% endif %}
+                </div>
+              </h5>
+              <p class="small text-muted">
+                {% if post.author.userprofile.website_url %}
+                  <a href="{{ post.author.userprofile.website_url}}"><i style="font-size: 24px; margin-right: 4px;" class="fas fa-globe"></i></a>
+                {% endif %}
+                {% if post.author.userprofile.twitter_url %}
+                  <a href="{{ post.author.userprofile.twitter_url}}"><i style="font-size: 24px; margin-right: 4px;" class="fab fa-twitter"></i></a>
+                {% endif %}
+                {% if post.author.userprofile.github_url %}
+                  <a href="{{ post.author.userprofile.github_url}}"><i style="font-size: 24px; margin-right: 4px;" class="fab fa-github"></i></a>
+                {% endif %}
+                {% if post.author.userprofile.linkedin_url %}
+                  <a href="{{ post.author.userprofile.linkedin_url}}"><i style="font-size: 26px; margin-right: 4px;" class="fab fa-linkedin"></i></a>
+                {% endif %}
+                {% if post.author.userprofile.dribble_url %}
+                  <a href="{{ post.author.userprofile.dribble_url}}"><i style="font-size: 24px; margin-right: 4px;" class="fab fa-dribbble-square"></i></a>
+                {% endif %}
+                {% if post.author.userprofile.figma_url %}
+                  <a href="{{ post.author.userprofile.figma_url}}"><i style="font-size: 24px; margin-right: 4px;" class="fab fa-figma"></i></a>
+                {% endif %}
+                {% if post.author.userprofile.codepen_url %}
+                  <a href="{{ post.author.userprofile.codepen_url}}"><i style="font-size: 24px; margin-right: 4px;" class="fab fa-codepen"></i></a>
+                {% endif %}
+                {% if post.author.userprofile.facebook_url %}
+                  <a href="{{ post.author.userprofile.facebook_url}}"><i style="font-size: 24px; margin-right: 4px;" class="fab fa-facebook"></i></a>
+                {% endif %}
+                {% if post.author.userprofile.instagram_url %}
+                  <a href="{{ post.author.userprofile.instagram_url}}"><i style="font-size: 24px; margin-right: 4px;" class="fab fa-instagram"></i></a>
+                {% endif %}
+              </p>
+              <p class="card-text">
+                {{ post.author.userprofile.bio}}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% else %}
+      <div style="margin-left: 30px;" class="card mb-3">
+        <div class="row g-0">
+          <div class="col-md-2">
+      {% if post.author.userprofile.profile_pic %}
+          <img src="{{ post.author.userprofile.profile_pic.url }}" class="img-fluid rounded-start" alt="...">
+      {% else %}
+        <img src="{% static 'images/default_profile_img.png'%}" class="img-fluid rounded-start" alt="...">
+      {% endif %}
+          </div>
+          <div class="col-md-10">
+            <div class="card-body">
+              <h5 class="card-title">
+                <div class="blog-author-name">
+                  {{post.author.first_name}} {{post.author.last_name}}
+                </div>
+              </h5>
+              <p class="small text-muted">
+                {% if post.author.userprofile.website_url %}
+                  <a href="{{ post.author.userprofile.website_url}}"><i style="font-size: 24px; margin-right: 4px;" class="fas fa-globe"></i></a>
+                {% endif %}
+                {% if post.author.userprofile.twitter_url %}
+                  <a href="{{ post.author.userprofile.twitter_url}}"><i style="font-size: 24px; margin-right: 4px;" class="fab fa-twitter"></i></a>
+                {% endif %}
+                {% if post.author.userprofile.github_url %}
+                  <a href="{{ post.author.userprofile.github_url}}"><i style="font-size: 24px; margin-right: 4px;" class="fab fa-github"></i></a>
+                {% endif %}
+                {% if post.author.userprofile.linkedin_url %}
+                  <a href="{{ post.author.userprofile.linkedin_url}}"><i style="font-size: 26px; margin-right: 4px;" class="fab fa-linkedin"></i></a>
+                {% endif %}
+                {% if post.author.userprofile.dribble_url %}
+                  <a href="{{ post.author.userprofile.dribble_url}}"><i style="font-size: 24px; margin-right: 4px;" class="fab fa-dribbble-square"></i></a>
+                {% endif %}
+                {% if post.author.userprofile.figma_url %}
+                  <a href="{{ post.author.userprofile.figma_url}}"><i style="font-size: 24px; margin-right: 4px;" class="fab fa-figma"></i></a>
+                {% endif %}
+                {% if post.author.userprofile.codepen_url %}
+                  <a href="{{ post.author.userprofile.codepen_url}}"><i style="font-size: 24px; margin-right: 4px;" class="fab fa-codepen"></i></a>
+                {% endif %}
+                {% if post.author.userprofile.facebook_url %}
+                  <a href="{{ post.author.userprofile.facebook_url}}"><i style="font-size: 24px; margin-right: 4px;" class="fab fa-facebook"></i></a>
+                {% endif %}
+                {% if post.author.userprofile.instagram_url %}
+                  <a href="{{ post.author.userprofile.instagram_url}}"><i style="font-size: 24px; margin-right: 4px;" class="fab fa-instagram"></i></a>
+                {% endif %}
+              </p>
+              <p class="card-text">
+                {{ post.author.userprofile.bio}}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endif %}
+      <br>
+      {% if user.is_authenticated %}
+        <h2 style="margin-left: 30px;">Comments...</h2>
+        <form method="POST" >
+          {% csrf_token %}
+          {{ commentform }}
+          <input style="margin-top: 20px; margin-left: 0;" id="submit-btn"class="btn btn-secondary" type="submit" value="comment">
+        </form>
+      {% endif %}
+      <br>
+     <ul>
+        {% for comment in post.comments.all %}
+          <li class="comment-list">
+            {% if comment.name.userprofile.profile_pic %}
+              <img style="border-radius: 10%;width: 30px;" src="{{ post.author.userprofile.profile_pic.url }}"  alt="author profile image">
+            {% else %}
+              <img style="border-radius: 10%;width: 30px;"src="{% static 'images/default_profile_img.png'%}"  alt="author profile image">
+            {% endif %}
+              {% if comment.name.userprofile %}
+                <a href="{% url 'show_profile_page' comment.name.userprofile.id %}"><strong>{{ comment.name.first_name }} {{ comment.name.last_name }}</strong></a>
+              {% else %}
+                <strong>{{ comment.name.first_name }} {{ comment.name.last_name }}</strong>
+              {% endif %}
+                <p class="comment">{{ comment.body }}</p>
+                <small>{{ comment.date_added }}</small>
+                {% if user.is_authenticated %}
+                  {% if user.id == comment.name.id %}
+                    <div style="margin-top: 9px;">
+                      <a href="{% url 'edit_comment' comment.pk %}"><span style="font-size: 17px;" class="material-icons">edit</span></a>
+                      <a href="{% url 'delete_comment' comment.pk %}"><span style="color: red; font-size: 17px;" class="material-icons">delete</span></a>
+                    </div>
+                    {% endif %}
+                {% endif %}
+                  </li>
+        {% endfor %}
+      </ul>
+      {% endif %}
+  {% endblock %}
+ </body>
+ </html>
