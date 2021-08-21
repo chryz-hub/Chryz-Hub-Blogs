@@ -3,13 +3,7 @@ from .models import Post, Category, Comment
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
-choices= Category.objects.all().values_list('name', 'name')
-
-choice_list=[]
-
-for item in choices:
-    choice_list.append(item)
-
+choice_list = []
 
 class PostForm(forms.ModelForm):
     class Meta:
@@ -22,6 +16,15 @@ class PostForm(forms.ModelForm):
             'body':forms.Textarea(attrs={'class':'form-control'}),
             'snippet':forms.TextInput(attrs={'class':'form-control', 'placeholder':'What is this blog about concisely!'}),
     }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        choices = Category.objects.all().values_list('name','name')
+        choice_list = []
+
+        for item in choices:
+            choice_list.append(item)
+        self.fields['category'].choices = choice_list
 
 
 class EditPostForm(forms.ModelForm):
