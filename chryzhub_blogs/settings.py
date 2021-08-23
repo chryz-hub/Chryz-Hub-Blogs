@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 import os
 from pathlib import Path
 import django_heroku
+# from decouple import config
 
 
 
@@ -30,6 +31,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 
 DEBUG = True
+
+# SECRET_KEY = config('SECRET_KEY')
 
 
 ALLOWED_HOSTS = ['chryzhub-blogs.herokuapp.com', '127.0.0.1', 'localhost']
