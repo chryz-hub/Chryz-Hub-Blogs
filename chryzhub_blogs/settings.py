@@ -96,10 +96,22 @@ WSGI_APPLICATION = 'chryzhub_blogs.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        # 'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'd7c1qibbgui6ja',
+        'USER': 'kmahacrmhqjjvp',
+        'PASSWORD': '6efa26cf821cbbaf63e031286e1c378e7f9177b5ac954fa132221112d0c01878',
+        'HOST': 'ec2-18-211-41-246.compute-1.amazonaws.com',
+        'POST': '5432',
     }
 }
 
