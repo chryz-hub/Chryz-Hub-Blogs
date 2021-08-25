@@ -170,11 +170,11 @@ MEDIA_URL = '/media/'
 
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
-CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': 'chryzhub',
-    # 'API_KEY': config('API_KEY'),
-    # 'API_SECRET': config('API_SECRET')
-}
+# CLOUDINARY_STORAGE = {
+#     'CLOUD_NAME': 'chryzhub',
+#     'API_KEY': config('API_KEY'),
+#     'API_SECRET': config('API_SECRET')
+# }
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
