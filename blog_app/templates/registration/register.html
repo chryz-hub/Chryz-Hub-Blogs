@@ -1,4 +1,6 @@
 {% extends 'base.html'%}
+{% load static %}
+{% load socialaccount %}
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
@@ -10,14 +12,21 @@
     <br>
     <h2>Sign up</h2>
     <br>
+    {% if form.errors %}
+        <p style="font-size: 20px; margin-left: 35px;">Invalid data input. Please review and try again. </p>
+    {% endif %}
       <form action="" method="post">
         {% csrf_token %}
         {{ form.as_p }}
         <div id="login-btn">
-          <input class="btn btn-secondary" type="submit" value="Sign in">
+          <input class="btn btn-secondary" type="submit" value="Sign Up">
         </div>
       </form>
       <br>
+      <div id="social-login-btn">
+        <a id="github-btn" class="btn btn-secondary" href="{% provider_login_url 'github' %}"><i id="cross" class="fab fa-github"></i>With Github</a>
+       <a id="google-btn" class="btn btn-secondary" href="{% provider_login_url 'google' %}"><i id="cross" class="fab fa-google"></i>With Google</a>
+     </div>
       <h5 style="text-align: center;">Already had an account? <a href="{% url 'login' %}">Log in</a></h5>
     {% endblock %}
   </body>
