@@ -30,7 +30,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: don't run with debug turned on in production!
 
 
-DEBUG = True
+# DEBUG = config('DEBUG')
 
 # SECRET_KEY = config('SECRET_KEY')
 
@@ -41,6 +41,7 @@ ALLOWED_HOSTS = ['chryzhub-blogs.herokuapp.com', '127.0.0.1', 'localhost']
 # Application definition
 
 INSTALLED_APPS = [
+    'blog_app',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.sites',
@@ -49,7 +50,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'blog_app',
+  
     'ckeditor',
     'django_filters',
 
@@ -195,4 +196,5 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-
+EMAIL_HOST_USER='chryzhub@gmail.com'
+EMAIL_HOST_PASSWORD='chryz1342003'
