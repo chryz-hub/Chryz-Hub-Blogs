@@ -6,6 +6,8 @@ from django.contrib.auth.forms import UserCreationForm, UserChangeForm, Password
 from django.contrib.auth.views import PasswordChangeView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
+from django.contrib.messages.views import SuccessMessageMixin
+from django.contrib import messages
 
 from blog_app.models import UserProfile, Category, Post
 from .forms import SignUpForm, EditAccountForm, PasswordChangingForm, ProfileUpdateForm
@@ -36,16 +38,12 @@ def  password_success(request):
 
 
 
-class CreateAccount(generic.CreateView):
+class CreateAccount(SuccessMessageMixin, generic.CreateView):
     form_class= SignUpForm
     template_name='registration/register.html'
     success_url= reverse_lazy('login')
-
-    def get_context_data(self, *args, **kwargs):
-        all_category = Category.objects.all()
-        context = super(CreateAccount, self).get_context_data(*args, **kwargs)
-        context['all_category'] = all_category
-        return context
+    success_message = "Your account was created successfully"
+    
 
 class UpdateAccount(generic.UpdateView):
     model = UserProfile
@@ -70,4 +68,6 @@ def UserDelete(request):
      user = request.user
      if request.method == 'POST':
                 user.delete()
+                messages.success(request, 'Your account has been deleted successfully')
                 return redirect('blog_list')
+                

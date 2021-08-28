@@ -12,6 +12,13 @@
     <br>
     <h2 style="margin-left: 25px;">Login</h2>
     <br/>
+    {% if messages %}
+     {% for message in messages %}
+         <div class="text-center alert alert-{{ message.tags }}">
+             {{ message|safe }}
+         </div>
+     {% endfor %}
+    {% endif %}
     {% if form.errors %}
         <p style="font-size: 20px; margin-left: 25px;">Your username and password did not match. Please try again. </p>
     {% endif %}

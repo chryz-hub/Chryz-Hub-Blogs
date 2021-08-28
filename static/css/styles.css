@@ -218,7 +218,7 @@ a#cke_25.cke_button.cke_button__anchor.cke_button_off{
 }
 
 .card.mb-3{
-  width: 90%;
+  width: 80%;
 }
 
 
@@ -324,6 +324,7 @@ div#id_password{
 
 
 @media all and (max-width: 950px){
+
   .search-wrap {
     width: 400px;
   }
@@ -352,6 +353,12 @@ div.cke_inner.cke_reset{
 
 
 @media all and (max-width: 500px){
+
+  .header-image{
+    width: 200px;
+    margin-left: 10px;
+  }
+  
   .search-wrap {
     width: 90%;
     margin: auto;
@@ -442,3 +449,10 @@ div.cke_inner.cke_reset{
 
 }
 
+@media all and (max-width: 250px){
+
+  .header-image{
+    width: 100px;
+    margin-left: 5px;
+  }
+}

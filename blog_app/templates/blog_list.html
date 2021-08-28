@@ -10,6 +10,13 @@
     {% block content %}
     <br>
     <h1 style="margin-left: 25px;">Blog Post</h1>
+    {% if messages %}
+     {% for message in messages %}
+         <div class="text-center alert alert-{{ message.tags }}">
+             {{ message|safe }}
+         </div>
+     {% endfor %}
+    {% endif %}
     <div class="search-wrap">
       <div class="search-box">
         <div class="btn btn_common">
