@@ -4,12 +4,15 @@
 <br>
 <h1>Add category</h1>
 <br/>
-
-<div class="form-group">
-<form  method="POST">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button id="submit-btn" class="btn btn-secondary" type="submit">Add</button>
-</form>
-</div>
+{% if user.is_superuser %}
+    <div class="form-group">
+        <form  method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button id="submit-btn" class="btn btn-secondary" type="submit">Add</button>
+        </form>
+    </div>
+{% else %}
+<p style="font-size: 22px; margin-left: 55px; padding-right: 50px;">Permission not granted.</p>
+{% endif %}
 {% endblock %}
