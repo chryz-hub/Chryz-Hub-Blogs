@@ -8,5 +8,6 @@ The stacks intended:</br>
 - Bootstrap 
 
 <b>Backend</b>
-- Python(django)
-- SQLite Database 
+- Python
+- Django
+- Postgres Database 
