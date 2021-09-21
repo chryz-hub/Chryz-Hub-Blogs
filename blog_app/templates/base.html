@@ -49,8 +49,8 @@
         </a>
         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
           {% if user.userprofile.id %}
-            <li><a class="dropdown-item" href="{% url 'show_profile_page' user.userprofile.id %}">My Profile</a></li>
-            <li><a class="dropdown-item" href="{% url 'edit_profile_page' user.userprofile.id %}">Edit Profile</a></li>
+            <li><a class="dropdown-item" href="{% url 'show_profile_page' user.userprofile.user %}">My Profile</a></li>
+            <li><a class="dropdown-item" href="{% url 'edit_profile_page' user.userprofile.user%}">Edit Profile</a></li>
           {% else %}
             <li><a class="dropdown-item" href="{% url 'create_profile_page' %}">Create Profile</a></li>
           {% endif %}

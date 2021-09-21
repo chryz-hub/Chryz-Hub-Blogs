@@ -12,22 +12,49 @@ from django.contrib import messages
 from blog_app.models import UserProfile, Category, Post
 from .forms import SignUpForm, EditAccountForm, PasswordChangingForm, ProfileUpdateForm
 # Create your views here.
-class EditProfilePageView(generic.UpdateView):
-    model = UserProfile
-    form_class= ProfileUpdateForm
-    template_name = 'registration/edit_profile_page.html'
+def EditProfilePageView(request, username):
+    context = {}
+    form = ProfileUpdateForm
+    page_user = get_object_or_404(UserProfile)
+    # education = get_object_or_404(Education, pk=pk)
+    form =  ProfileUpdateForm(instance=page_user)
+    if request.method == 'POST':
+        form = ProfileUpdateForm(request.POST, instance=page_user)
+        if form.is_valid():
+            form.save()
+    username =  page_user.user
+    context['page_user'] = page_user
+    context['username'] = username
+    context['form'] = form
+    return render(request, 'registration/edit_profile_page.html', context)
 
-class ShowProfilePageView(DetailView):
-    model = UserProfile
-    template_name= 'registration/user_profile.html'
+# class ShowProfilePageView(DetailView):
+#     model = UserProfile
+#     template_name= 'registration/user_profile.html'
 
-    def get_context_data(self, *args, **kwargs):
-        context = super(ShowProfilePageView, self).get_context_data(*args, **kwargs)
-        page_user = get_object_or_404(UserProfile, id=self.kwargs['pk'])
-        user_posts = Post.objects.filter(author= page_user.user).order_by('-post_date')
-        context['page_user'] = page_user
-        context['user_posts'] = user_posts
-        return context
+    
+
+#     def get_context_data(self, *args, **kwargs):
+#         context = super(ShowProfilePageView, self).get_context_data(*args, **kwargs)
+#         page_user = get_object_or_404(UserProfile, id=self.kwargs['pk'])
+#         user_posts = Post.objects.filter(author= page_user.user).order_by('-post_date')
+#         username =  page_user.user
+#         context['page_user'] = page_user
+#         context['user_posts'] = user_posts
+#         context['username'] = username
+#         return context
+
+
+def ShowProfilePageView(request, username):
+    context = {}
+    page_user = get_object_or_404(UserProfile)
+    user_posts = Post.objects.filter(author= page_user.user).order_by('-post_date')
+    username =  page_user.user
+    context['page_user'] = page_user
+    context['user_posts'] = user_posts
+    context['username'] = username
+    return render(request, 'registration/user_profile.html', context)
+
 
 class PasswordsChangeView(PasswordChangeView):
     form_class = PasswordChangingForm

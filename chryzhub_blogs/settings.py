@@ -31,7 +31,6 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 
 DEBUG = True
-
 SECRET_KEY = config('SECRET_KEY')
 
 
@@ -119,10 +118,10 @@ DATABASES = {
     'default': {
         # 'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'd7c1qibbgui6ja',
-        'USER': 'kmahacrmhqjjvp',
-        'PASSWORD': '6efa26cf821cbbaf63e031286e1c378e7f9177b5ac954fa132221112d0c01878',
-        'HOST': 'ec2-18-211-41-246.compute-1.amazonaws.com',
+        'NAME': 'dd165ggp3l5453',
+        'USER': 'cuxiuhrapcdqly',
+        'PASSWORD': '97f6b616b261574589134fdfac17089c659526592bf795a644a108327a7c1b71',
+        'HOST': 'ec2-54-174-172-218.compute-1.amazonaws.com',
         'POST': '5432',
     }
 }
@@ -176,8 +175,8 @@ DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 CLOUDINARY_STORAGE = {
     'CLOUD_NAME': 'chryzhub',
-    'API_KEY': config('API_KEY'),
-    'API_SECRET': config('API_SECRET')
+    'API_KEY': '889363813899634',
+    'API_SECRET': 'DEnPnYS-ozwwGsj85hlKycvqb-I'
 }
 
 

@@ -5,7 +5,7 @@
 <h1>Edit Profile</h1>
 <br/>
 {% if user.is_authenticated %}
-  {% if user.id == userprofile.user.id %}
+  {% if user == user.userprofile.user %}
     <div class="form-group">
       <form  method="POST" enctype="multipart/form-data">
         {% csrf_token %}
