@@ -15,7 +15,7 @@ from .forms import SignUpForm, EditAccountForm, PasswordChangingForm, ProfileUpd
 def EditProfilePageView(request, username):
     context = {}
     form = ProfileUpdateForm
-    page_user = get_object_or_404(UserProfile)
+    page_user = get_object_or_404(UserProfile, user= request.user)
     # education = get_object_or_404(Education, pk=pk)
     form =  ProfileUpdateForm(instance=page_user)
     if request.method == 'POST':
@@ -32,8 +32,6 @@ def EditProfilePageView(request, username):
 #     model = UserProfile
 #     template_name= 'registration/user_profile.html'
 
-    
-
 #     def get_context_data(self, *args, **kwargs):
 #         context = super(ShowProfilePageView, self).get_context_data(*args, **kwargs)
 #         page_user = get_object_or_404(UserProfile, id=self.kwargs['pk'])
@@ -44,16 +42,26 @@ def EditProfilePageView(request, username):
 #         context['username'] = username
 #         return context
 
-
 def ShowProfilePageView(request, username):
     context = {}
-    page_user = get_object_or_404(UserProfile)
-    user_posts = Post.objects.filter(author= page_user.user).order_by('-post_date')
-    username =  page_user.user
+    username = get_object_or_404(User, username=username)   
+    page_user = UserProfile.objects.filter(user=username.id)
+    user_posts = Post.objects.filter(author= username.id ).order_by('-post_date')
+    context['username'] = username
     context['page_user'] = page_user
     context['user_posts'] = user_posts
-    context['username'] = username
-    return render(request, 'registration/user_profile.html', context)
+    return render(request, "registration/user_profile.html", context)
+
+
+
+# def ShowProfilePageView(request, username):
+
+#     page_user = get_object_or_404(UserProfile, user=user.id)
+#     user_posts = Post.objects.filter(author=page_user.user).order_by("-post_date")
+#     username = page_user.user
+#     context = {"page_user": page_user, "user_posts": user_posts, "username": username}
+
+#     return render(request, "registration/user_profile.html", context)
 
 
 class PasswordsChangeView(PasswordChangeView):

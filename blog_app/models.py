@@ -33,10 +33,7 @@ class UserProfile(models.Model):
         return str(self.user)
 
     def get_absolute_url(self):
-        return reverse('show_profile_page', args=(str(self.id)))
-
-    def get_absolute_url(self,*args,**kwargs):
-        return reverse('show_profile_page',kwargs={'pk': self.pk})
+        return reverse('show_profile_page', self.user)
 
 
 
