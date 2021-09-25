@@ -32,8 +32,11 @@ class UserProfile(models.Model):
     def __str__ (self):
         return str(self.user)
 
-    def get_absolute_url(self):
-        return reverse('show_profile_page', self.user)
+    def get_absolute_url(self, *args,**kwargs):
+        return reverse('show_profile_page', kwargs={'username': self.user})
+
+        
+
 
 
 

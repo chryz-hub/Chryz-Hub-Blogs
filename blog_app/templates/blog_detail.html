@@ -19,7 +19,7 @@
       <h1 class="blog-detail-heading">{{ post.title}}</h1>
       {% if user.is_authenticated %}
       {% if post.author.userprofile %}
-        <span class="blog-info"><em><a href="{% url 'show_profile_page' post.author.userprofile.id %}">{{post.author.first_name}} {{post.author.last_name}}</a></em></span><br>
+        <span class="blog-info"><em><a href="{% url 'show_profile_page' post.author.userprofile.user %}">{{post.author.first_name}} {{post.author.last_name}}</a></em></span><br>
       {% else %}
         <span class="blog-info"><em>{{post.author.first_name}} {{post.author.last_name}}</em></span><br>
       {% endif %}
@@ -92,7 +92,7 @@
                 <div class="blog-author-name">
                   {% if user.is_authenticated %}
                   {% if post.author.userprofile %}
-                    <a href="{% url 'show_profile_page' post.author.userprofile.id %}">{{post.author.first_name}} {{post.author.last_name}}</a>
+                    <a href="{% url 'show_profile_page' post.author.userprofile.user %}">{{post.author.first_name}} {{post.author.last_name}}</a>
                   {% else %}
                     {{post.author.first_name}} {{post.author.last_name}}
                   {% endif %}
@@ -209,7 +209,7 @@
             {% endif %}
               {% if user.is_authenticated %}
               {% if comment.name.userprofile %}
-                <a href="{% url 'show_profile_page' comment.name.userprofile.id %}"><strong>{{ comment.name.first_name }} {{ comment.name.last_name }}</strong></a>
+                <a href="{% url 'show_profile_page' comment.name.userprofile.user %}"><strong>{{ comment.name.first_name }} {{ comment.name.last_name }}</strong></a>
               {% else %}
                 <strong>{{ comment.name.first_name }} {{ comment.name.last_name }}</strong>
               {% endif %}
@@ -236,7 +236,7 @@
       {% endif%}
       <h1 class="blog-detail-heading">{{ post.title}}</h1>
       {% if post.author.userprofile %}
-        <span class="blog-info"><em><a href="{% url 'show_profile_page' post.author.userprofile.id %}">{{post.author.first_name}} {{post.author.last_name}}</a></em></span><br>
+        <span class="blog-info"><em><a href="{% url 'show_profile_page' post.author.userprofile.user %}">{{post.author.first_name}} {{post.author.last_name}}</a></em></span><br>
       {% else %}
         <span class="blog-info"><em>{{post.author.first_name}} {{post.author.last_name}}</em></span><br>
       {% endif %}
@@ -308,7 +308,7 @@
                 <div class="blog-author-name">
                   {% if user.is_authenticated %}
                   {% if post.author.userprofile %}
-                    <a href="{% url 'show_profile_page' post.author.userprofile.id %}">{{post.author.first_name}} {{post.author.last_name}}</a>
+                    <a href="{% url 'show_profile_page' post.author.userprofile.user %}">{{post.author.first_name}} {{post.author.last_name}}</a>
                   {% else %}
                     {{post.author.first_name}} {{post.author.last_name}}
                   {% endif %}
@@ -366,7 +366,7 @@
               <h5 class="card-title">
                 <div class="blog-author-name">
                   {% if post.author.userprofile %}
-                    <a href="{% url 'show_profile_page' post.author.userprofile.id %}">{{post.author.first_name}} {{post.author.last_name}}</a>
+                    <a href="{% url 'show_profile_page' post.author.userprofile.user %}">{{post.author.first_name}} {{post.author.last_name}}</a>
                   {% else %}
                     {{post.author.first_name}} {{post.author.last_name}}
                   {% endif %}
@@ -428,7 +428,7 @@
               <img style="border-radius: 10%;width: 30px;"src="{% static 'images/default_profile_img.png'%}"  alt="author profile image">
             {% endif %}
               {% if comment.name.userprofile %}
-                <a href="{% url 'show_profile_page' comment.name.userprofile.id %}"><strong>{{ comment.name.first_name }} {{ comment.name.last_name }}</strong></a>
+                <a href="{% url 'show_profile_page' comment.name.userprofile.user %}"><strong>{{ comment.name.first_name }} {{ comment.name.last_name }}</strong></a>
               {% else %}
                 <strong>{{ comment.name.first_name }} {{ comment.name.last_name }}</strong>
               {% endif %}
