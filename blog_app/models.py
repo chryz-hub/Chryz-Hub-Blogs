@@ -1,3 +1,4 @@
+from gettext import Catalog
 from django.db import models
 from django.contrib.auth.models import User
 from django.urls import reverse
@@ -46,7 +47,7 @@ class Post(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     body = RichTextField(blank=True, null=True)
     post_date = models.DateField(auto_now_add = True)
-    category = models.CharField(max_length=225)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE)
     snippet = models.CharField(max_length=70)
     likes = models.ManyToManyField(User, related_name='blog_post')#, blank=True)
 

@@ -12,7 +12,6 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 import os
 from pathlib import Path
 import django_heroku
-import cloudinary_storage
 from decouple import config
 
 
@@ -30,7 +29,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: don't run with debug turned on in production!
 
 
-DEBUG = True
+DEBUG = config("DEBUG", default=False, cast=bool)
 SECRET_KEY = config('SECRET_KEY')
 
 
@@ -117,12 +116,12 @@ WSGI_APPLICATION = 'chryzhub_blogs.wsgi.application'
 DATABASES = {
     'default': {
         # 'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'dd165ggp3l5453',
-        'USER': 'cuxiuhrapcdqly',
-        'PASSWORD': '97f6b616b261574589134fdfac17089c659526592bf795a644a108327a7c1b71',
-        'HOST': 'ec2-54-174-172-218.compute-1.amazonaws.com',
-        'POST': '5432',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        "NAME": config("DB_NAME"),
+        "USER": config("DB_USER"),
+        "PASSWORD": config("DB_PASSWORD"),
+        "HOST": "localhost",
+        "PORT": "5432",
     }
 }
 
@@ -166,17 +165,17 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-# Activate Django_heroku.
-django_heroku.settings(locals())
+
+
 MEDIA_ROOT  = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': 'chryzhub',
-    'API_KEY': '889363813899634',
-    'API_SECRET': 'DEnPnYS-ozwwGsj85hlKycvqb-I'
+    "CLOUD_NAME": config("CLOUDINARY_CLOUD_NAME"),
+    "API_KEY": config("CLOUDINARY_API_KEY"),
+    "API_SECRET": config("CLOUDINARY_API_SECRET"),
 }
 
 
@@ -196,4 +195,7 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER=config('EMAIL_HOST_USER')
-EMAIL_HOST_PASSWORD=config('EMAIL_HOST_PASSWORD')
+# EMAIL_HOST_PASSWORD=config('EMAIL_HOST_PASSWORD')
+
+# Activate Django_heroku.
+django_heroku.settings(locals())
