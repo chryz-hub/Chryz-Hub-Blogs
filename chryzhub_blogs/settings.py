@@ -55,13 +55,7 @@ INSTALLED_APPS = [
     'cloudinary_storage',
     'cloudinary',
 
-    'allauth',
-    'allauth.account',
-    'allauth.socialaccount',
-
-    'allauth.socialaccount.providers.google',
-    'allauth.socialaccount.providers.github',
-
+  
     
 ]
 
@@ -73,7 +67,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'social_django.middleware.SocialAuthExceptionMiddleware',
+    
     'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
@@ -95,10 +89,7 @@ TEMPLATES = [
     },
 ]
 
-AUTHENTICATION_BACKENDS = [
-    'django.contrib.auth.backends.ModelBackend',
-    'allauth.account.auth_backends.AuthenticationBackend',
-]
+
 
 WSGI_APPLICATION = 'chryzhub_blogs.wsgi.application'
 
