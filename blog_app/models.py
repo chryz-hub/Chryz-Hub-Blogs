@@ -5,16 +5,6 @@ from django.urls import reverse
 from datetime import datetime, date
 from ckeditor.fields import RichTextField
 
-class Category(models.Model):
-    name = models.CharField(max_length=225)
-    def __str__(self):
-        return self.name
-
-    def get_absolute_url(self):
-        return reverse('blog_detail', args=(str(self.id)))
-
-    def get_absolute_url(self,*args,**kwargs):
-        return reverse('blog_detail',kwargs={'pk': self.pk})
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User, null=True, on_delete = models.CASCADE)
@@ -36,9 +26,16 @@ class UserProfile(models.Model):
     def get_absolute_url(self, *args,**kwargs):
         return reverse('show_profile_page', kwargs={'username': self.user})
 
-        
+class Category(models.Model):
+    name = models.CharField(max_length=225)
+    def __str__(self):
+        return self.name
 
+    def get_absolute_url(self):
+        return reverse('blog_detail', args=(str(self.id)))
 
+    def get_absolute_url(self,*args,**kwargs):
+        return reverse('blog_detail',kwargs={'pk': self.pk})
 
 
 class Post(models.Model):
