@@ -113,7 +113,7 @@ class AddCategory (CreateView):
 
 
 def CategoryView(request, category):
-    blog_category = Post.objects.filter(category=category.replace('-', ' '))
+    blog_category = Post.objects.filter(category__name=category.replace('-', ' '))
     return render(request, 'categories.html', {'category':category.title().replace('-', ' '), 'blog_category':blog_category})
 
 
