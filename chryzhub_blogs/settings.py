@@ -110,7 +110,7 @@ DATABASES = {
         "NAME": config("DB_NAME"),
         "USER": config("DB_USER"),
         "PASSWORD": config("DB_PASSWORD"),
-        "HOST": "localhost",
+        "HOST": config("DB_HOST"),
         "PORT": "5432",
     }
 }
@@ -199,7 +199,7 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER=config('EMAIL_HOST_USER')
-# EMAIL_HOST_PASSWORD=config('EMAIL_HOST_PASSWORD')
+EMAIL_HOST_PASSWORD=config('EMAIL_HOST_PASSWORD')
 
 # Activate Django_heroku.
 
