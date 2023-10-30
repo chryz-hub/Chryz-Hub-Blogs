@@ -113,7 +113,7 @@ class AddCategory (CreateView):
 
 
 def CategoryView(request, category):
-    blog_category = Post.objects.filter(category=category.replace('-', ' '))
+    blog_category = Post.objects.filter(category__name=category.replace('-', ' '))
     return render(request, 'categories.html', {'category':category.title().replace('-', ' '), 'blog_category':blog_category})
 
 
@@ -130,5 +130,5 @@ class SearchResultsView(ListView):
 
     def get_queryset(self): 
         query = self.request.GET.get('q')
-        object_list = Post.objects.filter(Q(title__icontains=query) | Q(category__icontains=query) | Q(snippet__icontains= query))
+        object_list = Post.objects.filter(Q(title__icontains=query) | Q(category__name__icontains=query) | Q(snippet__icontains= query))
         return object_list

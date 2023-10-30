@@ -16,22 +16,18 @@ import cloudinary_storage
 from decouple import config
 
 
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
 # Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
+# See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-
+SECRET_KEY = str(os.getenv("SECRET_KEY"))
 
 # SECURITY WARNING: don't run with debug turned on in production!
-
-
-DEBUG = True
-SECRET_KEY = config('SECRET_KEY')
+DEBUG = config("DEBUG", default=False, cast=bool)
 
 
 ALLOWED_HOSTS = ['chryzhub-blogs.herokuapp.com', '127.0.0.1', 'localhost']
@@ -55,14 +51,13 @@ INSTALLED_APPS = [
 
     'cloudinary_storage',
     'cloudinary',
-
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
 
     'allauth.socialaccount.providers.google',
     'allauth.socialaccount.providers.github',
-
+  
     
 ]
 
@@ -73,9 +68,8 @@ MIDDLEWARE = [
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'social_django.middleware.SocialAuthExceptionMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
 ROOT_URLCONF = 'chryzhub_blogs.urls'
@@ -96,10 +90,12 @@ TEMPLATES = [
     },
 ]
 
+
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
     'allauth.account.auth_backends.AuthenticationBackend',
 ]
+
 
 WSGI_APPLICATION = 'chryzhub_blogs.wsgi.application'
 
@@ -107,22 +103,15 @@ WSGI_APPLICATION = 'chryzhub_blogs.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
 
 DATABASES = {
     'default': {
-        # 'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'dd165ggp3l5453',
-        'USER': 'cuxiuhrapcdqly',
-        'PASSWORD': '97f6b616b261574589134fdfac17089c659526592bf795a644a108327a7c1b71',
-        'HOST': 'ec2-54-174-172-218.compute-1.amazonaws.com',
-        'POST': '5432',
+        "ENGINE": "django.db.backends.postgresql_psycopg2",
+        "NAME": config("DB_NAME"),
+        "USER": config("DB_USER"),
+        "PASSWORD": config("DB_PASSWORD"),
+        "HOST": config("DB_HOST"),
+        "PORT": "5432",
     }
 }
 
@@ -146,6 +135,19 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        'SCOPE': [
+            'profile',
+            'email',
+        ],
+        'AUTH_PARAMS': {
+            'access_type': 'online',
+        }
+    }
+}
+
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
@@ -162,21 +164,22 @@ USE_TZ = True
 
 SITE_ID = 2
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-STATIC_URL = '/static/'
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-# Activate Django_heroku.
-django_heroku.settings(locals())
+
+STATIC_URL = "/static/"
+# STATICFILES_DIRS = [os.path.join(BASE_DIR, 'staticfiles')]
+STATIC_ROOT = os.path.join(BASE_DIR, "static")
+
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+
 MEDIA_ROOT  = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': 'chryzhub',
-    'API_KEY': '889363813899634',
-    'API_SECRET': 'DEnPnYS-ozwwGsj85hlKycvqb-I'
+    "CLOUD_NAME": config("CLOUDINARY_CLOUD_NAME"),
+    "API_KEY": config("CLOUDINARY_API_KEY"),
+    "API_SECRET": config("CLOUDINARY_API_SECRET"),
 }
 
 
@@ -197,3 +200,7 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER=config('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD=config('EMAIL_HOST_PASSWORD')
+
+# Activate Django_heroku.
+
+django_heroku.settings(locals())
